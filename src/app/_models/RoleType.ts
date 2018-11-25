@@ -1,0 +1,3 @@
+enum RoleType {
+  USER, ADMIN,
+}
