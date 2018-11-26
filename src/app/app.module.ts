@@ -1,6 +1,6 @@
 ﻿import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule }    from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // used to create fake backend
@@ -14,31 +14,37 @@ import { AuthGuard } from './_guards';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AlertService, AuthenticationService, UserService } from './_services';
 import { HomeComponent } from './home';
-import { LoginComponent } from './login';
-import { RegisterComponent } from './register';;
+
 import { AdminComponent } from './admin/admin.component'
 ;
-import { UserComponent } from './user/user.component'
+import { UserComponent } from './user/user.component';
 import {UserGuard} from './_guards/user.guard';
+import {BsDatepickerModule, BsDropdownModule, BsModalService, ModalBackdropComponent, PopoverModule} from 'ngx-bootstrap';
+import {ModalContainerComponent} from 'ngx-bootstrap/modal';
 @NgModule({
     imports: [
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
+        PopoverModule,
+        FormsModule,
+        BsDatepickerModule.forRoot(),
+        BsDropdownModule,
         routing
     ],
     declarations: [
         AppComponent,
         AlertComponent,
         HomeComponent,
-        LoginComponent,
-        RegisterComponent
-,
         AdminComponent ,
-        UserComponent   ],
+        UserComponent ,
+        ModalBackdropComponent,
+      ModalContainerComponent
+    ],
     providers: [
         AuthGuard,
-      UserGuard,
+        BsModalService,
+        UserGuard,
         AlertService,
         AuthenticationService,
         UserService,
@@ -48,7 +54,8 @@ import {UserGuard} from './_guards/user.guard';
         // provider used to create fake backend
         fakeBackendProvider
     ],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+  entryComponents: [ModalBackdropComponent, ModalContainerComponent]
 })
 
 export class AppModule { }

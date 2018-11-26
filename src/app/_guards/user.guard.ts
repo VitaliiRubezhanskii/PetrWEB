@@ -11,8 +11,10 @@ export class UserGuard implements CanActivate {
 
 canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
   const username = localStorage.getItem('username');
-  this.userService.getByUsername(username).subscribe(result => this.customer = result)
-  if (localStorage.getItem('currentUser') && this.customer.role === 'USER') {
+  // this.userService.getByUsername(username).subscribe(result => this.customer.role = result.role)
+  if (localStorage.getItem('currentUser') ) {
+    this.router.navigate(['user']);
+  // && this.customer.role === 'USER'
     // logged in so return true
     return true;
   }

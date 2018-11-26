@@ -5,14 +5,19 @@ import {Customer} from '../_models/customer';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    customer: Customer;
+    customer: Customer = null;
     constructor(private router: Router, private userService: UserService) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
       const username = localStorage.getItem('username');
-      this.userService.getByUsername(username).subscribe(result => this.customer = result)
-      if (localStorage.getItem('currentUser') && this.customer.role === 'ADMIN') {
+      console.log(username + ' auth guard')
+      // this.userService.getByUsername(username).subscribe(result => {this.customer.role = result.role;
+      // console.log('FROM getByUsername' + this.customer.role); });
+
+      if (localStorage.getItem('currentUser') ) {
+        // && this.customer.role === 'USER'
             // logged in so return true
+        this.router.navigate(['admin']);
             return true;
         }
 
