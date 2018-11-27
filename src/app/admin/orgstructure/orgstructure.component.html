@@ -1,0 +1,69 @@
+
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <a [routerLink]="['/admin/cabinet']" class="w3-bar-item w3-button">Кабинет админа</a>
+      <a [routerLink]="['/admin/structure']" class="w3-bar-item w3-button">Структура</a>
+      <a [routerLink]="['/admin/statistics']" class="w3-bar-item w3-button">Статистика</a>
+    </div>
+    <div class="w3-full-right w3-hide-small">
+      <a [routerLink]="['/login']" class="w3-bar-item w3-button">Выход</a>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 60px; text-align: center">
+  <h3>Организационная структура</h3>
+</div>
+
+
+
+<div class="w3-container w3-padding-32">
+
+
+  <div class="container col-sm-8 row ">
+  <div class="table" >
+    <table class="table table-striped">
+      <thead class="nowrap">
+      <tr>
+        <th >ManCo</th>
+        <th>Date</th>
+        <th >Country</th>
+        <th>Name</th>
+        <th>LEI</th>
+
+        <!--<th>Dt. Answered</th>-->
+        <!--<th>Num. of subscription reminders</th>-->
+        <!--<th>Dt. DDQ submission</th>-->
+        <!--<th>Num. of submission reminders</th>-->
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let customer of customers">
+        <td>${{customer.name}}</td>
+        <td>${{customer.username}}</td>
+        <td></td>
+        <td></td>
+        <td> </td>
+        <td>
+          <div class="form-group row">
+            <div class="col-md-2" style="margin-left: 15px">
+              <button  class="btn btn-primary">Edit</button>
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-danger">Delete</button>
+            </div>
+          </div>
+        </td>
+
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!--<p><a [routerLink]="['/login']">Logout</a></p>-->

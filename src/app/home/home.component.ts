@@ -3,7 +3,7 @@ import { first } from 'rxjs/operators';
 
 import { User } from '../_models';
 import {AuthenticationService, UserService} from '../_services';
-import {PopoverDirective, BsModalService, BsModalRef} from 'ngx-bootstrap';
+import { BsModalService, BsModalRef} from 'ngx-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Customer} from '../_models/customer';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   customer: Customer;
   username: string
 
-    private popover: PopoverDirective;
+
     constructor(
                 private userService: UserService,
                 private modalService: BsModalService,
@@ -50,25 +50,12 @@ export class HomeComponent implements OnInit {
         username: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6)]]
       });
-
       // reset login status
       this.authenticationService.logout();
 
       // get return url from route parameters or default to '/'
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
-
-    // deleteUser(id: number) {
-    //     this.userService.delete(id).pipe(first()).subscribe(() => {
-    //         this.loadAllUsers();
-    //     });
-    // }
-
-    // private loadAllUsers() {
-    //     this.userService.getAll().pipe(first()).subscribe(users => {
-    //         this.users = users;
-    //     });
-    // }
 
     showForm(template: TemplateRef<any>) {
       this.modalService.show(template);
@@ -99,7 +86,7 @@ export class HomeComponent implements OnInit {
           console.log(data)
           console.log(this.returnUrl);
           if (this.customer.role === 'ADMIN') {
-            this.router.navigate(['admin']);
+            this.router.navigate(['admin/structure']);
           } else {
             this.router.navigate(['user']);
           }

@@ -2,25 +2,23 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import {JwtHelperService, JwtModule} from '@auth0/angular-jwt';
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers';
 
-import { AppComponent }  from './app.component';
-import { routing }        from './app.routing';
-
+import { AppComponent } from './app.component';
+import { routing } from './app.routing';
 import { AlertComponent } from './_directives';
 import { AuthGuard } from './_guards';
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { AlertService, AuthenticationService, UserService } from './_services';
+import {AlertService, AuthenticationService,  UserService} from './_services';
 import { HomeComponent } from './home';
-
-import { AdminComponent } from './admin/admin.component'
-;
+import { OrgstructureComponent } from './admin/orgstructure/orgstructure.component';
 import { UserComponent } from './user/user.component';
-import {UserGuard} from './_guards/user.guard';
 import {BsDatepickerModule, BsDropdownModule, BsModalService, ModalBackdropComponent, PopoverModule} from 'ngx-bootstrap';
 import {ModalContainerComponent} from 'ngx-bootstrap/modal';
+import { NetworkStatisticsComponent } from './admin/network-statistics/network-statistics.component';
+import { AdminOfficeComponent } from './admin/admin-office/admin-office.component';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -28,31 +26,40 @@ import {ModalContainerComponent} from 'ngx-bootstrap/modal';
         HttpClientModule,
         PopoverModule,
         FormsModule,
+
         BsDatepickerModule.forRoot(),
         BsDropdownModule,
+        JwtModule.forRoot({
+          config: {
+            throwNoTokenError: false,
+            tokenGetter: () => {
+              return localStorage.getItem('currentUser');
+              },
+            whitelistedDomains: ['localhost:4200']
+          }
+        }),
         routing
     ],
     declarations: [
         AppComponent,
         AlertComponent,
         HomeComponent,
-        AdminComponent ,
+        OrgstructureComponent ,
         UserComponent ,
         ModalBackdropComponent,
       ModalContainerComponent
-    ],
+,
+      NetworkStatisticsComponent ,
+      AdminOfficeComponent   ],
     providers: [
         AuthGuard,
         BsModalService,
-        UserGuard,
         AlertService,
         AuthenticationService,
+        JwtHelperService,
         UserService,
-        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
-        // provider used to create fake backend
-        fakeBackendProvider
+        fakeBackendProvider,
+      // CustomerResolver
     ],
     bootstrap: [AppComponent],
   entryComponents: [ModalBackdropComponent, ModalContainerComponent]

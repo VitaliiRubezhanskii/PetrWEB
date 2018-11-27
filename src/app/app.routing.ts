@@ -1,19 +1,63 @@
 ﻿import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './_guards';
-import {AdminComponent} from './admin/admin.component';
+import {OrgstructureComponent} from './admin/orgstructure/orgstructure.component';
 import {UserComponent} from './user/user.component';
-import {UserGuard} from './_guards/user.guard';
 import {HomeComponent} from './home';
+import {NetworkStatisticsComponent} from './admin/network-statistics/network-statistics.component';
+import { AdminOfficeComponent } from './admin/admin-office/admin-office.component';
+// import {CustomerResolver} from './_services';
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
-    { path: 'user', component: UserComponent, canActivate: [UserGuard] },
-    // { path: 'login', component: LoginComponent, outlet: 'modal' },
-    // { path: 'register', component: RegisterComponent },
-
-    // otherwise redirect to home
-    { path: '**', redirectTo: '' }
-];
+    {
+      path: '',
+      canActivateChild: [AuthGuard],
+      children: [
+        {
+          path: '',
+          component: HomeComponent,
+          data: {}
+        },
+        {
+          path: 'admin',
+          canActivateChild: [AuthGuard],
+          children: [
+            {
+            path: 'structure',
+            component: OrgstructureComponent,
+            canActivate: [AuthGuard],
+            data: {
+                  allowedRoles: ['ROLE_ADMIN']
+                }
+            // resolve: {
+            //       customers: CustomerResolver
+            //   }
+          },
+            {
+              path: 'statistics',
+              component: NetworkStatisticsComponent,
+              data: {
+                allowedRoles: ['ROLE_ADMIN']
+              }
+            },
+            {
+              path: 'cabinet',
+              component: AdminOfficeComponent ,
+              data: {
+                allowedRoles: ['ROLE_ADMIN']
+              }
+            },
+          ]
+        },
+        {
+          path: 'user',
+          component: UserComponent,
+          data: {
+            allowedRoles: ['ROLE_USER']
+          }
+        },
+        {
+          path: '**', redirectTo: ''
+        },
+]}];
 
 export const routing = RouterModule.forRoot(appRoutes);
