@@ -26,7 +26,6 @@ import { AdminOfficeComponent } from './admin/admin-office/admin-office.componen
         HttpClientModule,
         PopoverModule,
         FormsModule,
-
         BsDatepickerModule.forRoot(),
         BsDropdownModule,
         JwtModule.forRoot({

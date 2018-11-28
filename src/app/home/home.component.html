@@ -174,7 +174,7 @@
 <!--</body>-->
 <ng-template #login>
   <div style="margin: 20px">
-    <h2>Логин</h2>
+    <h2 style="text-align: center">Логин</h2>
     <div class="container">
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
         <div class="form-group">
@@ -205,50 +205,59 @@
     </div>
   </div>
 </ng-template>
+
 <ng-template #register>
   <div style="margin: 20px">
-  <h2>Регистрация</h2>
-  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-    <div class="form-group">
-      <label for="firstName">Имя</label>
-      <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.firstName.errors }" />
-      <div *ngIf="submitted && getRegisterFormontrol.firstName.errors" class="invalid-feedback">
-        <div *ngIf="getRegisterFormontrol.firstName.errors.required">First Name is required</div>
+    <h2 style="text-align: center">Регистрация</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <div class="form-group">
+        <label for="firstName">Имя</label>
+        <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.firstName.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.firstName.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.firstName.errors.required">First Name is required</div>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="lastName">Фамилия</label>
-      <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.lastName.errors }" />
-      <div *ngIf="submitted && getRegisterFormontrol.lastName.errors" class="invalid-feedback">
-        <div *ngIf="getRegisterFormontrol.lastName.errors.required">Last Name is required</div>
+      <div class="form-group">
+        <label for="lastName">Фамилия</label>
+        <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.lastName.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.lastName.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.lastName.errors.required">Last Name is required</div>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="username">Имя пользователя</label>
-      <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.username.errors }" />
-      <div *ngIf="submitted && getRegisterFormontrol.username.errors" class="invalid-feedback">
-        <div *ngIf="getRegisterFormontrol.username.errors.required">Username is required</div>
+      <div class="form-group">
+        <label for="username">Имя пользователя/Email</label>
+        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.username.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.username.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.username.errors.required">Username is required</div>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="password">Пароль</label>
-      <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.password.errors }" />
-      <div *ngIf="submitted && getRegisterFormontrol.password.errors" class="invalid-feedback">
-        <div *ngIf="getRegisterFormontrol.password.errors.required">Password is required</div>
-        <div *ngIf="getRegisterFormontrol.password.errors.minlength">Password must be at least 6 characters</div>
-      </div>
-    </div>
 
-    <div class="form-group row">
-      <div class="col-md-2">
-        <button class="btn btn-default">Отправить</button>
+      <div class="form-group ">
+        <label for="password">Пароль</label>
+        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.password.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.password.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.password.errors.required">Password is required</div>
+          <div *ngIf="getRegisterFormontrol.password.errors.minlength">Password must be at least 6 characters</div>
+        </div>
       </div>
-      <div class="col-md-2">
-        <button (click)="modalRef.hide()" class="btn btn-default">Отмена</button>
-      </div>
-    </div>
 
-  </form>
+      <div class="form-group row">
+        <div class="form-group ">
+          <div class="col-md-6">
+            <button class="btn btn-primary">Отправить</button>
+          </div>
+        </div>
+
+        <div class="form-group ">
+          <div class="col-md-6">
+            <button (click)="modalRef.hide()" class="btn btn-danger">Отмена</button>
+          </div>
+        </div>
+      </div>
+      </form>
   </div>
 </ng-template>
+
+
+
 

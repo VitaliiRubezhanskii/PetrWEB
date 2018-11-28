@@ -28,7 +28,7 @@
     <table class="table table-striped">
       <thead class="nowrap">
       <tr>
-        <th >ManCo</th>
+        <th >ФИО</th>
         <th>Date</th>
         <th >Country</th>
         <th>Name</th>
@@ -42,15 +42,15 @@
       </thead>
       <tbody>
       <tr *ngFor="let customer of customers">
-        <td>${{customer.name}}</td>
-        <td>${{customer.username}}</td>
+        <td>{{customer.name}}</td>
+        <td>{{customer.username}}</td>
         <td></td>
         <td></td>
         <td> </td>
         <td>
           <div class="form-group row">
             <div class="col-md-2" style="margin-left: 15px">
-              <button  class="btn btn-primary">Edit</button>
+              <button (click)="editCustomer(customer.email)"  class="btn btn-primary">Edit</button>
             </div>
             <div class="col-md-2">
               <button class="btn btn-danger">Delete</button>

@@ -10,7 +10,8 @@ import { AdminOfficeComponent } from './admin/admin-office/admin-office.componen
 const appRoutes: Routes = [
     {
       path: '',
-      canActivateChild: [AuthGuard],
+      // component: HomeComponent,
+      canActivate: [AuthGuard],
       children: [
         {
           path: '',
@@ -19,18 +20,14 @@ const appRoutes: Routes = [
         },
         {
           path: 'admin',
-          canActivateChild: [AuthGuard],
+          canActivate: [AuthGuard],
           children: [
             {
             path: 'structure',
             component: OrgstructureComponent,
-            canActivate: [AuthGuard],
             data: {
                   allowedRoles: ['ROLE_ADMIN']
                 }
-            // resolve: {
-            //       customers: CustomerResolver
-            //   }
           },
             {
               path: 'statistics',

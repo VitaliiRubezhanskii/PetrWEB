@@ -21,7 +21,11 @@ export class OrgstructureComponent implements OnInit {
 this.userService.getAllUsers().subscribe(result => {
   console.log(result);
   this.customers = result;
-});
+   });
+   }
+
+  editCustomer(username: string){
+    console.log("Edited user with username: "+ username)
   }
 
 }

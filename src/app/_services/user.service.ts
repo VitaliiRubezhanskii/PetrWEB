@@ -20,7 +20,7 @@ export class UserService {
   }
 
   getAllUsers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(`http://localhost:8080/users`);
+    return this.http.get<Customer[]>(`http://localhost:8080/users/all`);
   }
 
   register(user: User) {
