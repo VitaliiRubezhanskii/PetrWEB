@@ -18,6 +18,7 @@ import {BsDatepickerModule, BsDropdownModule, BsModalService, ModalBackdropCompo
 import {ModalContainerComponent} from 'ngx-bootstrap/modal';
 import { NetworkStatisticsComponent } from './admin/network-statistics/network-statistics.component';
 import { AdminOfficeComponent } from './admin/admin-office/admin-office.component';
+import {PagerService} from "./_services/pager.service";
 
 @NgModule({
     imports: [
@@ -57,6 +58,7 @@ import { AdminOfficeComponent } from './admin/admin-office/admin-office.componen
         AuthenticationService,
         JwtHelperService,
         UserService,
+        PagerService,
         fakeBackendProvider,
       // CustomerResolver
     ],

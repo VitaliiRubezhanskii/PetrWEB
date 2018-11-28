@@ -24,9 +24,10 @@ export class UserService {
     return this.http.get<User[]>(`http://localhost:8080/users/all`);
   }
 
-  deleteUser(id: number, isDeleted: boolean){
+  deleteUser(user: User){
     console.log('inside service')
-    return this.http.put(`http://localhost:8080/users/deleted/` + isDeleted + '/user/' + id,{});
+    user.deleted=!user.deleted;
+    return this.http.put(`http://localhost:8080/users/delete/` + user.deleted + '/user/' + user.id,{user});
   }
 
   register(user: User) {
