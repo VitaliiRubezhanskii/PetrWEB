@@ -23,101 +23,127 @@
 <div class="w3-container w3-padding-32">
 
 
-  <div class="container">
+  <div class="container row">
 
   <div class="table" >
     <table class="table table-striped">
       <thead class="nowrap">
       <tr>
         <th >ФИО</th>
-        <th>Date</th>
-        <th >Country</th>
-        <th>Name</th>
-        <th>LEI</th>
+        <th>Адрес</th>
+        <th >Телефон</th>
+        <th>Email</th>
+        <th>Статус</th>
 
 
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{user.name}}</td>
-        <td>{{user.username}}</td>
-        <td></td>
-        <td></td>
-        <td> </td>
-        <td>
-          <div class="form-group row">
-            <div class="col-md-2" style="margin-left: 15px">
-              <button (click)="showForm(editUserForm)" class="btn btn-primary">Edit</button>
-            </div>
-            <div class="col-md-2">
-              <button (click)="deleteUser(user)" class="btn btn-danger">{{!user.deleted ? 'Заблокировать' : 'Разблокировать'}}</button>
+      <tr *ngFor = "let user of users">
+        <td>{{ user.name }} {{ user.middleName }} {{ user.surname }}</td>
+        <td>{{ user.address.oblast }} область {{ user.address.city }} {{user.address.street}} дом {{user.address.buildingNum}} квартира {{user.address.apartmentNum}}</td>
+        <td>{{ user.phone }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.deleted ? 'Заблокирован' : 'Активен' }} </td>
+
+
+          <div class="container row ">
+            <div class="col-md-3">
+              <td><button  (click)="showEditForm(editUserTemplate,user)" class="btn btn-primary">Редактировать</button></td>
             </div>
           </div>
-
-        </td>
+        <div class="container row ">
+            <div class="col-md-1">
+              <td><button (click)="deleteUser(user)" class="btn btn-danger">{{!user.deleted ? 'Заблокировать   ' : 'Разблокировать   '}}</button></td>
+            </div>
+          </div>
       </tr>
       </tbody>
     </table>
   </div>
 
-<div class="container">
-    <ul *ngIf="true" class="pagination">
-      <li [ngClass]="{disabled:pager.currentPage === 1}">
-        <a (click)="setPage(1)">First</a>
-      </li>
-      <li [ngClass]="{disabled:pager.currentPage === 1}">
-        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
-      </li>
-      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-        <a (click)="setPage(page)">{{page}}</a>
-      </li>
-      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-        <a (click)="setPage(pager.currentPage + 1)">Next</a>
-      </li>
-      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-        <a (click)="setPage(pager.totalPages)">Last</a>
-      </li>
-    </ul>
+<!--<div class="container">-->
+    <!--<ul *ngIf="true" class="pagination">-->
+      <!--<li [ngClass]="{disabled:pager.currentPage === 1}">-->
+        <!--<a (click)="setPage(1)">First</a>-->
+      <!--</li>-->
+      <!--<li [ngClass]="{disabled:pager.currentPage === 1}">-->
+        <!--<a (click)="setPage(pager.currentPage - 1)">Previous</a>-->
+      <!--</li>-->
+      <!--<li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">-->
+        <!--<a (click)="setPage(page)">{{page}}</a>-->
+      <!--</li>-->
+      <!--<li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">-->
+        <!--<a (click)="setPage(pager.currentPage + 1)">Next</a>-->
+      <!--</li>-->
+      <!--<li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">-->
+        <!--<a (click)="setPage(pager.totalPages)">Last</a>-->
+      <!--</li>-->
+    <!--</ul>-->
+<!--</div>-->
 </div>
-</div>
 
 
 
 
 
-
-<ng-template #editUserForm>
+<ng-template #editUserTemplate>
+<div class="container row" >
   <h2 style="text-align: center">Редактировать пользователя</h2>
   <div class="container">
-    <form [formGroup]="loginForm" (ngSubmit)="editUserForm">
+    <form [formGroup]="editUserForm">
+
       <div class="form-group">
-        <label for="username">Имя пользователя</label>
-        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && getLoginFormControl.username.errors }" />
-        <div *ngIf="submitted && getLoginFormControl.username.errors" class="invalid-feedback">
-          <div *ngIf="getLoginFormControl.username.errors.required">Username is required</div>
-        </div>
+        <label for="middleName">Фамилия</label>
+        <input [(ngModel)]="user.middleName" type="text" formControlName="middleName" class="form-control" />
       </div>
+
       <div class="form-group">
-        <label for="password">Пароль</label>
-        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && getLoginFormControl.password.errors }" />
-        <div *ngIf="submitted && getLoginFormControl.password.errors" class="invalid-feedback">
-          <div *ngIf="getLoginFormControl.password.errors.required">Password is required</div>
-        </div>
+        <label for="oblast">Область</label>
+        <input [(ngModel)]="user.address.oblast" type="text" formControlName="oblast" class="form-control"  />
       </div>
+
+      <div class="form-group">
+        <label for="city">Город</label>
+        <input [(ngModel)]="user.address.city" type="text" formControlName="city" class="form-control"  />
+      </div>
+
+      <div class="form-group">
+        <label for="street">Улица</label>
+        <input [(ngModel)]="user.address.street" type="text" formControlName="street" class="form-control"  />
+      </div>
+
+      <div class="form-group">
+        <label for="buildingNum">Дом</label>
+        <input [(ngModel)]="user.address.buildingNum" type="text" formControlName="buildingNum" class="form-control"  />
+      </div>
+
+      <div class="form-group">
+        <label for="apartmentNum">Квартира</label>
+        <input [(ngModel)]="user.address.apartmentNum"type="text" formControlName="apartmentNum" class="form-control"  />
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Телефон</label>
+        <input [(ngModel)]="user.phone" type="text" formControlName="phone" class="form-control"  />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input [(ngModel)]="user.email" type="text" formControlName="email" class="form-control"  />
+      </div>
+
+
       <div class="form-group row">
-        <div class="col-md-2">
-          <button  class="btn btn-primary">Войти</button>
+        <div class="col-md-3">
+          <button (click)="editUser(user)"  class="btn btn-primary">Сохранить</button>
         </div>
-        <div class="col-md-2">
-          <button (click) = "modalRef.hide()" class="btn btn-danger">Отмена</button>
+        <div class="col-md-3">
+          <button (click) = "hideEditForm()" class="btn btn-danger">Отмена</button>
         </div>
-        <!--<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />-->
-        <!--<a [routerLink]="['/register']" class="btn btn-link">Register</a>-->
       </div>
     </form>
   </div>
+</div>
 </ng-template>
 
-
-<!--<p><a [routerLink]="['/login']">Logout</a></p>-->

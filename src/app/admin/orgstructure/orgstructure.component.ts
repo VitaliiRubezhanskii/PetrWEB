@@ -1,10 +1,11 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {UserService} from '../../_services';
 
 import {ActivatedRoute} from '@angular/router';
 import {User} from "../../_models";
-import {BsModalService} from "ngx-bootstrap";
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {PagerService} from "../../_services/pager.service";
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-admin',
@@ -13,15 +14,21 @@ import {PagerService} from "../../_services/pager.service";
 })
 export class OrgstructureComponent implements OnInit {
 
+  @ViewChild('editUserForm')
+  editUserFormRef: TemplateRef<any>
   users: User[];
-  isUserDeleted: boolean = false;
-  isEditFormShown: boolean = false;
+  user: User;
+  isUserDeleted: boolean;
+  modalRef: BsModalRef;
   pager: any = {};
   pagedItems: any[];
   allItems: any[];
+  editUserForm: FormGroup;
+
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
+              private formBuilder: FormBuilder,
               private modalService: BsModalService,
               private pagerService: PagerService) { }
 
@@ -29,28 +36,57 @@ export class OrgstructureComponent implements OnInit {
     // this.route.data.subscribe( (data: {
     //   customerArray: Array<Customer>
     // }) => this.customers = data.customerArray);
+    this.editUserForm = this.formBuilder.group({
+      middleName: '',
+      oblast: '',
+      city: '',
+      street: '',
+      buildingNum: '',
+      apartmentNum: '',
+      phone: '',
+      email: ''
+    })
       this.userService.getAllUsers().subscribe(result => {
         console.log(result);
         this.users = result;
          });
    }
 
-  editUser(id: number){
 
-    console.log("Edited user with username: "+ id)
-  }
 
   deleteUser(user: User) {
-    this.isUserDeleted = !this.isUserDeleted;
+
+    this.isUserDeleted = !user.deleted;
     console.log('User id: ' + user.id);
     console.log(this.isUserDeleted);
     this.userService.deleteUser(user).subscribe(user =>{});
-    user.deleted = this.isUserDeleted;
+    // user.deleted = this.isUserDeleted;
   }
 
-  showForm(template: TemplateRef<any>) {
+  editUser(user: User) {
+    user.middleName = this.editUserForm.controls.middleName.value;
+    user.address.oblast = this.editUserForm.controls.oblast.value;
+    user.address.city = this.editUserForm.controls.city.value;
+    user.address.street = this.editUserForm.controls.street.value;
+    user.address.buildingNum = this.editUserForm.controls.buildingNum.value;
+    user.address.apartmentNum = this.editUserForm.controls.apartmentNum.value;
+    user.phone = this.editUserForm.controls.phone.value;
+    user.email = this.editUserForm.controls.email.value;
+    console.log(user)
+    this.userService.editUser(user).subscribe(u => {console.log(user);});
+    this.modalService.hide(1);
+
+  }
+
+  showEditForm(template: TemplateRef<any>, user: User) {
+    this.user = user;
     this.modalService.show(template);
   }
+
+  hideEditForm(){
+    this.modalService.hide(1);
+  }
+
 
   setPage(page: number) {
     console.log(page)

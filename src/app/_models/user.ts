@@ -1,3 +1,6 @@
+import {Address} from './address';
+
+
 export class User {
     id: number;
     role: string;
@@ -5,6 +8,7 @@ export class User {
     deleted: boolean;
     verify: boolean;
     name: string;
+    middleName: string;
     surname: string;
     patronymic: string;
     birthDate: number;
@@ -23,6 +27,7 @@ export class User {
   card: string;
   username: string;
   password: string;
+  address: Address;
 
 
 

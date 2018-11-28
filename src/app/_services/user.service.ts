@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 
 
@@ -7,8 +7,15 @@ import {Observable} from 'rxjs';
 
 import { User } from "../_models";
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
 @Injectable()
 export class UserService {
+
+
+
   constructor(private http: HttpClient) {
   }
 
@@ -24,18 +31,18 @@ export class UserService {
     return this.http.get<User[]>(`http://localhost:8080/users/all`);
   }
 
-  deleteUser(user: User){
+  deleteUser(user: User): Observable<User> {
     console.log('inside service')
-    user.deleted=!user.deleted;
-    return this.http.put(`http://localhost:8080/users/delete/` + user.deleted + '/user/' + user.id,{user});
+    user.deleted = !user.deleted;
+    return this.http.put<User>(`http://localhost:8080/users/delete/` + user.deleted + '/user/' + user.id, {});
   }
 
   register(user: User) {
     return this.http.post(`${config.apiUrl}/users/register`, user);
   }
 
-  update(user: User) {
-    return this.http.put(`${config.apiUrl}/users/` + user.id, user);
+  editUser(user: User): Observable<User> {
+    return this.http.put<User>(`http://localhost:8080/users/edit`, user, httpOptions);
   }
 
   delete(id: number) {
