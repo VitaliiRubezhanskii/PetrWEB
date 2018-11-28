@@ -1,10 +1,11 @@
 ﻿import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { User } from '../_models';
-import {Customer} from '../_models/customer';
+
+
 import {Observable} from 'rxjs';
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
+
+import { User } from "../_models";
 
 @Injectable()
 export class UserService {
@@ -15,12 +16,17 @@ export class UserService {
     return this.http.get<User[]>(`${config.apiUrl}/users`);
   }
 
-  getByUsername(username: string): Observable<Customer> {
-    return this.http.get<Customer>(`http://localhost:8080/users/` + username);
+  getByUsername(username: string): Observable<User> {
+    return this.http.get<User>(`http://localhost:8080/users/` + username);
   }
 
-  getAllUsers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(`http://localhost:8080/users/all`);
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`http://localhost:8080/users/all`);
+  }
+
+  deleteUser(id: number, isDeleted: boolean){
+    console.log('inside service')
+    return this.http.put(`http://localhost:8080/users/deleted/` + isDeleted + '/user/' + id,{});
   }
 
   register(user: User) {

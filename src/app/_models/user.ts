@@ -1,7 +1,31 @@
-﻿export class User {
+export class User {
     id: number;
-    username: string;
-    password: string;
-    firstName: string;
-    lastName: string;
+    role: string;
+    gender: string;
+    deleted: boolean;
+    verify: boolean;
+    name: string;
+    surname: string;
+    patronymic: string;
+    birthDate: number;
+    phone: string;
+    email: string;
+    inn: string;
+    passport: string;
+    issuedBy: string;
+    issuedWhen: string;
+  passwordFirstPage: string;
+  passwordSecondPage: string;
+  passwordLastPage: string;
+  photoInn: string;
+  photo: string;
+  date: number;
+  card: string;
+  username: string;
+  password: string;
+
+
+
+
+
 }

@@ -1,12 +1,13 @@
 ﻿import {Component, OnInit, TemplateRef} from '@angular/core';
 import { first } from 'rxjs/operators';
 
-import { User } from '../_models';
+
 import {AuthenticationService, UserService} from '../_services';
 import { BsModalService, BsModalRef} from 'ngx-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Customer} from '../_models/customer';
+
 import {ActivatedRoute, Router} from '@angular/router';
+import {User} from "../_models";
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,7 @@ export class HomeComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  customer: Customer;
+  user: User;
   username: string
 
 
@@ -72,8 +73,8 @@ export class HomeComponent implements OnInit {
       return;
     }
     this.userService.getByUsername(this.getLoginFormControl.username.value).subscribe(c => {
-      this.customer = c;
-      console.log(this.customer.role);
+      this.user = c;
+      console.log(this.user.role);
     });
 
 
@@ -85,7 +86,7 @@ export class HomeComponent implements OnInit {
         data => {
           console.log(data)
           console.log(this.returnUrl);
-          if (this.customer.role === 'ADMIN') {
+          if (this.user.role === 'ADMIN') {
             this.router.navigate(['admin/structure']);
           } else {
             this.router.navigate(['user']);

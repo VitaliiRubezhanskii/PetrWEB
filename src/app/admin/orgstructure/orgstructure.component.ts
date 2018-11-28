@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../_services';
-import {Customer} from '../../_models/customer';
+
 import {ActivatedRoute} from '@angular/router';
+import {User} from "../../_models";
 
 @Component({
   selector: 'app-admin',
@@ -10,7 +11,8 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class OrgstructureComponent implements OnInit {
 
-  customers: Customer[]=null;
+  users: User[];
+  isUserDeleted: boolean;
 
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
@@ -20,12 +22,18 @@ export class OrgstructureComponent implements OnInit {
     // }) => this.customers = data.customerArray);
 this.userService.getAllUsers().subscribe(result => {
   console.log(result);
-  this.customers = result;
+  this.users = result;
    });
    }
 
-  editCustomer(username: string){
+  editUser(username: string){
     console.log("Edited user with username: "+ username)
+  }
+
+  deleteUser(id: number, isDeleted: boolean) {
+    this.isUserDeleted=isDeleted;
+    console.log('User id: ' + id);
+    this.userService.deleteUser(id, isDeleted).subscribe(user =>{});
   }
 
 }
