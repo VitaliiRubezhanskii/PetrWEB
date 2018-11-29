@@ -236,6 +236,46 @@
         </div>
       </div>
 
+
+      <div class="form-group">
+        <label for="inn">ИНН</label>
+        <input type="text" formControlName="inn" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.inn.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.inn.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.inn.errors.required">Last Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="passport">Пасспорт</label>
+        <input type="text" formControlName="passport" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.passport.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.passport.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.passport.errors.required">Last Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="bank" class="control-label">Банк</label>
+            <select class="form-control" formControlName="bank">
+              <option [value]="bank.id" *ngFor="let bank of banks">{{bank.name}}</option>
+            </select>
+      </div>
+
+      <div class="form-group">
+        <label for="card">Номер банковской карты</label>
+        <input type="text" formControlName="card" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.card.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.card.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.card.errors.required">Last Name is required</div>
+        </div>
+      </div>
+
+      <!--<div class="form-group">-->
+        <!--<label for="bank">Банк</label>-->
+        <!--<input type="text" formControlName="bank" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.bank.errors }" />-->
+        <!--<div *ngIf="submitted && getRegisterFormontrol.bank.errors" class="invalid-feedback">-->
+          <!--<div *ngIf="getRegisterFormontrol.bank.errors.required">Last Name is required</div>-->
+        <!--</div>-->
+      <!--</div>-->
+
       <div class="form-group">
         <label for="username">Имя пользователя/Email</label>
         <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.username.errors }" />
@@ -246,7 +286,7 @@
 
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.email.errors }" />
+        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.email.errors }" />
         <div *ngIf="submitted && getRegisterFormontrol.email.errors" class="invalid-feedback">
           <div *ngIf="getRegisterFormontrol.email.errors.required">Username is required</div>
         </div>
@@ -262,7 +302,7 @@
 
       <div class="form-group">
         <label for="city">Город</label>
-        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.email.errors }" />
+        <input type="text" formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.email.errors }" />
         <div *ngIf="submitted && getRegisterFormontrol.email.errors" class="invalid-feedback">
           <div *ngIf="getRegisterFormontrol.email.errors.required">Username is required</div>
         </div>
@@ -270,7 +310,7 @@
 
       <div class="form-group">
         <label for="street">Улица</label>
-        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.street.errors }" />
+        <input type="text" formControlName="street" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.street.errors }" />
         <div *ngIf="submitted && getRegisterFormontrol.street.errors" class="invalid-feedback">
           <div *ngIf="getRegisterFormontrol.street.errors.required">Username is required</div>
         </div>
@@ -278,7 +318,7 @@
 
       <div class="form-group">
         <label for="buildingNum">Дом</label>
-        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.buildingNum.errors }" />
+        <input type="text" formControlName="buildingNum" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.buildingNum.errors }" />
         <div *ngIf="submitted && getRegisterFormontrol.buildingNum.errors" class="invalid-feedback">
           <div *ngIf="getRegisterFormontrol.buildingNum.errors.required">Username is required</div>
         </div>
@@ -286,15 +326,15 @@
 
       <div class="form-group">
         <label for="apartmentNum">Квартира</label>
-        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.apartmentNum.errors }" />
+        <input type="text" formControlName="apartmentNum" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.apartmentNum.errors }" />
         <div *ngIf="submitted && getRegisterFormontrol.apartmentNum.errors" class="invalid-feedback">
           <div *ngIf="getRegisterFormontrol.apartmentNum.errors.required">Username is required</div>
         </div>
       </div>
 
       <div class="form-group">
-        <label for="phone">Квартира</label>
-        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.phone.errors }" />
+        <label for="phone">Телефон</label>
+        <input type="text" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.phone.errors }" />
         <div *ngIf="submitted && getRegisterFormontrol.phone.errors" class="invalid-feedback">
           <div *ngIf="getRegisterFormontrol.phone.errors.required">Username is required</div>
         </div>

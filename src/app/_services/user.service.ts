@@ -46,8 +46,8 @@ export class UserService {
     return this.http.put<User>(`http://localhost:8080/users/edit`, user, httpOptions);
   }
 
-  createUser(user: UserCreateDto){
-    return this.http.put<UserCreateDto>(`http://localhost:8080/users/new`,user, httpOptions);
+  createUser(user: UserCreateDto) {
+    return this.http.put<UserCreateDto>(`http://localhost:8080/users/new`, user, httpOptions);
   }
 
   delete(id: number) {

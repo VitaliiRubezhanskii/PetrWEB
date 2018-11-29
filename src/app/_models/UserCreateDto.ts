@@ -1,4 +1,5 @@
 import {Address} from "./address";
+import {Bank} from './bank';
 
 export class UserCreateDto {
    name: string;
@@ -8,14 +9,14 @@ export class UserCreateDto {
    phone: string;
    gender: string;
    email: string;
-   inn:string;
-   username:string;
+   inn: string;
+   username: string;
    passport: string;
    issuedBy: string;
    issuedWhen: string;
    parentId: number;
-   bank: number;
    card: string;
    address: Address;
+   bank: number;
 
 }

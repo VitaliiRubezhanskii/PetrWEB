@@ -1,4 +1,4 @@
-﻿import {Component, OnInit, TemplateRef} from '@angular/core';
+﻿import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import { first } from 'rxjs/operators';
 
 
@@ -10,6 +10,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {User} from "../_models";
 import {UserCreateDto} from "../_models/UserCreateDto";
 import {Address} from "../_models/address";
+import {Bank} from '../_models/bank';
+import {BankService} from '../_services/bank.service';
 
 @Component({
   selector: 'app-home',
@@ -17,10 +19,14 @@ import {Address} from "../_models/address";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild('register')
+  private registerRef: TemplateRef<any>;
     currentUser: User;
     users: User[] = [];
-  newUser: UserCreateDto;
-  address: Address
+  newUser: UserCreateDto = new UserCreateDto();
+  address: Address = new Address();
+  bank: Bank = new Bank();
+  banks: Bank[];
      modalRef: BsModalRef;
   loginForm: FormGroup;
   registerForm: FormGroup;
@@ -33,6 +39,7 @@ export class HomeComponent implements OnInit {
 
     constructor(
                 private userService: UserService,
+                private bankService: BankService,
                 private modalService: BsModalService,
                 private authenticationService: AuthenticationService,
                 private formBuilder: FormBuilder,
@@ -48,20 +55,25 @@ export class HomeComponent implements OnInit {
         username: ['', Validators.required],
         password: ['', Validators.required]
       });
+      this.bankService.getAllBanks().subscribe(data => { this.banks = data; })
 
       this.registerForm = this.formBuilder.group({
-        name:'',
+        name: '',
         middleName: '',
         surname: '',
         username: '',
         password: '',
-        email:'',
-        oblast:'',
+        email: '',
+        oblast: '',
         city: '',
-        street:'',
-        buildingNum:'',
-        apartmentNum:'',
-        phone:''
+        street: '',
+        buildingNum: '',
+        apartmentNum: '',
+        phone: '',
+        card: '',
+        inn: '',
+        passport: '',
+        bank: ''
       });
       // reset login status
       this.authenticationService.logout();
@@ -74,7 +86,7 @@ export class HomeComponent implements OnInit {
       this.modalService.show(template);
     }
 
-    hideForm(template: TemplateRef<any>){
+    hideForm(template: TemplateRef<any>) {
     this.modalService.hide(1);
     }
 
@@ -122,10 +134,19 @@ export class HomeComponent implements OnInit {
     // if (this.registerForm.invalid) {
     //   return;
     // }
-    this.newUser=new UserCreateDto();
-    this.address=new Address();
-    this.loading = true;
+    // this.newUser = new UserCreateDto();
+    // this.address = new Address();
 
+    this.newUser = new UserCreateDto();
+    this.address = new Address();
+    // this.bank = new Bank();
+    this.loading = true;
+    // this.bankService.findBankByName(this.registerForm.controls.bank.value).subscribe((data: Bank) => {
+    //   console.log(data)
+    //   this.bank = data;
+    //   console.log(this.bank);
+    //   this.newUser.bank = this.bank.id;
+    // });
     this.newUser.name = this.registerForm.controls.name.value;
     this.newUser.surname = this.registerForm.controls.surname.value;
     this.newUser.middleName = this.registerForm.controls.middleName.value;
@@ -136,9 +157,18 @@ export class HomeComponent implements OnInit {
     this.address.street = this.registerForm.controls.street.value;
     this.address.buildingNum = this.registerForm.controls.buildingNum.value;
     this.address.apartmentNum = this.registerForm.controls.apartmentNum.value;
-    this.newUser.address=this.address;
+    this.newUser.inn = this.registerForm.controls.inn.value;
+    this.newUser.passport = this.registerForm.controls.passport.value;
+    this.newUser.card = this.registerForm.controls.card.value;
+    this.newUser.phone = this.registerForm.controls.phone.value;
+this.newUser.bank = this.registerForm.controls.bank.value
+    this.newUser.address = this.address;
 
-    this.userService.createUser(this.newUser).subscribe(u=>{})
+
+    console.log(this.newUser);
+
+    this.userService.createUser(this.newUser).subscribe(() => { });
+    this.hideForm(this.registerRef);
 
   }
 
