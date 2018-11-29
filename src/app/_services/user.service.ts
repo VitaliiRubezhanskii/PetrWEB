@@ -6,6 +6,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 import { User } from "../_models";
+import {UserCreateDto} from "../_models/UserCreateDto";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -38,11 +39,15 @@ export class UserService {
   }
 
   register(user: User) {
-    return this.http.post(`${config.apiUrl}/users/register`, user);
+    return this.http.post<User>(`http://localhost:8080/users/register`, user);
   }
 
   editUser(user: User): Observable<User> {
     return this.http.put<User>(`http://localhost:8080/users/edit`, user, httpOptions);
+  }
+
+  createUser(user: UserCreateDto){
+    return this.http.put<UserCreateDto>(`http://localhost:8080/users/new`,user, httpOptions);
   }
 
   delete(id: number) {

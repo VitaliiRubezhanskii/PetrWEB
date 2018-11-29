@@ -8,6 +8,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from "../_models";
+import {UserCreateDto} from "../_models/UserCreateDto";
+import {Address} from "../_models/address";
 
 @Component({
   selector: 'app-home',
@@ -17,6 +19,8 @@ import {User} from "../_models";
 export class HomeComponent implements OnInit {
     currentUser: User;
     users: User[] = [];
+  newUser: UserCreateDto;
+  address: Address
      modalRef: BsModalRef;
   loginForm: FormGroup;
   registerForm: FormGroup;
@@ -46,10 +50,18 @@ export class HomeComponent implements OnInit {
       });
 
       this.registerForm = this.formBuilder.group({
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        username: ['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(6)]]
+        name:'',
+        middleName: '',
+        surname: '',
+        username: '',
+        password: '',
+        email:'',
+        oblast:'',
+        city: '',
+        street:'',
+        buildingNum:'',
+        apartmentNum:'',
+        phone:''
       });
       // reset login status
       this.authenticationService.logout();
@@ -60,6 +72,10 @@ export class HomeComponent implements OnInit {
 
     showForm(template: TemplateRef<any>) {
       this.modalService.show(template);
+    }
+
+    hideForm(template: TemplateRef<any>){
+    this.modalService.hide(1);
     }
 
   get getLoginFormControl() { return this.loginForm.controls; }
@@ -99,23 +115,31 @@ export class HomeComponent implements OnInit {
   }
 
   onRegister() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.registerForm.invalid) {
-      return;
-    }
-
+    console.log('Inside onRegister')
+    // this.submitted = true;
+    //
+    // // stop here if form is invalid
+    // if (this.registerForm.invalid) {
+    //   return;
+    // }
+    this.newUser=new UserCreateDto();
+    this.address=new Address();
     this.loading = true;
-    this.userService.register(this.registerForm.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.router.navigate(['/login']);
-        },
-        error => {
-          this.loading = false;
-        });
+
+    this.newUser.name = this.registerForm.controls.name.value;
+    this.newUser.surname = this.registerForm.controls.surname.value;
+    this.newUser.middleName = this.registerForm.controls.middleName.value;
+    this.newUser.username = this.registerForm.controls.username.value;
+    this.newUser.email = this.registerForm.controls.email.value;
+    this.address.oblast = this.registerForm.controls.oblast.value;
+    this.address.city = this.registerForm.controls.city.value;
+    this.address.street = this.registerForm.controls.street.value;
+    this.address.buildingNum = this.registerForm.controls.buildingNum.value;
+    this.address.apartmentNum = this.registerForm.controls.apartmentNum.value;
+    this.newUser.address=this.address;
+
+    this.userService.createUser(this.newUser).subscribe(u=>{})
+
   }
 
 
