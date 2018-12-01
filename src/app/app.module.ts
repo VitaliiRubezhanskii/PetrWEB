@@ -1,11 +1,10 @@
-﻿import { NgModule }      from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {JwtHelperService, JwtModule} from '@auth0/angular-jwt';
 // used to create fake backend
 import { fakeBackendProvider } from './_helpers';
-
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 import { AlertComponent } from './_directives';
@@ -20,6 +19,11 @@ import { NetworkStatisticsComponent } from './admin/network-statistics/network-s
 import { AdminOfficeComponent } from './admin/admin-office/admin-office.component';
 import {PagerService} from './_services/pager.service';
 import {BankService} from './_services/bank.service';
+import { BankComponent } from './admin-office/admin-cabinet/bank/bank.component';
+import {CooperationComponent} from './admin-office/admin-cabinet/cooperation/cooperation.component';
+import {NotificationComponent} from './admin-office/admin-cabinet/notification/notification.component';
+import { SurveyComponent } from './user/survey/survey.component';
+import { ScoringComponent } from './user/scoring/scoring.component';
 
 @NgModule({
     imports: [
@@ -48,10 +52,19 @@ import {BankService} from './_services/bank.service';
         OrgstructureComponent ,
         UserComponent ,
         ModalBackdropComponent,
-      ModalContainerComponent
-,
+      ModalContainerComponent,
+      NotificationComponent,
       NetworkStatisticsComponent ,
-      AdminOfficeComponent   ],
+      AdminOfficeComponent ,
+      BankComponent ,
+      CooperationComponent,
+      SurveyComponent,
+      ScoringComponent
+
+    ],
+
+
+
     providers: [
         AuthGuard,
         BsModalService,

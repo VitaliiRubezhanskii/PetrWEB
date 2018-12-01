@@ -4,7 +4,7 @@
 
     <!-- Float links to the right. Hide them on small screens -->
     <div class="w3-right w3-hide-small">
-      <a [routerLink]="['/admin/cabinet']" class="w3-bar-item w3-button">Кабинет админа</a>
+      <a [routerLink]="['/admin/cabinet/banks']" class="w3-bar-item w3-button">Кабинет админа</a>
       <a [routerLink]="['/admin/structure']" class="w3-bar-item w3-button">Структура</a>
       <a [routerLink]="['/admin/statistics']" class="w3-bar-item w3-button">Статистика</a>
     </div>
@@ -24,7 +24,6 @@
 
 
   <div class="container row">
-
   <div class="table" >
     <table class="table table-striped">
       <thead class="nowrap">
@@ -34,8 +33,6 @@
         <th >Телефон</th>
         <th>Email</th>
         <th>Статус</th>
-
-
       </tr>
       </thead>
       <tbody>
@@ -62,25 +59,6 @@
     </table>
   </div>
 
-<!--<div class="container">-->
-    <!--<ul *ngIf="true" class="pagination">-->
-      <!--<li [ngClass]="{disabled:pager.currentPage === 1}">-->
-        <!--<a (click)="setPage(1)">First</a>-->
-      <!--</li>-->
-      <!--<li [ngClass]="{disabled:pager.currentPage === 1}">-->
-        <!--<a (click)="setPage(pager.currentPage - 1)">Previous</a>-->
-      <!--</li>-->
-      <!--<li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">-->
-        <!--<a (click)="setPage(page)">{{page}}</a>-->
-      <!--</li>-->
-      <!--<li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">-->
-        <!--<a (click)="setPage(pager.currentPage + 1)">Next</a>-->
-      <!--</li>-->
-      <!--<li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">-->
-        <!--<a (click)="setPage(pager.totalPages)">Last</a>-->
-      <!--</li>-->
-    <!--</ul>-->
-<!--</div>-->
 </div>
 
 

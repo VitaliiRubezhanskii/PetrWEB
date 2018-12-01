@@ -57,10 +57,7 @@ export class OrgstructureComponent implements OnInit {
   deleteUser(user: User) {
 
     this.isUserDeleted = !user.deleted;
-    console.log('User id: ' + user.id);
-    console.log(this.isUserDeleted);
-    this.userService.deleteUser(user).subscribe(user =>{});
-    // user.deleted = this.isUserDeleted;
+    this.userService.deleteUser(user).subscribe(u => {});
   }
 
   editUser(user: User) {

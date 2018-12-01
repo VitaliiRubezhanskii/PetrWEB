@@ -3,7 +3,7 @@
 
     <!-- Float links to the right. Hide them on small screens -->
     <div class="w3-right w3-hide-small">
-      <a [routerLink]="['/admin/cabinet']" class="w3-bar-item w3-button">Кабинет админа</a>
+      <a [routerLink]="['/admin/cabinet/banks']" class="w3-bar-item w3-button">Кабинет админа</a>
       <a [routerLink]="['/admin/structure']" class="w3-bar-item w3-button">Структура</a>
       <a [routerLink]="['/admin/statistics']" class="w3-bar-item w3-button">Статистика</a>
     </div>
@@ -16,3 +16,20 @@
 <div style="margin-top: 60px; text-align: center">
   <h3>Кабинет администратора</h3>
 </div>
+
+<div class="w3-top" style="margin-top: 105px">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <a [routerLink]="['/admin/cabinet/banks']" class="w3-bar-item w3-button">Банки-парнеры</a>
+      <a [routerLink]="['/admin/cabinet/requests']" class="w3-bar-item w3-button">Запросы на сотрудничество</a>
+      <a [routerLink]="['/admin/cabinet/messages']" class="w3-bar-item w3-button">Сообщения</a>
+    </div>
+
+  </div>
+</div>
+
+
+
+

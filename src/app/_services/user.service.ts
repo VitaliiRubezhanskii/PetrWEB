@@ -33,7 +33,6 @@ export class UserService {
   }
 
   deleteUser(user: User): Observable<User> {
-    console.log('inside service')
     user.deleted = !user.deleted;
     return this.http.put<User>(`http://localhost:8080/users/delete/` + user.deleted + '/user/' + user.id, {});
   }

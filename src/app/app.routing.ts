@@ -4,13 +4,16 @@ import {OrgstructureComponent} from './admin/orgstructure/orgstructure.component
 import {UserComponent} from './user/user.component';
 import {HomeComponent} from './home';
 import {NetworkStatisticsComponent} from './admin/network-statistics/network-statistics.component';
-import { AdminOfficeComponent } from './admin/admin-office/admin-office.component';
-// import {CustomerResolver} from './_services';
+import {BankComponent} from './admin-office/admin-cabinet/bank/bank.component';
+import {NotificationComponent} from './admin-office/admin-cabinet/notification/notification.component';
+import {CooperationComponent} from './admin-office/admin-cabinet/cooperation/cooperation.component';
+import {SurveyComponent} from './user/survey/survey.component';
+import {ScoringComponent} from './user/scoring/scoring.component';
+
 
 const appRoutes: Routes = [
     {
       path: '',
-      // component: HomeComponent,
       canActivate: [AuthGuard],
       children: [
         {
@@ -20,7 +23,7 @@ const appRoutes: Routes = [
         },
         {
           path: 'admin',
-          canActivate: [AuthGuard],
+          canActivateChild: [AuthGuard],
           children: [
             {
             path: 'structure',
@@ -38,23 +41,55 @@ const appRoutes: Routes = [
             },
             {
               path: 'cabinet',
-              component: AdminOfficeComponent ,
-              data: {
-                allowedRoles: ['ROLE_ADMIN']
-              }
-            },
+              canActivateChild: [AuthGuard],
+              children: [
+                {
+                  path: 'banks',
+                  component: BankComponent,
+                data: {
+                  allowedRoles: ['ROLE_ADMIN']
+                }
+              },
+                {
+                  path: 'requests',
+                  component: CooperationComponent,
+                  data: {
+                    allowedRoles: ['ROLE_ADMIN']
+                  }
+                },
+                {
+                  path: 'messages',
+                  component: NotificationComponent,
+                  data: {
+                    allowedRoles: ['ROLE_ADMIN']
+                  }
+                },
+              ]
+            }
           ]
         },
         {
           path: 'user',
-          component: UserComponent,
-          data: {
-            allowedRoles: ['ROLE_USER']
-          }
+          canActivateChild: [AuthGuard],
+          children: [
+            {
+            path: 'survey',
+            component: SurveyComponent,
+            data: {
+              allowedRoles: ['ROLE_USER']
+            }
+          },
+            {
+              path: 'scoring',
+              component: ScoringComponent,
+              data: {
+                allowedRoles: ['ROLE_USER']
+              }
+            }
+          ]
         },
         {
           path: '**', redirectTo: ''
         },
-]}];
-
+      ]}];
 export const routing = RouterModule.forRoot(appRoutes);

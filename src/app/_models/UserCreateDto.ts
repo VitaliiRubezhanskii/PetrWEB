@@ -18,5 +18,6 @@ export class UserCreateDto {
    card: string;
    address: Address;
    bank: number;
+   password: string;
 
 }

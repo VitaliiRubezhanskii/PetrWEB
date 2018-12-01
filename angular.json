@@ -23,6 +23,11 @@
                 "output": "/"
               },
               {
+                "glob": "budweiser.jpg",
+                "input": "src",
+                "output": "/"
+              },
+              {
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "/assets"

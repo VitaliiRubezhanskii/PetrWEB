@@ -13,12 +13,15 @@ import {Address} from "../_models/address";
 import {Bank} from '../_models/bank';
 import {BankService} from '../_services/bank.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+   projectLogo = 'budweiser.jpg';
+   contactPerson = 'budweiser.jpg';
   @ViewChild('register')
   private registerRef: TemplateRef<any>;
     currentUser: User;
@@ -117,7 +120,7 @@ export class HomeComponent implements OnInit {
           if (this.user.role === 'ADMIN') {
             this.router.navigate(['admin/structure']);
           } else {
-            this.router.navigate(['user']);
+            this.router.navigate(['user/survey']);
           }
         },
         error => {
@@ -161,10 +164,9 @@ export class HomeComponent implements OnInit {
     this.newUser.passport = this.registerForm.controls.passport.value;
     this.newUser.card = this.registerForm.controls.card.value;
     this.newUser.phone = this.registerForm.controls.phone.value;
-this.newUser.bank = this.registerForm.controls.bank.value
+    this.newUser.password = this.registerForm.controls.password.value;
+    this.newUser.bank = this.registerForm.controls.bank.value
     this.newUser.address = this.address;
-
-
     console.log(this.newUser);
 
     this.userService.createUser(this.newUser).subscribe(() => { });
