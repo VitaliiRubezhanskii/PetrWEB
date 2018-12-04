@@ -80,7 +80,7 @@ export class OrgstructureComponent implements OnInit {
     this.modalService.show(template);
   }
 
-  hideEditForm(){
+  hideEditForm() {
     this.modalService.hide(1);
   }
 

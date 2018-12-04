@@ -19,11 +19,14 @@ import { NetworkStatisticsComponent } from './admin/network-statistics/network-s
 import { AdminOfficeComponent } from './admin/admin-office/admin-office.component';
 import {PagerService} from './_services/pager.service';
 import {BankService} from './_services/bank.service';
-import { BankComponent } from './admin-office/admin-cabinet/bank/bank.component';
-import {CooperationComponent} from './admin-office/admin-cabinet/cooperation/cooperation.component';
-import {NotificationComponent} from './admin-office/admin-cabinet/notification/notification.component';
+import { BankComponent } from './admin/admin-office/admin-cabinet/bank/bank.component';
+import {CooperationComponent} from './admin/admin-office/admin-cabinet/cooperation/cooperation.component';
+import {NotificationComponent} from './admin/admin-office/admin-cabinet/notification/notification.component';
 import { SurveyComponent } from './user/survey/survey.component';
 import { ScoringComponent } from './user/scoring/scoring.component';
+import {CooperationMessageService} from './_services/cooperation-message.service';
+import {UserMessageService} from './_services/user-message.service';
+
 
 @NgModule({
     imports: [
@@ -60,11 +63,7 @@ import { ScoringComponent } from './user/scoring/scoring.component';
       CooperationComponent,
       SurveyComponent,
       ScoringComponent
-
     ],
-
-
-
     providers: [
         AuthGuard,
         BsModalService,
@@ -73,7 +72,9 @@ import { ScoringComponent } from './user/scoring/scoring.component';
         JwtHelperService,
         UserService,
         PagerService,
+      CooperationMessageService,
       BankService,
+      UserMessageService,
         fakeBackendProvider,
       // CustomerResolver
     ],

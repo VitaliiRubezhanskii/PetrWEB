@@ -1,30 +1,12 @@
-﻿<!--<h1>Hi {{currentUser.firstName}}!</h1>-->
-<!--<p>You're logged in with Angular 6!!</p>-->
-<!--<h3>All registered users:</h3>-->
-<!--<ul>-->
-    <!--<li *ngFor="let user of users">-->
-        <!--{{user.username}} ({{user.firstName}} {{user.lastName}})-->
-        <!-- - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>-->
-    <!--</li>-->
-<!--</ul>-->
-<!--<p><a [routerLink]="['/login']">Logout</a></p>-->
-<!--<!DOCTYPE html>-->
-<!--<html>-->
-<!--<title>W3.CSS Template</title>-->
-<!--<meta charset="UTF-8">-->
-<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
-<!--<link rel="stylesheet" href="styles.css">-->
-<!--<body>-->
-
-<!-- Navbar (sit on top) -->
+﻿
 <div class="w3-top">
   <div class="w3-bar w3-white w3-wide w3-padding w3-card">
 
     <!-- Float links to the right. Hide them on small screens -->
     <div class="w3-right w3-hide-small">
       <a href="#home" class="w3-bar-item w3-button">Домой</a>
-      <a href="#projects" class="w3-bar-item w3-button">Сотрудничество</a>
-      <a href="#projects" class="w3-bar-item w3-button">Заказать исследование</a>
+      <a href="#research" class="w3-bar-item w3-button">Сотрудничество</a>
+      <a href="#research" class="w3-bar-item w3-button">Заказать исследование</a>
       <a href="#about" class="w3-bar-item w3-button">О нас</a>
       <a href="#contact" class="w3-bar-item w3-button">Контакты</a>
     </div>
@@ -127,20 +109,22 @@
       </div>
     </div>
   </div>
-  <div class="w3-container w3-padding-32" >
+    <form [formGroup]="messageForm" (ngSubmit)="send()">
+  <div class="w3-container w3-padding-32" id="research" >
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" style="text-align: center">Заказать исследование</h3>
     <p style="text-align: center">Давайте свяжемся и обсудим Ваш проект.</p>
     <!--<form>-->
-      <input class="w3-input w3-border" type="text" placeholder="ФИО" required name="Name">
-      <input class="w3-input w3-section w3-border" type="text" placeholder="Email" required name="Email">
-      <input class="w3-input w3-section w3-border" type="text" placeholder="Тема" required name="Subject">
-      <input class="w3-input w3-section w3-border" type="text" placeholder="Телефон" required name="Тема">
-      <input class="w3-input w3-section w3-border" type="text" placeholder="Комментарий" required name="Comment">
+      <input formControlName="senderName" class="w3-input w3-border" type="text" placeholder="ФИО" required name="Name">
+      <input formControlName="email" class="w3-input w3-section w3-border" type="text" placeholder="Email" required name="Email">
+      <input formControlName="subject" class="w3-input w3-section w3-border" type="text" placeholder="Тема" required name="Subject">
+      <input formControlName="phone" class="w3-input w3-section w3-border" type="text" placeholder="Телефон" required name="Тема">
+      <input formControlName="comment" class="w3-input w3-section w3-border" type="text" placeholder="Комментарий" required name="Comment">
       <button class="w3-button w3-black w3-section" type="submit">
         <i class="fa fa-paper-plane"></i> Отправить сообщение
       </button>
     <!--</form>-->
   </div>
+    </form>
  <!-- End page content -->
 </div>
 

@@ -4,9 +4,9 @@ import {OrgstructureComponent} from './admin/orgstructure/orgstructure.component
 import {UserComponent} from './user/user.component';
 import {HomeComponent} from './home';
 import {NetworkStatisticsComponent} from './admin/network-statistics/network-statistics.component';
-import {BankComponent} from './admin-office/admin-cabinet/bank/bank.component';
-import {NotificationComponent} from './admin-office/admin-cabinet/notification/notification.component';
-import {CooperationComponent} from './admin-office/admin-cabinet/cooperation/cooperation.component';
+import {BankComponent} from './admin/admin-office/admin-cabinet/bank/bank.component';
+import {NotificationComponent} from './admin/admin-office/admin-cabinet/notification/notification.component';
+import {CooperationComponent} from './admin/admin-office/admin-cabinet/cooperation/cooperation.component';
 import {SurveyComponent} from './user/survey/survey.component';
 import {ScoringComponent} from './user/scoring/scoring.component';
 
