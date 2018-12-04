@@ -14,6 +14,8 @@ import {Bank} from '../_models/bank';
 import {BankService} from '../_services/bank.service';
 import {CooperationMessage} from '../_models/cooperationMessage';
 import {CooperationMessageService} from '../_services/cooperation-message.service';
+import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {UploadFileService} from '../_services/uploadFile.service';
 
 
 @Component({
@@ -43,15 +45,19 @@ export class HomeComponent implements OnInit {
   user: User;
   username: string;
   message: CooperationMessage = new CooperationMessage();
+  selectedFiles: FileList;
+  progress: { percentage: number } = { percentage: 0 };
+  currentFileUpload: File;
+  files: FileList[] = [];
 
-
-    constructor(
+  constructor(
                 private userService: UserService,
                 private bankService: BankService,
                 private messageService: CooperationMessageService,
                 private modalService: BsModalService,
                 private authenticationService: AuthenticationService,
                 private formBuilder: FormBuilder,
+                private uploadService: UploadFileService,
                 private route: ActivatedRoute,
                 private router: Router,
                 ) {
@@ -98,7 +104,7 @@ export class HomeComponent implements OnInit {
 
 
     this.loading = true;
-    this.modalService._hideModal(1)
+    this.modalService._hideModal(1);
     this.authenticationService.login(this.getLoginFormControl.username.value, this.getLoginFormControl.password.value)
       .pipe(first())
       .subscribe(
@@ -133,9 +139,15 @@ export class HomeComponent implements OnInit {
     this.newUser.card = this.registerForm.controls.card.value;
     this.newUser.phone = this.registerForm.controls.phone.value;
     this.newUser.password = this.registerForm.controls.password.value;
-    this.newUser.bank = this.registerForm.controls.bank.value
+    this.newUser.bank = this.registerForm.controls.bank.value;
     this.newUser.address = this.address;
-    this.userService.createUser(this.newUser).subscribe(() => { });
+    this.userService.createUser(this.newUser).subscribe(() => {
+      this.userService.getByUsername(this.newUser.username).subscribe((result: User) => {
+      console.log(result);
+        this.upload(result);
+      });
+
+    });
     this.hideForm(this.registerRef);
   }
 
@@ -148,6 +160,43 @@ export class HomeComponent implements OnInit {
       this.messageService.send(this.message).subscribe(() => { this.messageForm.reset(); });
   }
 
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+    this.files.push(this.selectedFiles);
+  }
 
+  upload(user: User) {
+    console.log('Hello from upload documents method')
+    this.progress.percentage = 0;
+    const documentsTypes = new Map<File, string>();
+    documentsTypes.set(this.files[0].item(0), 'PERSONAL_PHOTO');
+    documentsTypes.set(this.files[1].item(0), 'INN');
+    documentsTypes.set(this.files[2].item(0), 'PASSPORT_FIRST_PAGE');
+    documentsTypes.set(this.files[3].item(0), 'PASSPORT_SECOND_PAGE');
+    documentsTypes.set(this.files[4].item(0), 'PASSPORT_LAST_PAGE');
+    // this.currentFileUpload = this.selectedFiles.item(0);
 
+    setTimeout(() => {
+     documentsTypes.forEach((value: string, key: File) => {
+       console.log(value +'------'+ key);
+       setTimeout(() => {
+         this.uploadService.pushFileToStorage(key, value, user).subscribe(() => {
+         });
+
+       }, 500);
+      });
+    }, 1000);
+
+    // setTimeout()
+
+    // subscribe(event => {
+    //   if (event.type === HttpEventType.UploadProgress) {
+    //     this.progress.percentage = Math.round(100 * event.loaded / event.total);
+    //   } else if (event instanceof HttpResponse) {
+    //     console.log('File is completely uploaded!');
+    //   }
+    // })
+
+    this.selectedFiles = undefined;
+  }
 }

@@ -199,9 +199,18 @@
         </div>
       </div>
 
+      <div class="form-group">
+        <small>* пожалуйста, подгружайте документы в согласно порядку формы</small>
+        <label for="inn_photo">Прикрепите Ваше фото</label>
+        <label class="btn btn-default">
+          <input type="file" (change)="selectFile($event)"/>
+          <button class="btn btn-success" [disabled]="!selectedFiles"
+                  (click)="upload()">Upload</button>
+        </label>
+      </div>
 
       <div class="form-group">
-        <label for="inn">ИНН</label>
+        <label for="inn">ИНН номер</label>
         <input type="text" formControlName="inn" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.inn.errors }" />
         <div *ngIf="submitted && getRegisterFormontrol.inn.errors" class="invalid-feedback">
           <div *ngIf="getRegisterFormontrol.inn.errors.required">Last Name is required</div>
@@ -209,11 +218,45 @@
       </div>
 
       <div class="form-group">
-        <label for="passport">Пасспорт</label>
+        <label for="your_photo">Прикрепите фото ИНН</label>
+        <label class="btn btn-default">
+          <input type="file" (change)="selectFile($event)"/>
+          <button class="btn btn-success" [disabled]="!selectedFiles"
+                  (click)="upload()">Upload</button>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label for="passport">Пасспорт серия/номер</label>
         <input type="text" formControlName="passport" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.passport.errors }" />
         <div *ngIf="submitted && getRegisterFormontrol.passport.errors" class="invalid-feedback">
           <div *ngIf="getRegisterFormontrol.passport.errors.required">Last Name is required</div>
         </div>
+      </div>
+
+      <div class="form-group">
+        <label for="pass_first_page">Прикрепите фото паспорта 1 стр.</label>
+        <label class="btn btn-default">
+          <input type="file" (change)="selectFile($event)"/>
+          <button class="btn btn-success" [disabled]="!selectedFiles"
+                  (click)="upload()">Upload</button>
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="pass_second_page">Прикрепите фото паспорта 2 стр.</label>
+        <label class="btn btn-default">
+          <input type="file" (change)="selectFile($event)"/>
+          <button class="btn btn-success" [disabled]="!selectedFiles"
+                  (click)="upload()">Upload</button>
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="pass_last_page">Прикрепите фото паспорта (прописка)</label>
+        <label class="btn btn-default">
+          <input type="file" (change)="selectFile($event)"/>
+          <button class="btn btn-success" [disabled]="!selectedFiles"
+                  (click)="upload()">Upload</button>
+        </label>
       </div>
 
       <div class="form-group">

@@ -26,6 +26,7 @@ import { SurveyComponent } from './user/survey/survey.component';
 import { ScoringComponent } from './user/scoring/scoring.component';
 import {CooperationMessageService} from './_services/cooperation-message.service';
 import {UserMessageService} from './_services/user-message.service';
+import {UploadFileService} from './_services/uploadFile.service';
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import {UserMessageService} from './_services/user-message.service';
         JwtHelperService,
         UserService,
         PagerService,
+      UploadFileService,
       CooperationMessageService,
       BankService,
       UserMessageService,
