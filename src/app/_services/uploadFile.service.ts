@@ -12,7 +12,7 @@ export class UploadFileService {
     let formdata: FormData = new FormData();
 
     formdata.append('file', file);
-    const req = new HttpRequest('POST', 'http://localhost:8080/users/user/' + user.id + '/document/' + documentsType, formdata);
+    const req = new HttpRequest('PATCH', 'http://localhost:8080/users/user/' + user.id + '/document/' + documentsType, formdata);
 
 
 //   {

@@ -178,7 +178,7 @@ export class HomeComponent implements OnInit {
 
     setTimeout(() => {
      documentsTypes.forEach((value: string, key: File) => {
-       console.log(value +'------'+ key);
+       console.log(value +'------' + key);
        setTimeout(() => {
          this.uploadService.pushFileToStorage(key, value, user).subscribe(() => {
          });
