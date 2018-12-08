@@ -3,23 +3,19 @@ import {HttpClient, HttpEvent, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../_models';
 
+
 @Injectable()
 export class UploadFileService {
+  // p: string[] = [];
   constructor(private http: HttpClient) {}
 
-  pushFileToStorage(file: File, documentsType: string, user: User): Observable<HttpEvent<{}>> {
+  pushFileToStorage(file: File[],  user: User): Observable<HttpEvent<{}>> {
     console.log('Hello from pushFileToStorage method');
-    let formdata: FormData = new FormData();
-
-    formdata.append('file', file);
-    const req = new HttpRequest('PATCH', 'http://localhost:8080/users/user/' + user.id + '/document/' + documentsType, formdata);
+    const formdata: FormData = new FormData();
 
 
-//   {
-//   reportProgress: true,
-//   responseType: 'text'
-// }
-
+    formdata.append('file', JSON.stringify(file));
+    const req = new HttpRequest('PATCH', 'http://localhost:8080/users/user/' + user.id + '/document/' + user.id, formdata);
     return this.http.request(req);
   }
 

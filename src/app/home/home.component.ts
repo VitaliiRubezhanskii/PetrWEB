@@ -16,6 +16,7 @@ import {CooperationMessage} from '../_models/cooperationMessage';
 import {CooperationMessageService} from '../_services/cooperation-message.service';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {UploadFileService} from '../_services/uploadFile.service';
+import {Observable} from 'rx';
 
 
 @Component({
@@ -45,10 +46,12 @@ export class HomeComponent implements OnInit {
   user: User;
   username: string;
   message: CooperationMessage = new CooperationMessage();
-  selectedFiles: FileList;
+  selectedFiles: File;
   progress: { percentage: number } = { percentage: 0 };
-  currentFileUpload: File;
-  files: FileList[] = [];
+  files: File[] = [];
+  file: File;
+  myFiles: Array<File> = [];
+  documentTypes = [' ', 'Фото', 'ИНН', 'Паспорт 1 стр.', 'Паспорт 2 стр.', 'Паспорт последняя стр.'];
 
   constructor(
                 private userService: UserService,
@@ -89,6 +92,8 @@ export class HomeComponent implements OnInit {
 
   get getLoginFormControl() { return this.loginForm.controls; }
   get getRegisterFormontrol() {return this.registerForm.controls; }
+
+
 
   onLogin() {
     this.submitted = true;
@@ -141,13 +146,20 @@ export class HomeComponent implements OnInit {
     this.newUser.password = this.registerForm.controls.password.value;
     this.newUser.bank = this.registerForm.controls.bank.value;
     this.newUser.address = this.address;
-    this.userService.createUser(this.newUser).subscribe(() => {
-      this.userService.getByUsername(this.newUser.username).subscribe((result: User) => {
-      console.log(result);
-        this.upload(result);
-      });
 
-    });
+    this.userService.createUser(this.newUser);
+
+
+
+    // this.userService.getByUsername(this.newUser.username);
+    // this.userService.createUser(this.newUser).subscribe(() => {
+    //
+    //   this.userService.getByUsername(this.newUser.username).subscribe((result: User) => {
+    //   console.log(result);
+    //     this.upload(result);
+    //   });
+    //
+    // });
     this.hideForm(this.registerRef);
   }
 
@@ -161,31 +173,44 @@ export class HomeComponent implements OnInit {
   }
 
   selectFile(event) {
-    this.selectedFiles = event.target.files;
-    this.files.push(this.selectedFiles);
+    // for (var i = 0; i < event.target.files.length; i++) {
+    //   this.myFiles.push(event.target.files[i]);
+    // }
+    this.myFiles.push(event.target.file);
+    console.log(this.myFiles.length + 'in total files');
+    this.myFiles.forEach(f => console.log(f.name));
+
+    // this.selectedFiles = event.target.files;
+    // this.files.push(this.selectedFiles);
   }
 
   upload(user: User) {
     console.log('Hello from upload documents method')
-    this.progress.percentage = 0;
+    // this.progress.percentage = 0;
     const documentsTypes = new Map<File, string>();
-    documentsTypes.set(this.files[0].item(0), 'PERSONAL_PHOTO');
-    documentsTypes.set(this.files[1].item(0), 'INN');
-    documentsTypes.set(this.files[2].item(0), 'PASSPORT_FIRST_PAGE');
-    documentsTypes.set(this.files[3].item(0), 'PASSPORT_SECOND_PAGE');
-    documentsTypes.set(this.files[4].item(0), 'PASSPORT_LAST_PAGE');
+    documentsTypes.set(this.files[0], 'PERSONAL_PHOTO');
+    documentsTypes.set(this.files[1], 'INN');
+    documentsTypes.set(this.files[2], 'PASSPORT_FIRST_PAGE');
+    documentsTypes.set(this.files[3], 'PASSPORT_SECOND_PAGE');
+    documentsTypes.set(this.files[4], 'PASSPORT_LAST_PAGE');
     // this.currentFileUpload = this.selectedFiles.item(0);
+    this.uploadService.pushFileToStorage(this.files,  user).subscribe(() => {});
 
-    setTimeout(() => {
-     documentsTypes.forEach((value: string, key: File) => {
-       console.log(value +'------' + key);
-       setTimeout(() => {
-         this.uploadService.pushFileToStorage(key, value, user).subscribe(() => {
-         });
 
-       }, 500);
-      });
-    }, 1000);
+
+    // setTimeout(() => {
+    //  documentsTypes.forEach((value: string, key: File) => {
+    //    console.log('push postCalls to subscription buffer');
+    // setTimeout(() => {
+    //   this.uploadService.pushFileToStorage(key, value, user).subscribe(() => {});
+    //
+    //   }, 3000);
+    //    this.postCall.push(this.uploadService.pushFileToStorage(key, value, user));
+    //   });
+    //
+    // }, 1000);
+    //
+    // Observable.concat(this.postCall).subscribe(() => { console.log(this.dummyIndex++); });
 
     // setTimeout()
 
