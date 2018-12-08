@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpEvent, HttpRequest} from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../_models';
 
@@ -7,23 +7,20 @@ import {User} from '../_models';
 export class UploadFileService {
   constructor(private http: HttpClient) {}
 
-  pushFileToStorage(file: File, documentsType: string, user: User): Observable<HttpEvent<{}>> {
-    console.log('Hello from pushFileToStorage method');
-    let formdata: FormData = new FormData();
-
-    formdata.append('file', file);
-    const req = new HttpRequest('PATCH', 'http://localhost:8080/users/user/' + user.id + '/document/' + documentsType, formdata);
-
-
-//   {
-//   reportProgress: true,
-//   responseType: 'text'
-// }
-
-    return this.http.request(req);
-  }
-
   getFiles(): Observable<string[]> {
     return this.http.get<string[]>('/getallfiles');
+  }
+
+  saveFiles(total_form, user: User) {
+    let httpHeaders = new HttpHeaders({'Content-Type': 'multipart/form-data' });
+    let options = {headers: httpHeaders};
+    return this.http.post('http://localhost:8080/users/user/' + user.id + '/document', total_form, options);
+
+  }
+
+  getFile(user: User) {
+    // let httpHeaders = new HttpHeaders({'Content-Type': 'multipart/form-data' });
+    // let options = {headers: httpHeaders};
+    return this.http.get('http://localhost:8080/users/user/' + user.id + '/document');
   }
 }

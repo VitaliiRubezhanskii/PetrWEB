@@ -6,6 +6,7 @@ import {User} from "../../_models";
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {PagerService} from "../../_services/pager.service";
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {UploadFileService} from '../../_services/uploadFile.service';
 
 @Component({
   selector: 'app-admin',
@@ -28,6 +29,7 @@ export class OrgstructureComponent implements OnInit {
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
+              private uploadService: UploadFileService,
               private formBuilder: FormBuilder,
               private modalService: BsModalService,
               private pagerService: PagerService) { }
@@ -96,5 +98,9 @@ export class OrgstructureComponent implements OnInit {
 
     // get current page of items
     this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  }
+
+  download(user: User) {
+    this.uploadService.getFile(user).subscribe(u => {});
   }
 }

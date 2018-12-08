@@ -5,7 +5,6 @@ import { first } from 'rxjs/operators';
 import {AuthenticationService, UserService} from '../_services';
 import { BsModalService, BsModalRef} from 'ngx-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
 import {ActivatedRoute, Router} from '@angular/router';
 import {User} from "../_models";
 import {UserCreateDto} from "../_models/UserCreateDto";
@@ -14,7 +13,6 @@ import {Bank} from '../_models/bank';
 import {BankService} from '../_services/bank.service';
 import {CooperationMessage} from '../_models/cooperationMessage';
 import {CooperationMessageService} from '../_services/cooperation-message.service';
-import {HttpEventType, HttpResponse} from '@angular/common/http';
 import {UploadFileService} from '../_services/uploadFile.service';
 
 
@@ -47,7 +45,8 @@ export class HomeComponent implements OnInit {
   message: CooperationMessage = new CooperationMessage();
   selectedFiles: FileList;
   progress: { percentage: number } = { percentage: 0 };
-  currentFileUpload: File;
+  file: File;
+  myFiles: File[] = [];
   files: FileList[] = [];
 
   constructor(
@@ -142,6 +141,7 @@ export class HomeComponent implements OnInit {
     this.newUser.bank = this.registerForm.controls.bank.value;
     this.newUser.address = this.address;
     this.userService.createUser(this.newUser).subscribe(() => {
+
       this.userService.getByUsername(this.newUser.username).subscribe((result: User) => {
       console.log(result);
         this.upload(result);
@@ -166,37 +166,16 @@ export class HomeComponent implements OnInit {
   }
 
   upload(user: User) {
+    this.files.forEach(f => { this.myFiles.push(f.item(0)); console.log(f.item(0).name); });
+    const frmData = new FormData();
     console.log('Hello from upload documents method')
-    this.progress.percentage = 0;
-    const documentsTypes = new Map<File, string>();
-    documentsTypes.set(this.files[0].item(0), 'PERSONAL_PHOTO');
-    documentsTypes.set(this.files[1].item(0), 'INN');
-    documentsTypes.set(this.files[2].item(0), 'PASSPORT_FIRST_PAGE');
-    documentsTypes.set(this.files[3].item(0), 'PASSPORT_SECOND_PAGE');
-    documentsTypes.set(this.files[4].item(0), 'PASSPORT_LAST_PAGE');
-    // this.currentFileUpload = this.selectedFiles.item(0);
-
-    setTimeout(() => {
-     documentsTypes.forEach((value: string, key: File) => {
-       console.log(value +'------' + key);
-       setTimeout(() => {
-         this.uploadService.pushFileToStorage(key, value, user).subscribe(() => {
-         });
-
-       }, 500);
-      });
-    }, 1000);
-
-    // setTimeout()
-
-    // subscribe(event => {
-    //   if (event.type === HttpEventType.UploadProgress) {
-    //     this.progress.percentage = Math.round(100 * event.loaded / event.total);
-    //   } else if (event instanceof HttpResponse) {
-    //     console.log('File is completely uploaded!');
-    //   }
-    // })
-
+    for (var i = 0; i < this.myFiles.length; i++) {
+      frmData.append(this.myFiles[i].name, this.myFiles[i]);
+    }
+    this.uploadService.saveFiles(frmData, user).subscribe(data => {
+      console.log("result is ", data);
+    });
     this.selectedFiles = undefined;
   }
+
 }
