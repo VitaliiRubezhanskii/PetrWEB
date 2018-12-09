@@ -25,7 +25,8 @@ export class OrgstructureComponent implements OnInit {
   pagedItems: any[];
   allItems: any[];
   editUserForm: FormGroup;
-
+  types: string[] = ['photo', 'inn', 'pass_first', 'pass_second', 'pass_last'];
+  type: string;
 
   constructor(private userService: UserService,
               private route: ActivatedRoute,
@@ -100,7 +101,7 @@ export class OrgstructureComponent implements OnInit {
     this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 
-  download(user: User) {
-    this.uploadService.getFile(user).subscribe(u => {});
+  download(user: User, type: string) {
+    this.uploadService.getFile(user, type).subscribe(u => {});
   }
 }

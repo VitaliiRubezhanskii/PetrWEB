@@ -31,8 +31,14 @@
         <td>{{ user.phone }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.deleted ? 'Заблокирован' : 'Активен' }} </td>
-        <td> <a href="http://localhost:8080/users/user/{{user.id}}/document" (click)="download(user)">ФОТО</a>  <br/>
-          <a href="http://localhost:8080/users/user/{{user.id}}/document" (click)="download(user)">ФОТО ИНН</a> </td>
+        <td> <a href="http://localhost:8080/users/user/{{user.id}}/document/{{types[0]}}" (click)="download(user, types[0])">ФОТО</a>  <br/>
+             <a href="http://localhost:8080/users/user/{{user.id}}/document/{{types[1]}}" (click)="download(user, types[1])">ИНН</a> <br/>
+             <a href="http://localhost:8080/users/user/{{user.id}}/document/{{types[2]}}" (click)="download(user, types[2])">ПАСПОРТ (1 стр.) </a>  <br/>
+             <a href="http://localhost:8080/users/user/{{user.id}}/document/{{types[3]}}" (click)="download(user, types[3])">ПАСПОРТ (2 стр.) </a>  <br/>
+             <a href="http://localhost:8080/users/user/{{user.id}}/document/{{types[4]}}" (click)="download(user, types[4])">ПАСПОРТ (прописка) </a>
+
+
+        </td>
 
 
 
