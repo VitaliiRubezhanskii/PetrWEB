@@ -31,7 +31,8 @@
         <td>{{ user.phone }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.deleted ? 'Заблокирован' : 'Активен' }} </td>
-        <td> <a (click)="download(user)">ФОТО</a>  <br/> <a (click)="download(user)">ФОТО ИНН</a> </td>
+        <td> <a href="http://localhost:8080/users/user/{{user.id}}/document" (click)="download(user)">ФОТО</a>  <br/>
+          <a href="http://localhost:8080/users/user/{{user.id}}/document" (click)="download(user)">ФОТО ИНН</a> </td>
 
 
 

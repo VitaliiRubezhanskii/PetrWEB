@@ -12,9 +12,9 @@ export class UploadFileService {
   }
 
   saveFiles(total_form, user: User) {
-    let httpHeaders = new HttpHeaders({'Content-Type': 'multipart/form-data' });
-    let options = {headers: httpHeaders};
-    return this.http.post('http://localhost:8080/users/user/' + user.id + '/document', total_form, options);
+    // let httpHeaders = new HttpHeaders({'Content-Type': 'multipart/form-data' });
+    // let options = {headers: httpHeaders};
+    return this.http.post('http://localhost:8080/users/user/' + user.id + '/document', total_form);
 
   }
 
