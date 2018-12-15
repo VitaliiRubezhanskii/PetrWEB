@@ -6,6 +6,7 @@ import {AuthenticationService} from './authentication.service';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Survey} from '../_models/Survey';
+import {Question} from '../_models/question';
 
 @Injectable()
 export class QuestionnaireService {
@@ -31,17 +32,15 @@ export class QuestionnaireService {
         // return this.db.object(this.baseUrl + `/${questionnaireId}`).valueChanges();
     }
 
-    public create(name, count): Observable<any> {
-        console.log(name.toString() +' '+ count)
+    public create(name, questions: Question[], count): Observable<any> {
+
         const payload = {
             date: new Date().toString(),
             name,
-            count
-            // description,
-            // submittedBy: 'Vitalii', //this.authService.currentUser.fullName,
-            // submittedById: '52', //this.authService.currentUser.email,
-            // questions
+            count,
+          questions: questions
         };
+        console.log(questions)
         return this.http.post(`http://localhost:8080/surveys/new`, payload);
 
 
@@ -54,6 +53,9 @@ export class QuestionnaireService {
         //     });
         // });
     }
+  public getSurveyById(surveyId): Observable<Survey> {
+    return this.http.get<Survey>(`http://localhost:8080/surveys/survey/` + surveyId);
+  }
 
     public udapte(questionnaireId) {
         // this.db.object(this.baseUrl + `/${questionnaireId}`).update({ date: new Date() });

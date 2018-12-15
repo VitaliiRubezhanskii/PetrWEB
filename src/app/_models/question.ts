@@ -1,3 +1,5 @@
+import {Survey} from './Survey';
+
 export class QuestionValue {
     value: string;
     answer: string;
@@ -7,16 +9,38 @@ export class QuestionValue {
         this.answer = answer;
     }
 }
+export class Answer {
+  id: number;
+  text: number;
+  status: string;
+  date: string;
+  question: Question;
+
+}
+enum QuestionType {
+  BOOLEAN,
+  MULTI_CHOICE_SINGLE,
+  MULTI_CHOICE_MULTI,
+  DATE_TYPE,
+  SHORT_ANSWER,
+  LONG_ANSWER,
+  NUMERICAL
+}
 
 export class Question {
-    title: string;
+    id: number;
+    text: string;
     type: string;
     values: Array<any>;
-    // values: Array<QuestionValue>;
+    status: string;
+    date: string;
+    survey: Survey;
+    answer: Answer;
 
-    constructor(type, title, values) {
+
+    constructor(type, text, values) {
         this.type = type;
-        this.title = title;
+        this.text = text;
         this.values = values;
     }
 }

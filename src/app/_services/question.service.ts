@@ -21,7 +21,9 @@ export class QuestionService {
     private openQuestion(data?) {
         const config: MatDialogConfig = {
             width: '750px',
-            data
+            data: {
+
+            }
         };
         const dialogRef = this.dialog.open(AddQuestionModalComponent, config);
 
