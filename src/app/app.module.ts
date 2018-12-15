@@ -27,10 +27,53 @@ import { ScoringComponent } from './user/scoring/scoring.component';
 import {CooperationMessageService} from './_services/cooperation-message.service';
 import {UserMessageService} from './_services/user-message.service';
 import {UploadFileService} from './_services/uploadFile.service';
+import {AddQuestionModalComponent} from './questionary/add-question-modal/add-question-modal.component';
+import {QuestionnaireService} from './_services/questionnaire.service';
+import {QuestionService} from './_services/question.service';
+import {DialogsService} from './_services/dialogs.service';
+import {AnswerComponent} from './questionary/answer/answer.component';
+import {CreateComponent} from './questionary/create/create.component';
+import {ManageComponent} from './questionary/manage/manage.component';
+import {ManageQuestionnaireComponent} from './questionary/manage-questionnaire/manage-questionnaire.component';
+import {QuestionTypeComponent} from './questionary/question-type/question-type.component';
+import {ResponseDetailsComponent} from './questionary/response-details/response-details.component';
+import {ConfirmDialog} from './shared/confirm-dialog.component';
 
+import {
+  MatIconModule,
+  MatListModule,
+  MatInputModule,
+  MatButtonModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatFormFieldModule,
+  MatRadioModule,
+  MatTabsModule,
+  MatSnackBarModule,
+  MatNativeDateModule,
+  MatProgressSpinnerModule
+} from '@angular/material';
+import {FilterPipe} from './shared/filter.pipe';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ResponseComponent} from './questionary/response/response.component';
 
 @NgModule({
     imports: [
+      BrowserModule,
+      BrowserAnimationsModule,
+      FormsModule,
+      MatIconModule,
+      MatListModule,
+      MatInputModule,
+      MatButtonModule,
+      MatCheckboxModule,
+      MatDatepickerModule,
+      MatRadioModule,
+      MatTabsModule,
+      MatSnackBarModule,
+      MatFormFieldModule,
+      MatNativeDateModule,
+      MatProgressSpinnerModule,
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
@@ -63,7 +106,17 @@ import {UploadFileService} from './_services/uploadFile.service';
       BankComponent ,
       CooperationComponent,
       SurveyComponent,
-      ScoringComponent
+      ScoringComponent,
+      AddQuestionModalComponent,
+      AnswerComponent,
+      CreateComponent,
+      ManageComponent,
+      ManageQuestionnaireComponent,
+      QuestionTypeComponent,
+      ResponseDetailsComponent,
+      ResponseComponent,
+      ConfirmDialog,
+      FilterPipe
     ],
     providers: [
         AuthGuard,
@@ -78,10 +131,12 @@ import {UploadFileService} from './_services/uploadFile.service';
       BankService,
       UserMessageService,
         fakeBackendProvider,
-      // CustomerResolver
+      QuestionnaireService,
+      QuestionService,
+      DialogsService
     ],
     bootstrap: [AppComponent],
-  entryComponents: [ModalBackdropComponent, ModalContainerComponent]
+  entryComponents: [ModalBackdropComponent, ModalContainerComponent,AddQuestionModalComponent, ConfirmDialog]
 })
 
 export class AppModule { }

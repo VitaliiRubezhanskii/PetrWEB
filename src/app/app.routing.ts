@@ -9,6 +9,12 @@ import {NotificationComponent} from './admin/admin-office/admin-cabinet/notifica
 import {CooperationComponent} from './admin/admin-office/admin-cabinet/cooperation/cooperation.component';
 import {SurveyComponent} from './user/survey/survey.component';
 import {ScoringComponent} from './user/scoring/scoring.component';
+import {CreateComponent} from './questionary/create/create.component';
+import {ManageComponent} from './questionary/manage/manage.component';
+import {ManageQuestionnaireComponent} from './questionary/manage-questionnaire/manage-questionnaire.component';
+import {ResponseComponent} from './questionary/response/response.component';
+import {ResponseDetailsComponent} from './questionary/response-details/response-details.component';
+import {AnswerComponent} from './questionary/answer/answer.component';
 
 
 const appRoutes: Routes = [
@@ -21,6 +27,12 @@ const appRoutes: Routes = [
           component: HomeComponent,
           data: {}
         },
+        { path: 'create', component: CreateComponent },
+        { path: 'manage', component: ManageComponent },
+        { path: 'manage/:id', component: ManageQuestionnaireComponent },
+        { path: 'responses', component: ResponseComponent  },
+        { path: 'response/:id', component: ResponseDetailsComponent },
+        { path: 'answer/:id', component: AnswerComponent },
         {
           path: 'admin',
           canActivateChild: [AuthGuard],
