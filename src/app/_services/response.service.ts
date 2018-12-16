@@ -12,20 +12,20 @@ export class ResponseService {
     constructor(private router: Router,
         private snackBar: MatSnackBar, private authService: AuthenticationService) { }
 
-    public getList(){
+    // public getList(){
         // return this.db.list(this.baseUrl).snapshotChanges().map(actions => {
         //     return actions.map((a: any) => {
         //         const id = a.payload.key;
         //         return { id, ...a.payload.val() };
         //     });
         // });
-    }
+    // }
 
     public get(questionnaireId) {
         // return this.db.object(this.baseUrl + `/${questionnaireId}`);
     }
 
-    public submit(name, description, origQuestions) {
+    public submit(name,  origQuestions) {
         const questions = origQuestions.map(q => {
             q = { ...q };
 
@@ -37,9 +37,9 @@ export class ResponseService {
         const playload = {
             date: new Date().toString(),
             name,
-            description,
-            submittedBy: 'Vitalii',
-            submittedById: '52',
+            // description,
+            // submittedBy: 'Vitalii',
+            // submittedById: '52',
             questions
         };
 

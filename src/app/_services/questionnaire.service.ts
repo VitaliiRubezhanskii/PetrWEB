@@ -3,59 +3,76 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import {AuthenticationService} from './authentication.service';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
+import 'rxjs/add/observable/from';
 import {HttpClient} from '@angular/common/http';
 import {Survey} from '../_models/Survey';
 import {Question} from '../_models/question';
+import {SurveyService} from './survey.service';
+import {AnswerDto} from '../_models/answerDto';
 
 @Injectable()
 export class QuestionnaireService {
 
     private baseUrl = 'questionnaires';
+    private responseQ: Question[] = [];
+    private survey: Survey = new Survey();
+    private savedSurvey: Survey = new Survey();
+    private surveyId: number;
+    private questionId: number;
+    private answer: AnswerDto = new AnswerDto();
 
     constructor(private router: Router,
                 private snackBar: MatSnackBar,
                 private authService: AuthenticationService,
+                private surveyService: SurveyService,
                 private http: HttpClient) { }
 
-    public getList(): Observable<Survey[]> {
-        return this.http.get<Survey[]>(`http://localhost:8080/surveys`);
+
         // return this.db.list(this.baseUrl).snapshotChanges().map(actions => {
         //     return actions.map((a: any) => {
         //         const id = a.payload.key;
         //         return { id, ...a.payload.val() };
         //     });
         // });
-    }
+    // }
 
     public get(questionnaireId) {
         // return this.db.object(this.baseUrl + `/${questionnaireId}`).valueChanges();
     }
 
-    public create(name, questions: Question[], count): Observable<any> {
+    public create(name, questions: Question[], count): Observable<Object> {
 
-        const payload = {
-            date: new Date().toString(),
-            name,
-            count,
-          questions: questions
-        };
-        console.log(questions)
-        return this.http.post(`http://localhost:8080/surveys/new`, payload);
+        this.survey.name = name;
+        this.survey.date = new Date().toString();
+        this.survey.count = count;
+        this.survey.questions = questions;
 
 
+       this.surveyService.save(this.survey).subscribe(result => {
+         this.surveyId = result;
+        });
 
-        // this.db.list(this.baseUrl).push(playload).then(() => {
-        //     this.snackBar.open('New Questionnaire has been created', '', {
-        //         duration: 2000,
-        //     }).afterDismissed().subscribe(() => {
-        //         this.router.navigate(['/']);
-        //     });
-        // });
+        setTimeout(() => { questions.forEach(q => {
+          this.http.put<number>(`http://localhost:8080/questions/` + this.surveyId, q).subscribe(e => {
+            this.questionId = e;
+          });
+        });
+        }, 1500);
+
+      setTimeout(() => { questions.forEach(q => {
+        q.values.forEach(value => {
+          this.answer = value;
+
+          console.log(value);
+          this.http.put<number>(`http://localhost:8080/answers/` + this.questionId , this.answer).subscribe(e => { }); });
+      });
+      }, 3500);
+
+
+       return Observable.from(this.responseQ);
+
     }
-  public getSurveyById(surveyId): Observable<Survey> {
-    return this.http.get<Survey>(`http://localhost:8080/surveys/survey/` + surveyId);
-  }
 
     public udapte(questionnaireId) {
         // this.db.object(this.baseUrl + `/${questionnaireId}`).update({ date: new Date() });

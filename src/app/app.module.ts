@@ -56,6 +56,8 @@ import {
 import {FilterPipe} from './shared/filter.pipe';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ResponseComponent} from './questionary/response/response.component';
+import {ResponseService} from './_services/response.service';
+import {SurveyService} from './_services/survey.service';
 
 @NgModule({
     imports: [
@@ -133,10 +135,12 @@ import {ResponseComponent} from './questionary/response/response.component';
         fakeBackendProvider,
       QuestionnaireService,
       QuestionService,
-      DialogsService
+      ResponseService,
+      DialogsService,
+      SurveyService
     ],
     bootstrap: [AppComponent],
-  entryComponents: [ModalBackdropComponent, ModalContainerComponent,AddQuestionModalComponent, ConfirmDialog]
+  entryComponents: [ModalBackdropComponent, ModalContainerComponent, AddQuestionModalComponent, ConfirmDialog]
 })
 
 export class AppModule { }
