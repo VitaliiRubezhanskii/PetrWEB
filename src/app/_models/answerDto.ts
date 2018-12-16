@@ -1,5 +1,5 @@
 export class AnswerDto {
 
-  text: string;
+  value: string;
 
 }

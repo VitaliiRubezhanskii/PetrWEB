@@ -42,13 +42,10 @@ export class QuestionnaireService {
     }
 
     public create(name, questions: Question[], count): Observable<Object> {
-
         this.survey.name = name;
         this.survey.date = new Date().toString();
         this.survey.count = count;
         this.survey.questions = questions;
-
-
        this.surveyService.save(this.survey).subscribe(result => {
          this.surveyId = result;
         });
@@ -56,20 +53,14 @@ export class QuestionnaireService {
         setTimeout(() => { questions.forEach(q => {
           this.http.put<number>(`http://localhost:8080/questions/` + this.surveyId, q).subscribe(e => {
             this.questionId = e;
+            q.values.forEach(value => {
+              this.answer = value;
+            this.http.put<number>(`http://localhost:8080/answers/` + this.questionId , this.answer).subscribe(e => { });
+            });
+
           });
         });
         }, 1500);
-
-      setTimeout(() => { questions.forEach(q => {
-        q.values.forEach(value => {
-          this.answer = value;
-
-          console.log(value);
-          this.http.put<number>(`http://localhost:8080/answers/` + this.questionId , this.answer).subscribe(e => { }); });
-      });
-      }, 3500);
-
-
        return Observable.from(this.responseQ);
 
     }

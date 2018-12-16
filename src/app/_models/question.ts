@@ -44,3 +44,7 @@ export class Question {
         this.values = values;
     }
 }
+
+export class Value {
+  text: string;
+}
