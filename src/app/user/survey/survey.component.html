@@ -1,0 +1,45 @@
+<div class="w3-top">
+  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+
+    <!-- Float links to the right. Hide them on small screens -->
+    <div class="w3-right w3-hide-small">
+      <a [routerLink]="['/user/survey']" class="w3-bar-item w3-button">Моя анкета</a>
+      <a [routerLink]="['/user/scoring']" class="w3-bar-item w3-button">Баллы</a>
+      <!--<a [routerLink]="['/admin/statistics']" class="w3-bar-item w3-button">Статистика</a>-->
+    </div>
+    <div class="w3-full-right w3-hide-small">
+      <a [routerLink]="['/login']" class="w3-bar-item w3-button">Выход</a>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top: 60px; text-align: center">
+  <h3>Моя анкета</h3>
+</div>
+
+<button (click) = "showForm(message)" style="float: right;margin-right: 20px" class="btn btn-danger">Написать администратору</button>
+
+<ng-template #message>
+  <div style="margin: 20px">
+    <h2 style="text-align: center; margin-bottom: 10px">Cообщение администратору</h2>
+    <div class="container">
+      <form [formGroup]="messageToAdminForm" >
+        <div class="form-group">
+          <textarea formControlName="message" rows="10" cols="50" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-2">
+            <button (click)="send()" class="btn btn-primary">Отправить</button>
+          </div>
+          <div class="col-md-2">
+            <button style="margin-left: 80px" (click) = "hideForm()" class="btn btn-danger">Отмена</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+
+</ng-template>

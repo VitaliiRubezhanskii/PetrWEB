@@ -1,0 +1,19 @@
+<app-admin-office></app-admin-office>
+<a routerLink="/create" mat-raised-button>Создать новый опросник</a><br/><br/>
+<div *ngIf="questionnaireList; else loading;">
+    <div class="card">
+        <h3 class="card-header">Вопросы</h3>
+        <div class="card-body" *ngFor="let q of questionnaireList ">
+            <h4 class="card-title">{{q.name}}</h4>
+            <div *ngIf="q.name"><i class="card-text">{{q.name}}</i><br><br></div>
+            <a [routerLink]="['/manage', q.id]" class="mr-1" mat-raised-button color="primary">Редактировать</a>
+            <button (click)="remove(q.id)" mat-raised-button color="warn">Удалить</button>
+        </div>
+        <div class="no-text" *ngIf="!questionnaireList.length">
+            У Вас нет опросников!
+        </div>
+    </div>
+</div>
+<ng-template #loading>
+    <mat-spinner class="loader-container"></mat-spinner>
+</ng-template>

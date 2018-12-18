@@ -1,0 +1,77 @@
+
+<app-admin-office></app-admin-office>
+
+<div style="margin-top: 60px; text-align: center">
+  <h3>Запросы на сотрудничество</h3>
+</div>
+
+<div style="margin-top: 80px; text-align: center">
+  <h3>Запросов на сотрудничество нет</h3>
+</div>
+
+<div class="w3-container w3-padding-32" style="margin-top: 15px">
+  <div class="container row">
+    <div class="table" >
+      <table class="table table-striped">
+        <thead class="nowrap">
+        <tr>
+          <th>Отправитель</th>
+          <th>Тема</th>
+          <th>Комментарий</th>
+          <th>Email</th>
+          <th>Телефон</th>
+          <th>Статус</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor = "let message of messages">
+          <td>{{message.senderName}}</td>
+          <td>{{message.subject}}</td>
+          <td>{{message.comment}}</td>
+          <td>{{message.email}}</td>
+          <td>{{message.phone}}</td>
+          <td>{{message.status}}</td>
+
+          <div class="container row ">
+            <div class="col-md-2">
+              <td><button   class="btn btn-primary">Принять</button></td>
+            </div>
+          </div>
+          <div class="container row ">
+            <div class="col-md-2">
+              <td><button   class="btn btn-primary">Отклонить</button></td>
+            </div>
+          </div>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div *ngIf="questionnaireList ; else loading;">
+    <!--| async as questionnaires-->
+    <mat-list>
+      <h5 class="card-header" mat-subheader>
+        List of questionnaires
+        <mat-checkbox class="float-right" [(ngModel)]="showMine">Show only mine</mat-checkbox>
+      </h5>
+      <!--filterQuestionnaires(questionnaires)-->
+      <mat-list-item *ngFor="let q of questionnaireList">
+        <mat-icon mat-list-icon>note</mat-icon>
+        <h4 mat-line><b>{{q.name}}</b></h4>
+        <i mat-line> {{q.date | date}}</i>
+        <!--<p mat-line *ngIf="q.description">-->
+          <!--<i class="card-text">{{q.description}}</i>-->
+          <!--<br>-->
+        <!--</p>-->
+        <a [routerLink]="['/answer', q.id]" mat-button color="primary">Answer</a>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</div>
+<ng-template #loading>
+  <mat-spinner class="loader-container"></mat-spinner>
+</ng-template>

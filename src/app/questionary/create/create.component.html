@@ -1,0 +1,52 @@
+
+<app-admin-office></app-admin-office>
+<div style="margin-top: 60px; text-align: center">
+<form #formQ="ngForm">
+    <div class="card">
+        <h3 class="card-header">Создайте новый опросник</h3>
+        <div class="card-body">
+            <div class="row">
+                <mat-form-field class="col-md-8">
+                    <input name="name"
+                        matInput
+                        placeholder="Name"
+                        [(ngModel)]="name"
+                        required/>
+                </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field class="col-md-8">
+                    <textarea name="description"
+                        mat-autosize
+                        minRows="3"
+                        matInput
+                        placeholder="Description"
+                        [(ngModel)]="description"
+                        required></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <h3 class="card-header">Вопросы</h3>
+        <div class="card-body" *ngFor="let q of questions">
+            <p class="card-text">{{q.text}}</p>
+            <question-type [question]="q" [readonly]="1" ></question-type>
+        </div>
+        <div class="no-text" *ngIf="!questions.length">
+           Вопросов нет
+        </div>
+    </div>
+    <div class="float-left mt-2">
+        <button class="btn btn-outline-primary" (click)="addQuestion()">Добавить вопрос</button>
+    </div>
+    <div class="float-right mt-2">
+        <button class="mr-1"
+            mat-raised-button
+            color="primary"
+            [ngClass]="{'btn-danger': formQ.form.invalid || !questions.length}"
+            (click)="save(questions)">Создать</button>
+        <a routerLink="/"mat-raised-button color="warn">Отмена</a>
+    </div>
+</form>
+</div>

@@ -10,6 +10,7 @@ import {Survey} from '../_models/Survey';
 import {Question} from '../_models/question';
 import {SurveyService} from './survey.service';
 import {AnswerDto} from '../_models/answerDto';
+import {createQuery} from '@angular/core/src/view/query';
 
 @Injectable()
 export class QuestionnaireService {
@@ -51,14 +52,7 @@ export class QuestionnaireService {
         });
 
         setTimeout(() => { questions.forEach(q => {
-          this.http.put<number>(`http://localhost:8080/questions/` + this.surveyId, q).subscribe(e => {
-            this.questionId = e;
-            q.values.forEach(value => {
-              this.answer = value;
-            this.http.put<number>(`http://localhost:8080/answers/` + this.questionId , this.answer).subscribe(e => { });
-            });
-
-          });
+         this.createQuestion(this.surveyId, q);
         });
         }, 1500);
        return Observable.from(this.responseQ);
@@ -67,6 +61,25 @@ export class QuestionnaireService {
 
     public udapte(questionnaireId) {
         // this.db.object(this.baseUrl + `/${questionnaireId}`).update({ date: new Date() });
+    }
+
+    public createQuestion(surveyId: number, question: Question) {
+      this.http.put<number>(`http://localhost:8080/questions/` + surveyId, question).subscribe(e => {
+        this.questionId = e;
+        if ( question.values.length !== 0 ) {
+          question.values.forEach(value => {
+            this.answer = value;
+            this.http.put<number>(`http://localhost:8080/answers/` + this.questionId , this.answer).subscribe(el => { });
+          });
+        } else {
+          console.log(question.values.length + 'values length')
+          question.answers.forEach(value => {
+            this.answer = value;
+            this.http.put<number>(`http://localhost:8080/answers/` + this.questionId, this.answer).subscribe(el => {
+            });
+          });
+        }
+      });
     }
 
     public remove(questionnaireId) {
@@ -92,7 +105,7 @@ export class QuestionnaireService {
         //     .update(question).then(_ => this.udapte(questionnaireId));
     }
 
-    public removeQuestion(questionnaireId, qId) {
-        // this.db.object(this.baseUrl + `/${questionnaireId}/questions/${qId}`).remove();
+    public removeQuestion(questionId): Observable<any> {
+      return this.http.delete<any>(`http://localhost:8080/questions/delete/question/` + questionId);
     }
 }

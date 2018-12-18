@@ -1,0 +1,24 @@
+<div class="card" *ngIf="survey">
+  <h3 class="card-header">{{survey.name}}</h3>
+  <div class="clearfix">
+    <!--<i class="mr-3 float-right">Created by {{questionnaire.submittedBy}} on {{questionnaire.date | date:'fullDate'}} at {{questionnaire.date | date:'mediumTime'}}</i>-->
+  </div>
+  <div class="card-body" *ngFor="let q of survey.questions">
+    <p class="card-text">{{q.text}}</p>
+
+    <app-questions-by-type
+      [question]="q"
+      [readonly]="1"
+      [edit]="1"
+      [surveyId]="q.id"
+      [qId]="q.id">
+    </app-questions-by-type>
+
+  </div>
+</div>
+<div class="float-left mt-2">
+    <button class="btn btn-outline-primary" (click)="addQuestion()">Добавить вопрос</button>
+</div>
+<div class="float-right mt-2">
+    <button class="btn btn-outline-primary" (click)="save()">Сохранить</button>
+</div>

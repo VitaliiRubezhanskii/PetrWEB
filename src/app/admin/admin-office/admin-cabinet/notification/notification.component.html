@@ -1,0 +1,39 @@
+
+  <app-admin-office></app-admin-office>
+
+  <div style="margin-top: 60px; text-align: center">
+
+  </div>
+
+
+  <div style="margin-top: 80px; text-align: center">
+    <h3>Сообщения от пользователей</h3>
+  </div>
+
+
+<div class="w3-container w3-padding-32" style="margin-top: 15px">
+  <div class="container row">
+    <div class="table" >
+      <table class="table table-striped">
+        <thead class="nowrap">
+        <tr>
+          <th>ФИО</th>
+          <th>Телефон</th>
+          <th>Email</th>
+          <th>Сообщение</th>
+          <th>Дата</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor = "let message of messages">
+          <td>{{message.user.name}} {{message.user.middleName}} {{message.user.surname}}</td>
+          <td>{{message.user.phone}}</td>
+          <td>{{message.user.email}}</td>
+          <td>{{message.text}}</td>
+          <td>{{message.date}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

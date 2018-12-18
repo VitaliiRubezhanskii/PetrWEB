@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { MatDialogConfig, MatDialog } from '@angular/material';
 import {AddQuestionModalComponent} from '../questionary/add-question-modal/add-question-modal.component';
+import {HttpClient} from '@angular/common/http';
 
 
 @Injectable()
 export class QuestionService {
 
-    constructor(public dialog: MatDialog) {
+    constructor(public dialog: MatDialog,
+                private http: HttpClient) {
 
     }
 
@@ -29,4 +31,9 @@ export class QuestionService {
 
         return dialogRef.afterClosed();
     }
+
+    public deleteQuestion(questionId){
+      this.http.delete(`http://localhost:8080/questions/delete/question/` + questionId);
+    }
+
 }
