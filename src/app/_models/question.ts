@@ -11,10 +11,11 @@ export class QuestionValue {
 }
 export class Answer {
   id: number;
-  text: string;
+  // text: string;
   status: string;
   date: string;
-  question: Question;
+  // question: Question;
+  value: string;
 
 }
 enum QuestionType {
@@ -35,7 +36,7 @@ export class Question {
     status: string;
     date: string;
     survey: Survey;
-    answer: Answer[];
+    answers: Answer[];
 
 
     constructor(type, text, values) {

@@ -27,8 +27,8 @@ const appRoutes: Routes = [
           component: HomeComponent,
           data: {}
         },
-        { path: 'create', component: CreateComponent },
-        { path: 'manage', component: ManageComponent },
+
+        // { path: 'manage', component: ManageComponent },
         { path: 'manage/:id', component: ManageQuestionnaireComponent },
         { path: 'responses', component: ResponseComponent  },
         { path: 'response/:id', component: ResponseDetailsComponent },
@@ -69,6 +69,27 @@ const appRoutes: Routes = [
                     allowedRoles: ['ROLE_ADMIN']
                   }
                 },
+                {
+                  path: 'survey',
+                  component: CreateComponent,
+                  data: {
+                    allowedRoles: ['ROLE_ADMIN']
+                  }
+                },
+                {
+                  path: 'manage',
+                  component: ManageComponent,
+                  data: {
+                    allowedRoles: ['ROLE_ADMIN']
+                  }
+                },
+                // {
+                //   path: 'manage/:id',
+                //   component: ManageQuestionnaireComponent,
+                //   data: {
+                //     allowedRoles: ['ROLE_ADMIN']
+                //   }
+                // },
                 {
                   path: 'messages',
                   component: NotificationComponent,

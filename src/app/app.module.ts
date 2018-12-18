@@ -40,18 +40,41 @@ import {ResponseDetailsComponent} from './questionary/response-details/response-
 import {ConfirmDialog} from './shared/confirm-dialog.component';
 
 import {
-  MatIconModule,
-  MatListModule,
-  MatInputModule,
+  MatAutocompleteModule,
+  MatBadgeModule,
+  MatBottomSheetModule,
   MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
   MatCheckboxModule,
+  MatChipsModule,
   MatDatepickerModule,
-  MatFormFieldModule,
-  MatRadioModule,
-  MatTabsModule,
-  MatSnackBarModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule, MatFormFieldModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
   MatNativeDateModule,
-  MatProgressSpinnerModule
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatTreeModule,
 } from '@angular/material';
 import {FilterPipe} from './shared/filter.pipe';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -59,9 +82,15 @@ import {ResponseComponent} from './questionary/response/response.component';
 import {ResponseService} from './_services/response.service';
 import {SurveyService} from './_services/survey.service';
 
+import { LayoutModule } from '@progress/kendo-angular-layout';;
+import { HomeNavbarComponent } from './home/home-navbar/home-navbar.component'
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';;
+import { QuestionsByTypeComponent } from './questionary/questions-by-type/questions-by-type.component'
+
 @NgModule({
     imports: [
       BrowserModule,
+      MatMenuModule,
       BrowserAnimationsModule,
       FormsModule,
       MatIconModule,
@@ -82,6 +111,7 @@ import {SurveyService} from './_services/survey.service';
         PopoverModule,
         FormsModule,
         BsDatepickerModule.forRoot(),
+      NgbModule.forRoot(),
         BsDropdownModule,
         JwtModule.forRoot({
           config: {
@@ -93,8 +123,11 @@ import {SurveyService} from './_services/survey.service';
           }
         }),
         routing
-    ],
+,
+        LayoutModule    ],
     declarations: [
+
+      AdminOfficeComponent,
         AppComponent,
         AlertComponent,
         HomeComponent,
@@ -119,7 +152,9 @@ import {SurveyService} from './_services/survey.service';
       ResponseComponent,
       ConfirmDialog,
       FilterPipe
-    ],
+,
+      HomeNavbarComponent ,
+      QuestionsByTypeComponent   ],
     providers: [
         AuthGuard,
         BsModalService,
@@ -139,8 +174,8 @@ import {SurveyService} from './_services/survey.service';
       DialogsService,
       SurveyService
     ],
-    bootstrap: [AppComponent],
-  entryComponents: [ModalBackdropComponent, ModalContainerComponent, AddQuestionModalComponent, ConfirmDialog]
+    bootstrap: [AppComponent, AdminOfficeComponent],
+  entryComponents: [ModalBackdropComponent, AdminOfficeComponent, ModalContainerComponent, AddQuestionModalComponent, ConfirmDialog]
 })
 
 export class AppModule { }

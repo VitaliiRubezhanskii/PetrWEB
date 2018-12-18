@@ -70,7 +70,7 @@ export class QuestionnaireService {
     }
 
     public remove(questionnaireId) {
-        // this.db.object(this.baseUrl + `/${questionnaireId}`).remove();
+        this.http.delete(`http://localhost:8080/questions/`);
     }
 
     public getQuestionFireList(questionnaireId) {

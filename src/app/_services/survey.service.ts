@@ -24,4 +24,11 @@ export class SurveyService {
 
   public getSurveyById(surveyId): Observable<Survey> {
     return this.http.get<Survey>(`http://localhost:8080/surveys/survey/` + surveyId);
-  }}
+  }
+  // public deleteSurveyById(surveyId): Observable<Survey> {
+  //
+  //   return this.http.delete<>
+  //
+  // }
+
+}
