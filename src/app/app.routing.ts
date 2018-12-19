@@ -29,9 +29,9 @@ const appRoutes: Routes = [
         },
 
         // { path: 'manage', component: ManageComponent },
-        { path: 'manage/:id', component: ManageQuestionnaireComponent },
-        { path: 'responses', component: ResponseComponent  },
-        { path: 'response/:id', component: ResponseDetailsComponent },
+        // { path: 'manage/:id', component: ManageQuestionnaireComponent },
+        // { path: 'responses', component: ResponseComponent  },
+        // { path: 'response/:id', component: ResponseDetailsComponent },
         { path: 'answer/:id', component: AnswerComponent },
         {
           path: 'admin',
@@ -43,7 +43,7 @@ const appRoutes: Routes = [
             data: {
                   allowedRoles: ['ROLE_ADMIN']
                 }
-          },
+            },
             {
               path: 'statistics',
               component: NetworkStatisticsComponent,
@@ -83,13 +83,26 @@ const appRoutes: Routes = [
                     allowedRoles: ['ROLE_ADMIN']
                   }
                 },
-                // {
-                //   path: 'manage/:id',
-                //   component: ManageQuestionnaireComponent,
-                //   data: {
-                //     allowedRoles: ['ROLE_ADMIN']
-                //   }
-                // },
+                {
+                  path: 'manage/:id',
+                  component: ManageQuestionnaireComponent,
+                  data: {
+                    allowedRoles: ['ROLE_ADMIN']
+                  }
+                },
+                { path: 'responses',
+                  component: ResponseComponent  ,
+                  data: {
+                    allowedRoles: ['ROLE_ADMIN']
+                  }
+                },
+                {
+                  path: 'response/:id',
+                  component: ResponseDetailsComponent ,
+                  data: {
+                    allowedRoles: ['ROLE_ADMIN']
+                  }
+                },
                 {
                   path: 'messages',
                   component: NotificationComponent,
@@ -111,14 +124,21 @@ const appRoutes: Routes = [
             data: {
               allowedRoles: ['ROLE_USER']
             }
-          },
+            },
             {
               path: 'scoring',
               component: ScoringComponent,
               data: {
                 allowedRoles: ['ROLE_USER']
               }
-            }
+            },
+            {
+              path: 'answer/:id',
+              component: AnswerComponent,
+              data: {
+                allowedRoles: ['ROLE_USER']
+              }
+            },
           ]
         },
         {

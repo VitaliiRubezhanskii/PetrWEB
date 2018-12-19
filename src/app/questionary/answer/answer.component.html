@@ -5,12 +5,12 @@
 
     <div class="card-body" *ngFor="let q of survey.questions; index as i">
       <p class="card-text">{{q.text}}</p>
-      <question-type [question]="q"></question-type>
+      <app-questions-by-type [readonly]=false  [question]="q"></app-questions-by-type>
     </div>
 
     <div class="clearfix">
       <div class="float-right">
-        <button class="mr-1" mat-raised-button color="primary" (click)="submit(survey)">Submit</button>
+        <button class="mr-1" mat-raised-button color="primary" (click)="submit(survey.questions)">Submit</button>
         <a routerLink="/" mat-raised-button color="warn">Cancel</a>
       </div>
     </div>

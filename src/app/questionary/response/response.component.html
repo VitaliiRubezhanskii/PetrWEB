@@ -6,7 +6,7 @@
                     <h4 class="card-title">{{q.name}}</h4>
                     <i class="card-text">{{q.description}}</i>
                     <br><br>
-                    <a class="mr-1" [routerLink]="['/response', q.id]" mat-raised-button color="primary">View</a>
+                    <a class="mr-1" [routerLink]="['/admin/cabinet/response', q.id]" mat-raised-button color="primary">View</a>
                     <button (click)="remove(q.id)" mat-raised-button color="warn">Remove</button>
                 </div>
                 <div class="no-text" *ngIf="!userResponses(responses).length">
@@ -19,7 +19,8 @@
                 <div class="card-body" *ngFor="let q of responses">
                     <h4 class="card-title">{{q.name}}</h4>
                     <i class="card-text">{{q.description}}</i><br><br>
-                    <a [routerLink]="['/response', q.id]" mat-raised-button color="primary">View</a>
+                    <a [routerLink]="['/admin/cabinet/response', q.id]" mat-raised-button color="primary">View</a>
+                  <a [routerLink]="['/answer', q.id]" mat-raised-button color="primary">Answer</a>
                 </div>
                 <div class="no-text" *ngIf="!responses.length">
                     No responses

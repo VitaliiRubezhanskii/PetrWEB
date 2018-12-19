@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import {QuestionnaireService} from '../../_services/questionnaire.service';
 import {DialogsService} from '../../_services/dialogs.service';
 import {AuthenticationService} from '../../_services';

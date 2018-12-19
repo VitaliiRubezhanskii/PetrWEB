@@ -1,4 +1,5 @@
 import {Survey} from './Survey';
+import {User} from './user';
 
 export class QuestionValue {
     value: string;
@@ -16,6 +17,7 @@ export class Answer {
   date: string;
   // question: Question;
   value: string;
+  // users: User[];
 
 }
 enum QuestionType {

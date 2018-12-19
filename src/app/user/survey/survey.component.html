@@ -18,6 +18,7 @@
 </div>
 
 <button (click) = "showForm(message)" style="float: right;margin-right: 20px" class="btn btn-danger">Написать администратору</button>
+<button [routerLink]="['/user/answer', 98]" style="float: right;margin-right: 20px" class="btn btn-danger">Анкета</button>
 
 <ng-template #message>
   <div style="margin: 20px">
