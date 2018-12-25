@@ -28,9 +28,17 @@ export class User {
   username: string;
   password: string;
   address: Address;
+  roles: Role[];
 
+}
 
+export class Role {
+  id: number;
+  name: string;
+  description: string;
+}
 
-
-
+enum Gender {
+  MALE,
+  FEMALE
 }

@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
   file: File;
   myFiles: File[] = [];
   files: FileList[] = [];
-
+  gender = ['Мужской', 'Женский'];
   constructor(
                 private userService: UserService,
                 private bankService: BankService,
@@ -72,7 +72,8 @@ export class HomeComponent implements OnInit {
       this.bankService.getAllBanks().subscribe(data => { this.banks = data; });
       this.registerForm = this.formBuilder.group({
         name: '', middleName: '', surname: '', username: '', password: '', email: '', oblast: '', city: '',
-        street: '', buildingNum: '', apartmentNum: '', phone: '', card: '', inn: '', passport: '', bank: ''
+        street: '', buildingNum: '', apartmentNum: '', phone: '', card: '', inn: '', passport: '', issuedBy: '', issuedWhen: '',
+        bank: '', gender: '', birthDay: ''
       });
       this.authenticationService.logout();
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';

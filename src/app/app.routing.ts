@@ -1,7 +1,6 @@
 ﻿import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './_guards';
 import {OrgstructureComponent} from './admin/orgstructure/orgstructure.component';
-import {UserComponent} from './user/user.component';
 import {HomeComponent} from './home';
 import {NetworkStatisticsComponent} from './admin/network-statistics/network-statistics.component';
 import {BankComponent} from './admin/admin-office/admin-cabinet/bank/bank.component';
@@ -32,7 +31,7 @@ const appRoutes: Routes = [
         // { path: 'manage/:id', component: ManageQuestionnaireComponent },
         // { path: 'responses', component: ResponseComponent  },
         // { path: 'response/:id', component: ResponseDetailsComponent },
-        { path: 'answer/:id', component: AnswerComponent },
+        // { path: 'answer/:id', component: AnswerComponent },
         {
           path: 'admin',
           canActivateChild: [AuthGuard],

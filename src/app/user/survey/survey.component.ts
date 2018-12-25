@@ -8,6 +8,8 @@ import {UserMessageService} from '../../_services/user-message.service';
 import {stripBom} from '@angular/cli/utilities/strip-bom';
 import {stringDistance} from 'codelyzer/util/utils';
 import {current} from 'codelyzer/util/syntaxKind';
+import {Survey} from '../../_models/Survey';
+import {SurveyService} from '../../_services/survey.service';
 
 @Component({
   selector: 'app-survey',
@@ -19,9 +21,12 @@ export class SurveyComponent implements OnInit {
   messageToAdminForm: FormGroup;
   user: User = new User();
   message: UserMessage = new UserMessage();
+  survey: Survey = new Survey();
+
   constructor(private modalService: BsModalService,
               private userService: UserService,
               private userMessageService: UserMessageService,
+              private surveyService: SurveyService,
               private formBuilder: FormBuilder) {
     this.messageToAdminForm = this.formBuilder.group({message: ''});
   }
@@ -30,6 +35,8 @@ export class SurveyComponent implements OnInit {
     this.userService.getByUsername(localStorage.getItem('username')).subscribe(result => {
       this.user = result;
     });
+
+    this.surveyService.getSurveyById(103).subscribe(result => { this.survey = result; });
   }
   showForm(template: TemplateRef<any>) {
     this.modalService.show(template);

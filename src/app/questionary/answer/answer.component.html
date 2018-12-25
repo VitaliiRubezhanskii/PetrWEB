@@ -1,17 +1,21 @@
-<div *ngIf="survey.name; else loading;">
+<app-user></app-user>
+<div style="margin-top: 65px" *ngIf="survey.name; else loading;">
   <div class="card" *ngIf="survey.name">
     <h3 class="card-header">{{survey.name}}</h3>
-    <!--<div class="clearfix"><i class="mr-3 float-right">Created by {{questionnaire.submittedBy}} on {{questionnaire.date | date:'fullDate'}} at {{questionnaire.date | date:'mediumTime'}}</i></div>-->
-
     <div class="card-body" *ngFor="let q of survey.questions; index as i">
-      <p class="card-text">{{q.text}}</p>
-      <app-questions-by-type [readonly]=false  [question]="q"></app-questions-by-type>
+      <app-questions-by-type
+        [readonly]=false
+        [question]="q"
+        [edit]=true
+        [editableForUser]=false
+        (questionEvent)="showEvent($event, q)"
+      ></app-questions-by-type>
     </div>
 
     <div class="clearfix">
       <div class="float-right">
-        <button class="mr-1" mat-raised-button color="primary" (click)="submit(survey.questions)">Submit</button>
-        <a routerLink="/" mat-raised-button color="warn">Cancel</a>
+        <button class="mr-1" mat-raised-button color="primary" (click)="submit()">Отправить</button>
+        <a routerLink="/" mat-raised-button color="warn">Отмена</a>
       </div>
     </div>
     <br/>

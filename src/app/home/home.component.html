@@ -175,6 +175,14 @@
     <form [formGroup]="registerForm">
 
       <div class="form-group">
+        <label for="surname">Фамилия</label>
+        <input type="text" formControlName="surname" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.surname.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.surname.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.surname.errors.required">Last Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
         <label for="name">Имя</label>
         <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.name.errors }" />
         <div *ngIf="submitted && getRegisterFormontrol.name.errors" class="invalid-feedback">
@@ -190,12 +198,21 @@
         </div>
       </div>
 
+      <div class="form-group">
+        <label for="gender">Пол</label>
+        <div class="radio" *ngFor="let g of gender">
+          <label>
+            <input type="radio" name="answer" [checked]="0">
+            {{g}}
+          </label>
+        </div>
+      </div>
 
       <div class="form-group">
-        <label for="surname">Фамилия</label>
-        <input type="text" formControlName="surname" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.surname.errors }" />
-        <div *ngIf="submitted && getRegisterFormontrol.surname.errors" class="invalid-feedback">
-          <div *ngIf="getRegisterFormontrol.surname.errors.required">Last Name is required</div>
+        <label for="birthDate">Дата рождения</label>
+        <input type="text" formControlName="birthDate" class="form-control" placeholder="дд/мм/гг" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.birthDate.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.birthDate.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.birthDate.errors.required">First Name is required</div>
         </div>
       </div>
 
@@ -228,6 +245,22 @@
         <input type="text" formControlName="passport" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.passport.errors }" />
         <div *ngIf="submitted && getRegisterFormontrol.passport.errors" class="invalid-feedback">
           <div *ngIf="getRegisterFormontrol.passport.errors.required">Last Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="issuedBy">Кем выдан пасспорт</label>
+        <input type="text" formControlName="issuedBy" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.issuedBy.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.issuedBy.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.issuedBy.errors.required">Last Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="issuedWhen">Дата выдачи пасспорта</label>
+        <input type="text" formControlName="issuedWhen" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.issuedWhen.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.issuedWhen.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.issuedWhen.errors.required">Last Name is required</div>
         </div>
       </div>
 

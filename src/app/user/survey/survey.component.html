@@ -1,24 +1,13 @@
-<div class="w3-top">
-  <div class="w3-bar w3-white w3-wide w3-padding w3-card">
-
-    <!-- Float links to the right. Hide them on small screens -->
-    <div class="w3-right w3-hide-small">
-      <a [routerLink]="['/user/survey']" class="w3-bar-item w3-button">Моя анкета</a>
-      <a [routerLink]="['/user/scoring']" class="w3-bar-item w3-button">Баллы</a>
-      <!--<a [routerLink]="['/admin/statistics']" class="w3-bar-item w3-button">Статистика</a>-->
-    </div>
-    <div class="w3-full-right w3-hide-small">
-      <a [routerLink]="['/login']" class="w3-bar-item w3-button">Выход</a>
-    </div>
-  </div>
-</div>
+<app-user></app-user>
 
 <div style="margin-top: 60px; text-align: center">
   <h3>Моя анкета</h3>
 </div>
 
 <button (click) = "showForm(message)" style="float: right;margin-right: 20px" class="btn btn-danger">Написать администратору</button>
-<button [routerLink]="['/user/answer', 98]" style="float: right;margin-right: 20px" class="btn btn-danger">Анкета</button>
+
+
+<app-manage [surveys]="survey"></app-manage>
 
 <ng-template #message>
   <div style="margin: 20px">
@@ -41,6 +30,4 @@
       </form>
     </div>
   </div>
-
-
 </ng-template>

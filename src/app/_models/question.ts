@@ -51,3 +51,8 @@ export class Question {
 export class Value {
   text: string;
 }
+
+export class UserAnswer {
+  questionText: number;
+  answerValue: number ;
+}

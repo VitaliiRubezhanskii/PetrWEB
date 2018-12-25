@@ -32,7 +32,7 @@ export class ResponseService {
         // return this.db.object(this.baseUrl + `/${questionnaireId}`);
     }
 
-    public submit(answer: Answer, userId: number): Observable<any> {
+    public submit(answer: Answer , userId: number): Observable<any> {
       return this.http.post<any>(`http://localhost:8080/answers/giveAnswer/` + answer.id + '/user/' + userId, {answer} );
     }
 
