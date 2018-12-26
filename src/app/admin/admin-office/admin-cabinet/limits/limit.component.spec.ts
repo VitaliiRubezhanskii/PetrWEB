@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HomeNavbarComponent } from './home-navbar.component';
+import { LimitComponent } from './limit.component';
 
-describe('HomeNavbarComponent', () => {
-  let component: HomeNavbarComponent;
-  let fixture: ComponentFixture<HomeNavbarComponent>;
+describe('LimitComponent', () => {
+  let component: LimitComponent;
+  let fixture: ComponentFixture<LimitComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeNavbarComponent ]
+      declarations: [ LimitComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeNavbarComponent);
+    fixture = TestBed.createComponent(LimitComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

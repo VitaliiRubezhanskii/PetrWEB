@@ -14,6 +14,7 @@ import {ManageQuestionnaireComponent} from './questionary/manage-questionnaire/m
 import {ResponseComponent} from './questionary/response/response.component';
 import {ResponseDetailsComponent} from './questionary/response-details/response-details.component';
 import {AnswerComponent} from './questionary/answer/answer.component';
+import {LimitComponent} from './admin/admin-office/admin-cabinet/limits/limit.component';
 
 
 const appRoutes: Routes = [
@@ -71,6 +72,13 @@ const appRoutes: Routes = [
                 {
                   path: 'survey',
                   component: CreateComponent,
+                  data: {
+                    allowedRoles: ['ROLE_ADMIN']
+                  }
+                },
+                {
+                  path: 'limits',
+                  component: LimitComponent,
                   data: {
                     allowedRoles: ['ROLE_ADMIN']
                   }

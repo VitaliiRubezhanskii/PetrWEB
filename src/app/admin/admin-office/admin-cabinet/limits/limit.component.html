@@ -1,0 +1,48 @@
+<app-admin-office></app-admin-office>
+<h3 style="margin-top: 75px; text-align: center">Конструктор ограничений аудитории опроса</h3>
+<div style="margin-left: 300px; margin-right: 400px">
+  <form [formGroup]="limitForm">
+    <div class="form-group row">
+      <label for="region" class="col-sm-2 col-form-label"> Область:</label>
+      <div class="col-sm-10">
+          <select class="form-control" formControlName="region">
+            <option [value]="region" *ngFor="let region of regions">{{region}}</option>
+          </select>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="gender" class="col-sm-2 col-form-label">Пол:</label>
+      <div *ngFor="let g of gender">
+          <div class="col-sm-10" style="margin-left: 5px">
+              <input type="checkbox" name="ageGroup"  [value]="g" (change)="groupChosen(g)">
+              {{g}}
+           </div>
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+      <label for="ageGroup" class="col-sm-2 col-form-label">Возрастная группа:</label>
+      <div *ngFor="let ageGroup of ageGroups">
+        <div class="col-sm-10" style="margin-left: 20px">
+        <input type="checkbox" name="ageGroup"  [value]="ageGroup" (change)="groupChosen(ageGroup)">
+        {{ageGroup}}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="surveysCount">Количество анкет</label>
+      <input type="text" formControlName="surveysCount" class="form-control"/>
+    </div>
+
+    <div class="form-group row">
+      <div class="form-group ">
+        <div class="col-md-6">
+          <button (click)="saveLimits()"  class="btn btn-primary">Сохранить</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

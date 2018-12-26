@@ -50,28 +50,6 @@
   </div>
 </div>
 
-<div class="card">
-  <div *ngIf="questionnaireList ; else loading;">
-    <!--| async as questionnaires-->
-    <mat-list>
-      <h5 class="card-header" mat-subheader>
-        List of questionnaires
-        <mat-checkbox class="float-right" [(ngModel)]="showMine">Show only mine</mat-checkbox>
-      </h5>
-      <!--filterQuestionnaires(questionnaires)-->
-      <mat-list-item *ngFor="let q of questionnaireList">
-        <mat-icon mat-list-icon>note</mat-icon>
-        <h4 mat-line><b>{{q.name}}</b></h4>
-        <i mat-line> {{q.date | date}}</i>
-        <!--<p mat-line *ngIf="q.description">-->
-          <!--<i class="card-text">{{q.description}}</i>-->
-          <!--<br>-->
-        <!--</p>-->
-        <a [routerLink]="['/answer', q.id]" mat-button color="primary">Answer</a>
-      </mat-list-item>
-    </mat-list>
-  </div>
-</div>
 <ng-template #loading>
   <mat-spinner class="loader-container"></mat-spinner>
 </ng-template>

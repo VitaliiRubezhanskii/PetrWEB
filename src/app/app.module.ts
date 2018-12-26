@@ -81,12 +81,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ResponseComponent} from './questionary/response/response.component';
 import {ResponseService} from './_services/response.service';
 import {SurveyService} from './_services/survey.service';
-
 import { LayoutModule } from '@progress/kendo-angular-layout';;
-import { HomeNavbarComponent } from './home/home-navbar/home-navbar.component'
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';;
-import { QuestionsByTypeComponent } from './questionary/questions-by-type/questions-by-type.component'
-
+import { QuestionsByTypeComponent } from './questionary/questions-by-type/questions-by-type.component';
+import { LimitComponent } from './admin/admin-office/admin-cabinet/limits/limit.component';
 @NgModule({
     imports: [
       BrowserModule,
@@ -151,10 +149,9 @@ import { QuestionsByTypeComponent } from './questionary/questions-by-type/questi
       ResponseDetailsComponent,
       ResponseComponent,
       ConfirmDialog,
-      FilterPipe
-,
-      HomeNavbarComponent ,
-      QuestionsByTypeComponent   ],
+      FilterPipe,
+      QuestionsByTypeComponent ,
+      LimitComponent  ],
     providers: [
         AuthGuard,
         BsModalService,
