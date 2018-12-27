@@ -1,12 +1,22 @@
 <app-admin-office></app-admin-office>
 <h3 style="margin-top: 75px; text-align: center">Конструктор ограничений аудитории опроса</h3>
-<div style="margin-left: 300px; margin-right: 400px">
+<div style="margin-left: 200px; margin-right: 400px">
   <form [formGroup]="limitForm">
+
+    <div class="form-group row">
+      <label for="anketa" class="col-sm-2 col-form-label"> Анкета:</label>
+      <div class="col-sm-10">
+        <select class="form-control" formControlName="anketa" [(ngModel)]="surveyOption" (change)="getSurveyChosen(surveyOption.name)">
+          <option [value]="s.id" *ngFor="let s of surveys" >{{s.name}}</option>
+        </select>
+      </div>
+    </div>
+
     <div class="form-group row">
       <label for="region" class="col-sm-2 col-form-label"> Область:</label>
       <div class="col-sm-10">
-          <select class="form-control" formControlName="region">
-            <option [value]="region" *ngFor="let region of regions">{{region}}</option>
+          <select class="form-control" formControlName="region" [(ngModel)]="selectedOption" (change)="getRegionChosen(selectedOption)">
+            <option [value]="region" *ngFor="let region of regions" >{{region}}</option>
           </select>
       </div>
     </div>
@@ -15,7 +25,7 @@
       <label for="gender" class="col-sm-2 col-form-label">Пол:</label>
       <div *ngFor="let g of gender">
           <div class="col-sm-10" style="margin-left: 5px">
-              <input type="checkbox" name="ageGroup"  [value]="g" (change)="groupChosen(g)">
+              <input type="checkbox" name="ageGroup"  [value]="g" (change)="getGenderChosen(g, $event)">
               {{g}}
            </div>
         </div>
@@ -26,7 +36,7 @@
       <label for="ageGroup" class="col-sm-2 col-form-label">Возрастная группа:</label>
       <div *ngFor="let ageGroup of ageGroups">
         <div class="col-sm-10" style="margin-left: 20px">
-        <input type="checkbox" name="ageGroup"  [value]="ageGroup" (change)="groupChosen(ageGroup)">
+        <input type="checkbox" name="ageGroup" [checked]="isChecked"  [value]="ageGroup" (change)="getAgeGroupsChosen(ageGroup, $event)">
         {{ageGroup}}
         </div>
       </div>
