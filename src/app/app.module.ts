@@ -85,6 +85,7 @@ import { LayoutModule } from '@progress/kendo-angular-layout';;
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';;
 import { QuestionsByTypeComponent } from './questionary/questions-by-type/questions-by-type.component';
 import { LimitComponent } from './admin/admin-office/admin-cabinet/limits/limit.component';
+import {LimitService} from './_services/limit.service';
 @NgModule({
     imports: [
       BrowserModule,
@@ -166,6 +167,7 @@ import { LimitComponent } from './admin/admin-office/admin-cabinet/limits/limit.
       UserMessageService,
         fakeBackendProvider,
       QuestionnaireService,
+      LimitService,
       QuestionService,
       ResponseService,
       DialogsService,

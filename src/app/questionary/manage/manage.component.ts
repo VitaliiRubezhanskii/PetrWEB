@@ -26,11 +26,13 @@ export class ManageComponent implements OnInit {
         private userService: UserService) {}
 
     ngOnInit() {
-      this.userService.getByUsername(localStorage.getItem('username')).subscribe(u => {this.currentUser = u; });
-         this.surveyService.getList().subscribe(result => {
-           this.questionnaireList = result;
-           this.questionnaireList.forEach(q => {console.log(q.questions); });
-         });
+      this.userService.getByUsername(localStorage.getItem('username')).subscribe(u => {
+        this.currentUser = u;
+        this.surveyService.getSurveysForUser(u).subscribe(result => {
+          this.questionnaireList = result;
+          // this.questionnaireList.forEach(q => {console.log(q.questions); });
+        });
+      });
     }
 
     remove(id) {

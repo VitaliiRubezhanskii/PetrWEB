@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {SurveyService} from '../../../../_services/survey.service';
 import {Survey} from '../../../../_models/Survey';
 import {Limit, LimitDTO} from '../../../../_models/limits';
+import {LimitService} from '../../../../_services/limit.service';
 
 @Component({
   selector: 'app-limit',
@@ -12,7 +13,7 @@ import {Limit, LimitDTO} from '../../../../_models/limits';
 export class LimitComponent implements OnInit {
 
    public regions = ['Харьковская область', 'Херсонская область', 'Тернопольская область'];
-   public gender = ['Мужской', 'Женский'];
+   public gender = ['MALE', 'FEMALE'];
    public ageGroups = ['15 - 25', '25 - 35', '35 - 45', '45 - 55', '55 - 65', '65 - 75'];
    public selectedOption: string;
    public isChecked = false;
@@ -27,7 +28,8 @@ export class LimitComponent implements OnInit {
    public limit: Limit = new Limit();
    public limits: Limit[] = [];
    constructor(private formBuilder: FormBuilder,
-               private surveyService: SurveyService) { }
+               private surveyService: SurveyService,
+               private limitsService: LimitService) { }
    ngOnInit() {
      this.limitForm = this.formBuilder.group({anketa: '', region: '', gender: '', ageGroup: '', surveysCount: ''});
      this.surveyService.getList().subscribe(result => this.surveys = result);
@@ -75,7 +77,7 @@ export class LimitComponent implements OnInit {
 
    public saveLimits() {
      console.log(this.limitForm.controls.anketa.value);
-     this.surveyLimit.survey = this.limitForm.controls.anketa.value
+     this.surveyLimit.survey = this.limitForm.controls.anketa.value;
      this.surveyLimit.region = this.limitForm.controls.region.value;
      this.surveyLimit.gender = this.gendersChosen;
      this.surveyLimit.ageGroup = this.ageGroupsChosen;
@@ -95,6 +97,7 @@ export class LimitComponent implements OnInit {
        // this.limit.gender = gender;
        this.limits.push(this.limit);
      });
+     this.limitsService.saveLimits(this.surveyLimit, this.limitForm.controls.anketa.value).subscribe(result => {});
 
    }
 

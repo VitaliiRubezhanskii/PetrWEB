@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Survey} from '../_models/Survey';
 import {Question} from '../_models/question';
+import {User} from '../_models';
 
 @Injectable()
 export class SurveyService {
@@ -20,6 +21,10 @@ export class SurveyService {
   }
   public getList(): Observable<Survey[]> {
     return this.http.get<Survey[]>(`http://localhost:8080/surveys`);
+}
+
+public getSurveysForUser(user: User): Observable<Survey[]> {
+    return this.http.get<Survey[]>(`http://localhost:8080/surveys/bylimits/` + user.id);
 }
 
   public getSurveyById(surveyId): Observable<Survey> {

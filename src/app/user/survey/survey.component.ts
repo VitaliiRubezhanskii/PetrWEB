@@ -21,7 +21,7 @@ export class SurveyComponent implements OnInit {
   messageToAdminForm: FormGroup;
   user: User = new User();
   message: UserMessage = new UserMessage();
-  survey: Survey = new Survey();
+  survey: Survey[] = [];
 
   constructor(private modalService: BsModalService,
               private userService: UserService,
@@ -36,7 +36,7 @@ export class SurveyComponent implements OnInit {
       this.user = result;
     });
 
-    this.surveyService.getSurveyById(103).subscribe(result => { this.survey = result; });
+    this.surveyService.getSurveysForUser(this.user).subscribe(result => { this.survey = result; });
   }
   showForm(template: TemplateRef<any>) {
     this.modalService.show(template);

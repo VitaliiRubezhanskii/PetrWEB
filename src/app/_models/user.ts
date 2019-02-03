@@ -39,6 +39,6 @@ export class Role {
 }
 
 enum Gender {
-  MALE,
-  FEMALE
+  Мужской,
+  Женский
 }
