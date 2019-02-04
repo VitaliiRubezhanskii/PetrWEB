@@ -7,6 +7,7 @@ import {HttpClient} from '@angular/common/http';
 import {User} from '../_models';
 import {UserService} from './user.service';
 import {Answer} from '../_models/question';
+import {Survey} from '../_models/Survey';
 
 @Injectable()
 export class ResponseService {
@@ -32,8 +33,12 @@ export class ResponseService {
         // return this.db.object(this.baseUrl + `/${questionnaireId}`);
     }
 
-    public submit(answer: Answer , userId: number): Observable<any> {
-      return this.http.post<any>(`http://localhost:8080/answers/giveAnswer/` + answer.id + '/user/' + userId, {answer} );
+    public submit(answerId: number , userId: number): Observable<any> {
+      return this.http.post<any>(`http://localhost:8080/answers/giveAnswer/` + answerId + '/user/' + userId, {} );
+    }
+
+    public submitSurvey(survey: Survey, userId: number): Observable<any> {
+      return this.http.post<any>(`http://localhost:8080/surveys/submit/survey/` + survey.id + `/user/` + userId, {});
     }
 
     // public submit(name,  origQuestions) {

@@ -1,10 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import {QuestionnaireService} from '../../_services/questionnaire.service';
 import {ResponseService} from '../../_services/response.service';
 import {Survey} from '../../_models/Survey';
-import {Answer, Question, UserAnswer} from '../../_models/question';
+import { Question, UserAnswer } from '../../_models/question';
 import {SurveyService} from '../../_services/survey.service';
 import {User} from '../../_models';
 import {UserService} from '../../_services';
@@ -26,7 +25,6 @@ export class AnswerComponent implements OnInit {
     public userAnswer: UserAnswer = new UserAnswer();
     public filtQuestion: Question;
     public filteredQ = {question: {}, answers: [{}]};
-    // public answers: Answer[] = [];
     constructor(private route: ActivatedRoute,
                 private questionnaireService: QuestionnaireService,
                 private surveyService: SurveyService,
@@ -43,31 +41,26 @@ export class AnswerComponent implements OnInit {
       this.questions = this.survey.questions;
 
     });
+      this.userService.getByUsername(localStorage.getItem('username')).subscribe(u => {
+        this.user = u;
+      });
     }
 
     showEvent(event, question: Question) {
+      console.log(this.survey);
       this.userAnswer = event;
       this.filtQuestion = question;
       this.filteredQ.question = this.filtQuestion;
       this.filteredQ.answers = question.answers.filter(a => a.id === this.userAnswer.answerValue)
-      // this.filteredAnswers = this.filteredQ.answers.filter(a => a.id === this.userAnswer.answerValue);
-      // this.filteredQ.answers = this.filteredAnswers;
       console.log(event);
-      console.log(this.filteredQ);
-      this.submit(this.filteredQ);
+      this.submit(this.userAnswer.answerValue);
     }
 
-    submit(questionDTO: any) {
-      // questions.forEach(q => console.log(q));
-      this.userService.getByUsername(localStorage.getItem('username')).subscribe(u => {
-        this.user = u;
-        console.log(this.user.email);
-        this.users.push(u);
-      });
-      setTimeout(() => {
-          questionDTO.answers.forEach(answer => {
-            // answer.users = this.users;
-            this.responseService.submit(answer, this.user.id).subscribe(r => {}); });
-      }, 1500);
+    submit(answer: number) {
+            this.responseService.submit(answer, this.user.id).subscribe(r => {});
+    }
+
+    submitSurvey(survey: Survey) {
+      this.responseService.submitSurvey(survey, this.user.id).subscribe(res => {});
     }
 }
