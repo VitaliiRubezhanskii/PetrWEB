@@ -14,6 +14,8 @@ import {BankService} from '../_services/bank.service';
 import {CooperationMessage} from '../_models/cooperationMessage';
 import {CooperationMessageService} from '../_services/cooperation-message.service';
 import {UploadFileService} from '../_services/uploadFile.service';
+import {DateAdapter} from '@angular/material';
+import {MatDatepickerInputEvent} from '@angular/material/typings/esm5/datepicker';
 
 
 @Component({
@@ -49,6 +51,10 @@ export class HomeComponent implements OnInit {
   myFiles: File[] = [];
   files: FileList[] = [];
   gender = ['Мужской', 'Женский'];
+  startDate = new Date();
+  myDate = new Date();
+  events: string[] = [];
+  birthDatePicked: string;
   constructor(
                 private userService: UserService,
                 private bankService: BankService,
@@ -59,11 +65,14 @@ export class HomeComponent implements OnInit {
                 private uploadService: UploadFileService,
                 private route: ActivatedRoute,
                 private router: Router,
+                private dateAdapter: DateAdapter<any>
                 ) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
     ngOnInit() {
+    console.log(this.myDate);
+      this.dateAdapter.setLocale('ru');
       this.loginForm = this.formBuilder.group({
         username: ['', Validators.required],
         password: ['', Validators.required]
@@ -125,6 +134,7 @@ export class HomeComponent implements OnInit {
     this.address = new Address();
     this.loading = true;
     this.newUser.name = this.registerForm.controls.name.value;
+    this.newUser.birthDate = this.birthDatePicked;
     this.newUser.surname = this.registerForm.controls.surname.value;
     this.newUser.middleName = this.registerForm.controls.middleName.value;
     this.newUser.username = this.registerForm.controls.username.value;
@@ -177,6 +187,27 @@ export class HomeComponent implements OnInit {
       console.log("result is ", data);
     });
     this.selectedFiles = undefined;
+  }
+
+
+
+  addEvent(event: MatDatepickerInputEvent<Date>) {
+    // this.events.push(`${type}: ${event.value.getDate()}
+    // .${event.value.getMonth() + 1}
+    // .${event.value.getFullYear()}`);
+
+    let day = event.value.getDate().toString();
+    let month = event.value.getMonth().toString();
+    const year = event.value.getFullYear().toString();
+    if (month.length === 1) {
+      month = `0` + `${event.value.getMonth() + 1}`;
+    }
+    if (day.length === 1) {
+      day = `0` + `${event.value.getMonth()}`;
+    }
+    console.log(day + `.` + month + `.` + year);
+    this.birthDatePicked = day + `.` + month + `.` + year;
+
   }
 
 }

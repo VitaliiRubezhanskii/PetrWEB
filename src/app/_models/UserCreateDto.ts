@@ -5,7 +5,7 @@ export class UserCreateDto {
    name: string;
    surname: string;
    middleName: string;
-   birthDate: number;
+   birthDate: string;
    phone: string;
    gender: string;
    email: string;

@@ -5,6 +5,7 @@
 </div>
 
 <button (click) = "showForm(message)" style="float: right;margin-right: 20px" class="btn btn-danger">Написать администратору</button>
+<button (click) = "showForm(register)" style="float: right;margin-right: 20px" class="btn btn-danger">Регистрация пользователя</button>
 
 
 <app-manage [surveys]="survey"></app-manage>
@@ -29,5 +30,223 @@
 
       </form>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #register>
+  <div style="margin: 20px">
+    <h2 style="text-align: center">Регистрация</h2>
+    <form [formGroup]="registerForm">
+
+      <div class="form-group">
+        <label for="surname">Фамилия</label>
+        <input type="text" formControlName="surname" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.surname.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.surname.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.surname.errors.required">Last Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Имя</label>
+        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.name.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.name.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.name.errors.required">First Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="middleName">Отчество</label>
+        <input type="text" formControlName="middleName" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.middleName.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.middleName.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.middleName.errors.required">First Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="gender">Пол</label>
+        <div class="radio" *ngFor="let g of gender">
+          <label>
+            <input type="radio" name="answer" [checked]="0">
+            {{g}}
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="birthDate">Дата рождения</label>
+        <input type="text" formControlName="birthDate" class="form-control" placeholder="дд/мм/гг" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.birthDate.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.birthDate.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.birthDate.errors.required">First Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <small>* загрузка фото всех документов обязательна для регистрации</small>
+        <label for="inn_photo">Прикрепите Ваше фото</label>
+        <label class="btn btn-default">
+          <input type="file" (change)="selectFile($event)"/>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label for="inn">ИНН номер</label>
+        <input type="text" formControlName="inn" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.inn.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.inn.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.inn.errors.required">Last Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="your_photo">Прикрепите фото ИНН</label>
+        <label class="btn btn-default">
+          <input type="file" (change)="selectFile($event)"/>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label for="passport">Пасспорт серия/номер</label>
+        <input type="text" formControlName="passport" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.passport.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.passport.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.passport.errors.required">Last Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="issuedBy">Кем выдан пасспорт</label>
+        <input type="text" formControlName="issuedBy" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.issuedBy.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.issuedBy.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.issuedBy.errors.required">Last Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="issuedWhen">Дата выдачи пасспорта</label>
+        <input type="text" formControlName="issuedWhen" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.issuedWhen.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.issuedWhen.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.issuedWhen.errors.required">Last Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="pass_first_page">Прикрепите фото паспорта 1 стр.</label>
+        <label class="btn btn-default">
+          <input type="file" (change)="selectFile($event)"/>
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="pass_second_page">Прикрепите фото паспорта 2 стр.</label>
+        <label class="btn btn-default">
+          <input type="file" (change)="selectFile($event)"/>
+        </label>
+      </div>
+      <div class="form-group">
+        <label for="pass_last_page">Прикрепите фото паспорта (прописка)</label>
+        <label class="btn btn-default">
+          <input type="file" (change)="selectFile($event)"/>
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label for="bank" class="control-label">Банк</label>
+        <select class="form-control" formControlName="bank">
+          <option [value]="bank.id" *ngFor="let bank of banks">{{bank.name}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="card">Номер банковской карты</label>
+        <input type="text" formControlName="card" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.card.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.card.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.card.errors.required">Last Name is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="username">Имя пользователя/Email</label>
+        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.username.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.username.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.username.errors.required">Username is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.email.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.email.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.email.errors.required">Username is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="oblast">Область</label>
+        <input type="text" formControlName="oblast" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.oblast.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.oblast.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.oblast.errors.required">Username is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="city">Город</label>
+        <input type="text" formControlName="city" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.email.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.email.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.email.errors.required">Username is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="street">Улица</label>
+        <input type="text" formControlName="street" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.street.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.street.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.street.errors.required">Username is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="buildingNum">Дом</label>
+        <input type="text" formControlName="buildingNum" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.buildingNum.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.buildingNum.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.buildingNum.errors.required">Username is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="apartmentNum">Квартира</label>
+        <input type="text" formControlName="apartmentNum" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.apartmentNum.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.apartmentNum.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.apartmentNum.errors.required">Username is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Телефон</label>
+        <input type="text" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.phone.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.phone.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.phone.errors.required">Username is required</div>
+        </div>
+      </div>
+
+      <div class="form-group ">
+        <label for="password">Пароль</label>
+        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.password.errors }" />
+        <div *ngIf="submitted && getRegisterFormontrol.password.errors" class="invalid-feedback">
+          <div *ngIf="getRegisterFormontrol.password.errors.required">Password is required</div>
+          <div *ngIf="getRegisterFormontrol.password.errors.minlength">Password must be at least 6 characters</div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="form-group ">
+          <div class="col-md-6">
+            <button (click)="onRegister()"  class="btn btn-primary">Отправить</button>
+          </div>
+        </div>
+
+        <div class="form-group ">
+          <div class="col-md-6">
+            <button (click)="hideForm()" class="btn btn-danger">Отмена</button>
+          </div>
+        </div>
+      </div>
+    </form>
   </div>
 </ng-template>

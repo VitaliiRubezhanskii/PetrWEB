@@ -31,9 +31,12 @@
   <!-- About Section -->
   <div class="w3-container w3-padding-32" id="about">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16" style="text-align: center">О нас</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-      occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-      laboris nisi ut aliquip ex ea commodo consequat.
+    <p>Товариство з обмеженою відповідальністю «Інвестиційна консалтингова компанія «Суспільні ресурси»» є незалежною приватною дослідницькою компанією, що спеціалізується на проведенні соціологічних і маркетингових досліджень, інформаційно-аналітичному обслуговуванні, політичному та управлінському консультуванні, політичних технологіях, соціальній інженерії.
+      Дослідницька група засновників як творчий колектив існує з 1992 року. За сприяння ряду фахівців академічних інститутів гуманітарного профілю трансформувалася в Інвестиційну Консалтингову Компанію «Суспільні ресурси».
+      Концепція (філософія) фірми
+      Всю свою історію працюємо в жанрах творчої майстерні і "технологічного бутика". Група не прагне до ринкової експансії, і, не дивлячись на "солідний" CV, весь час зберігає досить невеликий склад співробітників. На відміну від великих соціологічних «фабрик», Суспільні ресурси концентруються на спеціальних "неконвеєрних" (а часом просто унікальних) проектах. Для колективу фірми важлива інноваційна творча складова проекту, що дозволяє не тільки виконати технологічне завдання, а й розробити для кожного проекту щось своє, нове, оригінальне. Така установка дозволяє підходити до кожного проекту (клієнта) з особливою ретельністю і увагою. У кожному навіть невеликому замовленні Суспільні ресурси максимально використовують високий творчий потенціал і багатий методологічний арсенал групи.
+      Інноваційна спрямованість робіт проявляється і у виборі головних технологічних напрямків. Всі роки своєї діяльності концентруємося на технологіях різних соціальних інновацій та інноваційної активності людей. У різний час новими соціальними практиками для громадян України були участь у виборах, фінансова активність, цивільні практики і некомерційна громадська діяльність, соціальне підприємництво, нові форми поселень і т.п. - і все це ставало предметом пильної уваги Суспільних ресурсів.
+      Вбачаючи головну мету прикладних досліджень перш за все в забезпеченні управлінської діяльності, Суспільні ресурси формулюють свою місію двояко: з одного боку як впровадження якісної соціальної експертизи в практику управління в самих різних областях, з іншого - як непрямий внесок у розвиток інноваційних технологій через практичні комерційні розробки . Або, іншими словами, як безперервне з'єднання інтелектуальної творчості з виробництвом конкретного прикладного продукту для управлінців різного профілю. Таким чином, діяльність Суспільних ресурсів націлена на поєднання прикладної (комерційної) спрямованості досліджень з академічною (науковою) обґрунтованістю і творчої новизною.
     </p>
   </div>
 
@@ -207,14 +210,11 @@
           </label>
         </div>
       </div>
-
-      <div class="form-group">
-        <label for="birthDate">Дата рождения</label>
-        <input type="text" formControlName="birthDate" class="form-control" placeholder="дд/мм/гг" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.birthDate.errors }" />
-        <div *ngIf="submitted && getRegisterFormontrol.birthDate.errors" class="invalid-feedback">
-          <div *ngIf="getRegisterFormontrol.birthDate.errors.required">First Name is required</div>
-        </div>
-      </div>
+        <mat-form-field >
+          <input  (dateInput)="addEvent($event)"  matInput [matDatepicker]="picker"  placeholder="Выберите дату рождения">
+          <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker  #picker startView="year" [startAt]="startDate"></mat-datepicker>
+        </mat-form-field>
 
       <div class="form-group">
         <small>* пожалуйста, подгружайте документы в согласно порядку формы</small>
