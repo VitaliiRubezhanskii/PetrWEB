@@ -86,6 +86,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';;
 import { QuestionsByTypeComponent } from './questionary/questions-by-type/questions-by-type.component';
 import { LimitComponent } from './admin/admin-office/admin-cabinet/limits/limit.component';
 import {LimitService} from './_services/limit.service';
+import {SurveyResultService} from './_services/surveyResult.service';
 @NgModule({
     imports: [
       BrowserModule,
@@ -171,6 +172,7 @@ import {LimitService} from './_services/limit.service';
       QuestionService,
       ResponseService,
       DialogsService,
+      SurveyResultService,
       SurveyService
     ],
     bootstrap: [AppComponent, AdminOfficeComponent],

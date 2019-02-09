@@ -72,13 +72,11 @@
         </div>
       </div>
 
-      <div class="form-group">
-        <label for="birthDate">Дата рождения</label>
-        <input type="text" formControlName="birthDate" class="form-control" placeholder="дд/мм/гг" [ngClass]="{ 'is-invalid': submitted && getRegisterFormontrol.birthDate.errors }" />
-        <div *ngIf="submitted && getRegisterFormontrol.birthDate.errors" class="invalid-feedback">
-          <div *ngIf="getRegisterFormontrol.birthDate.errors.required">First Name is required</div>
-        </div>
-      </div>
+      <mat-form-field >
+        <input  (dateInput)="addEvent($event)"  matInput [matDatepicker]="picker"  placeholder="Выберите дату рождения">
+        <mat-datepicker-toggle  matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker  #picker startView="year" [startAt]="startDate"></mat-datepicker>
+      </mat-form-field>
 
       <div class="form-group">
         <small>* загрузка фото всех документов обязательна для регистрации</small>

@@ -3,3 +3,52 @@
 <div style="margin-top: 60px; text-align: center">
   <h3>Начислено баллов</h3>
 </div>
+
+<button (click) = "showOwnScoring()" style="float: right;margin-right: 20px" class="btn btn-danger">Мои результаты</button>
+<button (click) = "showChildresScoring()" style="float: right;margin-right: 20px" class="btn btn-danger">Результаты 2-го уровня</button>
+
+<div class="w3-container w3-padding-32" style="margin-top: 15px" >
+  <div class="container row">
+    <div class="table" >
+      <h3>Таблица результатов заполнения анкет</h3>
+      <table class="table table-striped">
+
+        <thead class="nowrap">
+        <tr>
+          <th>Анкета</th>
+          <th>Дата заполнения</th>
+          <th>Пользователь</th>
+          <th>Email</th>
+          <th>Телефон</th>
+          <th>Баллы</th>
+        </tr>
+        </thead>
+
+        <tbody *ngIf="currentUser">
+        <tr *ngFor = "let surveyResult of surveyResults">
+          <td>{{surveyResult.survey.name}}</td>
+          <td>{{surveyResult.survey.date}}</td>
+          <td>{{surveyResult.user.name}} {{surveyResult.user.middleName}} {{surveyResult.user.surname}}</td>
+          <td>{{surveyResult.user.email}}</td>
+          <td>{{surveyResult.user.phone}}</td>
+          <td>{{surveyResult.bonus}}</td>
+        </tr>
+        </tbody>
+
+        <tbody *ngIf="!currentUser">
+        <tr *ngFor = "let surveyResult of childrenSurveyResults">
+          <td>{{surveyResult.survey.name}}</td>
+          <td>{{surveyResult.survey.date}}</td>
+          <td>{{surveyResult.user.name}} {{surveyResult.user.middleName}} {{surveyResult.user.surname}}</td>
+          <td>{{surveyResult.user.email}}</td>
+          <td>{{surveyResult.user.phone}}</td>
+          <td>{{surveyResult.bonus}}</td>
+        </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>
+
+
