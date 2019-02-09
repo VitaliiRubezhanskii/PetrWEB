@@ -6,7 +6,7 @@ import {AuthenticationService, UserService} from '../_services';
 import { BsModalService, BsModalRef} from 'ngx-bootstrap';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {User} from "../_models";
+import {Role, User} from '../_models';
 import {UserCreateDto} from "../_models/UserCreateDto";
 import {Address} from "../_models/address";
 import {Bank} from '../_models/bank';
@@ -55,6 +55,7 @@ export class HomeComponent implements OnInit {
   myDate = new Date();
   events: string[] = [];
   birthDatePicked: string;
+
   constructor(
                 private userService: UserService,
                 private bankService: BankService,
@@ -130,6 +131,10 @@ export class HomeComponent implements OnInit {
   }
 
   onRegister() {
+    const setOfRoles = new Set();
+    const roles: Role[] = [];
+    roles.push(new Role('USER', 'User role'));
+
     this.newUser = new UserCreateDto();
     this.address = new Address();
     this.loading = true;
@@ -151,6 +156,7 @@ export class HomeComponent implements OnInit {
     this.newUser.password = this.registerForm.controls.password.value;
     this.newUser.bank = this.registerForm.controls.bank.value;
     this.newUser.address = this.address;
+    this.newUser.roles = roles;
     this.userService.createUser(this.newUser).subscribe(() => {
 
       this.userService.getByUsername(this.newUser.username).subscribe((result: User) => {

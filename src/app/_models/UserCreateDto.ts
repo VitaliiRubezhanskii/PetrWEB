@@ -1,5 +1,6 @@
 import {Address} from "./address";
 import {Bank} from './bank';
+import {Role} from './user';
 
 export class UserCreateDto {
    name: string;
@@ -19,5 +20,6 @@ export class UserCreateDto {
    address: Address;
    bank: number;
    password: string;
+   roles: Role[];
 
 }
