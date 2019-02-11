@@ -79,7 +79,7 @@ export class HomeComponent implements OnInit {
         password: ['', Validators.required]
       });
       this.messageForm = this.formBuilder.group({senderName: '', email: '', subject: '', phone: '', comment: ''});
-      this.bankService.getAllBanks().subscribe(data => { this.banks = data; });
+      this.bankService.getAllBanks().subscribe(data => { this.banks = data.filter(b => !b.deleted); });
       this.registerForm = this.formBuilder.group({
         name: '', middleName: '', surname: '', username: '', password: '', email: '', oblast: '', city: '',
         street: '', buildingNum: '', apartmentNum: '', phone: '', card: '', inn: '', passport: '', issuedBy: '', issuedWhen: '',
@@ -134,7 +134,6 @@ export class HomeComponent implements OnInit {
     const setOfRoles = new Set();
     const roles: Role[] = [];
     roles.push(new Role('USER', 'User role'));
-
     this.newUser = new UserCreateDto();
     this.address = new Address();
     this.loading = true;

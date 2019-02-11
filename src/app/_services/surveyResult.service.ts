@@ -10,12 +10,16 @@ export class SurveyResultService {
   constructor(private http: HttpClient) {}
 
 
-  public getSurveyResultOfUser(user: User): Observable<any> {
-    return this.http.get(`http://localhost:8080/scoring/user/` + user.id);
+  public getSurveyResultOfUser(user: User): Observable<SurveyResult[]> {
+    return this.http.get<SurveyResult[]>(`http://localhost:8080/scoring/user/` + user.id);
   }
 
-  public getSurveyResultOfChildren(user: User): Observable<any> {
-    return this.http.get(`http://localhost:8080/scoring/users/` + user.id + `/children`);
+  public getSurveyResultOfChildren(user: User): Observable<SurveyResult[]> {
+    return this.http.get<SurveyResult[]>(`http://localhost:8080/scoring/users/` + user.id + `/children`);
+  }
+
+  public getSurveyResultsOfAll(): Observable<any>{
+    return this.http.get(`http://localhost:8080/scoring/results/all`);
   }
 
 }

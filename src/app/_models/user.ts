@@ -29,6 +29,7 @@ export class User {
   password: string;
   address: Address;
   roles: Role[];
+  parentId: number;
 
 }
 

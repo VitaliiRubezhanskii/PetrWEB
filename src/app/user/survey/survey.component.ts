@@ -66,7 +66,7 @@ export class SurveyComponent implements OnInit {
       password: ['', Validators.required]
     });
     this.messageForm = this.formBuilder.group({senderName: '', email: '', subject: '', phone: '', comment: ''});
-    this.bankService.getAllBanks().subscribe(data => { this.banks = data; });
+    this.bankService.getAllBanks().subscribe(data => { this.banks = data.filter(bank => !bank.deleted); });
     this.registerForm = this.formBuilder.group({
       name: '', middleName: '', surname: '', username: '', password: '', email: '', oblast: '', city: '',
       street: '', buildingNum: '', apartmentNum: '', phone: '', card: '', inn: '', passport: '', issuedBy: '', issuedWhen: '',
@@ -154,6 +154,7 @@ export class SurveyComponent implements OnInit {
     });
     this.selectedFiles = undefined;
   }
+
   selectFile(event) {
     this.selectedFiles = event.target.files;
     this.files.push(this.selectedFiles);

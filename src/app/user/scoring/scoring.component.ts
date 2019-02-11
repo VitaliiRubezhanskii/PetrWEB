@@ -37,4 +37,6 @@ export class ScoringComponent implements OnInit {
       this.childrenSurveyResults = result});
   }
 
+
+
 }
