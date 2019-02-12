@@ -18,4 +18,7 @@ export class UserMessageService {
   getAllMessages(): Observable<UserMessage[]> {
     return this.http.get<UserMessage[]>(`http://localhost:8080/user/messages`);
   }
+  delete(message: UserMessage) {
+    return this.http.put(`http://localhost:8080/user/messages/delete`, message);
+  }
 }

@@ -15,6 +15,7 @@ import {ResponseComponent} from './questionary/response/response.component';
 import {ResponseDetailsComponent} from './questionary/response-details/response-details.component';
 import {AnswerComponent} from './questionary/answer/answer.component';
 import {LimitComponent} from './admin/admin-office/admin-cabinet/limits/limit.component';
+import {SurveyResultsComponent} from './admin/admin-office/admin-cabinet/survey-results/survey-results.component';
 
 
 const appRoutes: Routes = [
@@ -65,6 +66,13 @@ const appRoutes: Routes = [
                 {
                   path: 'requests',
                   component: CooperationComponent,
+                  data: {
+                    allowedRoles: ['ROLE_ADMIN']
+                  }
+                },
+                {
+                  path: 'results',
+                  component: SurveyResultsComponent,
                   data: {
                     allowedRoles: ['ROLE_ADMIN']
                   }
@@ -135,6 +143,13 @@ const appRoutes: Routes = [
             {
               path: 'scoring',
               component: ScoringComponent,
+              data: {
+                allowedRoles: ['ROLE_USER']
+              }
+            },
+            {
+              path: 'messages',
+              component: NotificationComponent,
               data: {
                 allowedRoles: ['ROLE_USER']
               }

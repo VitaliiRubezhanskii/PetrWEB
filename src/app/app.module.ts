@@ -86,7 +86,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';;
 import { QuestionsByTypeComponent } from './questionary/questions-by-type/questions-by-type.component';
 import { LimitComponent } from './admin/admin-office/admin-cabinet/limits/limit.component';
 import {LimitService} from './_services/limit.service';
-import {SurveyResultService} from './_services/surveyResult.service';
+import {SurveyResultService} from './_services/surveyResult.service';;
+import { SurveyResultsComponent } from './admin/admin-office/admin-cabinet/survey-results/survey-results.component'
 @NgModule({
     imports: [
       BrowserModule,
@@ -153,7 +154,8 @@ import {SurveyResultService} from './_services/surveyResult.service';
       ConfirmDialog,
       FilterPipe,
       QuestionsByTypeComponent ,
-      LimitComponent  ],
+      LimitComponent ,
+      SurveyResultsComponent ],
     providers: [
         AuthGuard,
         BsModalService,
