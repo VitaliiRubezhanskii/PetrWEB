@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import {AuthenticationService} from './authentication.service';
 import { Observable } from 'rxjs';
-import 'rxjs/add/observable/from';
+
 import {HttpClient} from '@angular/common/http';
 import {Survey} from '../_models/Survey';
 import {Answer, Question} from '../_models/question';

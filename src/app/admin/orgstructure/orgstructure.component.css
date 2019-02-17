@@ -235,3 +235,16 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 a {
   cursor: pointer;
 }
+table {
+  width: 70%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+th.mat-header-cell {
+  text-align: left;
+  max-width: 300px!important;
+}
+html {
+  overflow: hidden;
+}

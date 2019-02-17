@@ -30,6 +30,7 @@ export class BankComponent implements OnInit {
      // }
 
     this.bankService.getAllBanks().subscribe(data => { this.banks = data; });
+    console.log(this.banks)
     this.bankForm = this.formBuilder.group({
       bankName: ''
     });

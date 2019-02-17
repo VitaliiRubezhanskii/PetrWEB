@@ -4,30 +4,60 @@
   <h3>Статистика сети</h3>
 </div>
 
-<div class="w3-container w3-padding-32" style="margin-top: 15px">
-  <div class="container row">
-    <div class="table" >
-      <table class="table table-striped">
-        <thead class="nowrap">
-        <tr>
-          <th>Анкета</th>
-          <th>Дата заполнения</th>
-          <th>Пользователь</th>
-          <th>Email</th>
-          <th>Телефон</th>
-          <th>Баллы</th>
-        </tr>
-        </thead>
+<jqxTreeGrid [theme]="'material'" #myTreeGrid
+             [width]="getWidth()" [source]="dataAdapter" [columns]="columns" [height]="600"
+             [filterMode]="'simple'" [filterable]="true" [sortable]="true" [pageable]="true"
+             [pagerMode]="'advanced'" [localization]="localization"
+             (onRowDoubleClick)="rowDoubleClick($event)" [altRows]="true"  [ready]="ready">
+</jqxTreeGrid>
 
-        <tbody *ngFor=" let surveyResult of surveyResults ">
-        <tr>
-          <td>{{surveyResult.survey.name}}</td>
-          <td>{{surveyResult.survey.date}}</td>
-          <td>{{surveyResult.user.name}} {{surveyResult.user.middleName}} {{surveyResult.user.surname}}</td>
-          <td>{{surveyResult.user.email}}</td>
-          <td>{{surveyResult.user.phone}}</td>
-          <td>{{surveyResult.bonus}}</td>
-        </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="w3-container w3-padding-32" style="margin-top: 15px">-->
+  <!--<div class="container row">-->
+    <!--<div class="table" >-->
+      <!--<table class="table table-striped">-->
+        <!--<thead class="nowrap">-->
+        <!--<tr>-->
+          <!--<th>Анкета</th>-->
+          <!--<th>Дата заполнения</th>-->
+          <!--<th>Пользователь</th>-->
+          <!--<th>Email</th>-->
+          <!--<th>Телефон</th>-->
+          <!--<th>Баллы</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+
+        <!--<tbody *ngFor=" let surveyResult of surveyResults ">-->
+        <!--<tr>-->
+          <!--<td>{{surveyResult.survey.name}}</td>-->
+          <!--<td>{{surveyResult.survey.date}}</td>-->
+          <!--<td>{{surveyResult.user.name}} {{surveyResult.user.middleName}} {{surveyResult.user.surname}}</td>-->
+          <!--<td>{{surveyResult.user.email}}</td>-->
+          <!--<td>{{surveyResult.user.phone}}</td>-->
+          <!--<td>{{surveyResult.bonus}}</td>-->
+        <!--</tr>-->
         <!--<tr *ngFor="let childResult of showChildresScoring(surveyResult.user)">-->
           <!--<td>{{childResult.survey.name}}</td>-->
           <!--<td>{{childResult.survey.date}}</td>-->
@@ -44,13 +74,8 @@
           <!--<td>{{surveyResult.user.phone}}</td>-->
           <!--<td>{{surveyResult.bonus}}</td>-->
         <!--</tr>-->
-
-
-
-        </tbody>
-
-
-      </table>
-    </div>
-  </div>
-</div>
+        <!--</tbody>-->
+      <!--</table>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->

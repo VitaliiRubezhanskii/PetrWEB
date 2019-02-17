@@ -1,12 +1,13 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {UserService} from '../../_services';
+import { MatSort, MatPaginator } from '@angular/material';
+import {Role, User} from '../../_models';
+import { jqxTreeGridComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxtreegrid';
+import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
+import {jqxInputComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxinput';
+import {jqxDateTimeInputComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
+import {Address} from '../../_models/address';
 
-import {ActivatedRoute} from '@angular/router';
-import {User} from "../../_models";
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {PagerService} from "../../_services/pager.service";
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {UploadFileService} from '../../_services/uploadFile.service';
 
 @Component({
   selector: 'app-admin',
@@ -14,94 +15,173 @@ import {UploadFileService} from '../../_services/uploadFile.service';
   styleUrls: ['./orgstructure.component.css']
 })
 export class OrgstructureComponent implements OnInit {
-
   @ViewChild('editUserForm')
   editUserFormRef: TemplateRef<any>
-  users: User[];
+  users: any [] = [];
   user: User;
-  isUserDeleted: boolean;
-  modalRef: BsModalRef;
-  pager: any = {};
-  pagedItems: any[];
-  allItems: any[];
-  editUserForm: FormGroup;
+   userDto: User = new User();
+   addressDto: Address = new Address();
   types: string[] = ['photo', 'inn', 'pass_first', 'pass_second', 'pass_last'];
   type: string;
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild('myTreeGrid') myTreeGrid: jqxTreeGridComponent;
+  @ViewChild('jqxWindow') jqxWindow: jqxWindowComponent;
+  @ViewChild('TreeGrid') treeGrid: jqxTreeGridComponent;
+  @ViewChild('id') id: jqxInputComponent;
+  @ViewChild('Name') name: jqxInputComponent;
+  @ViewChild('MiddleName') middleName: jqxInputComponent;
+  @ViewChild('Surname') surname: jqxInputComponent;
+  @ViewChild('Email') email: jqxInputComponent;
+  @ViewChild('Phone') phone: jqxInputComponent;
+  @ViewChild('Status') status: jqxInputComponent;
+  @ViewChild('Oblast') oblast: jqxInputComponent;
+  @ViewChild('City') city: jqxInputComponent;
+  @ViewChild('Street') street: jqxInputComponent;
+  @ViewChild('BuildingNum') building: jqxInputComponent;
+  @ViewChild('ApartmentNum') apartment: jqxInputComponent;
+  @ViewChild('Address') address: jqxInputComponent;
+  @ViewChild('BirthDate') birthDate: jqxDateTimeInputComponent;
 
-  constructor(private userService: UserService,
-              private route: ActivatedRoute,
-              private uploadService: UploadFileService,
-              private formBuilder: FormBuilder,
-              private modalService: BsModalService,
-              private pagerService: PagerService) { }
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit() {
-    // this.route.data.subscribe( (data: {
-    //   customerArray: Array<Customer>
-    // }) => this.customers = data.customerArray);
-    this.editUserForm = this.formBuilder.group({
-      middleName: '',
-      oblast: '',
-      city: '',
-      street: '',
-      buildingNum: '',
-      apartmentNum: '',
-      phone: '',
-      email: ''
-    })
-      this.userService.getAllUsers().subscribe(result => {
-        console.log(result);
-        this.users = result;
-         });
-   }
-
-
-
-  deleteUser(user: User) {
-
-    this.isUserDeleted = !user.deleted;
-    this.userService.deleteUser(user).subscribe(u => {});
+    this.userService.getUsersStructure().subscribe(data => data.forEach(u => {
+    // let strUser = new StructureUser();
+    // strUser.id = u.id;
+    // strUser.surname = u.name;
+    // strUser.middleName = u.middleName;
+    // strUser.surname = u.surname;
+    // strUser.email = u.email;
+    // strUser.phone = u.phone;
+    // strUser.oblast = u.address.oblast;
+    // strUser.city = u.address.city;
+    // strUser.street = u.address.street;
+    // strUser.building = u.address.buildingNum;
+    // strUser.apartment = u.address.apartmentNum;
+      this.users.push(u);
+    }));
+    console.log(this.users);
   }
 
-  editUser(user: User) {
-    user.middleName = this.editUserForm.controls.middleName.value;
-    user.address.oblast = this.editUserForm.controls.oblast.value;
-    user.address.city = this.editUserForm.controls.city.value;
-    user.address.street = this.editUserForm.controls.street.value;
-    user.address.buildingNum = this.editUserForm.controls.buildingNum.value;
-    user.address.apartmentNum = this.editUserForm.controls.apartmentNum.value;
-    user.phone = this.editUserForm.controls.phone.value;
-    user.email = this.editUserForm.controls.email.value;
-    console.log(user)
-    this.userService.editUser(user).subscribe(u => {console.log(user);});
-    this.modalService.hide(1);
+  source: any =
+    {
+      dataType: 'json',
+      dataFields: [
+        {name: 'id', type: 'number'},
+        {name: 'parentId', type: 'number'},
+        {name: 'name', type: 'string'},
+        {name: 'middleName', type: 'string'},
+        {name: 'surname', type: 'string'},
+        {name: 'phone', type: 'string'},
+        {name: 'email', type: 'string'},
+        {name: 'oblast', type: 'string'},
+        {name: 'city', type: 'string'},
+        {name: 'street', type: 'string'},
+        {name: 'building', type: 'string'},
+        {name: 'apartment', type: 'string'},
+      ],
+      hierarchy:
+        {
+          keyDataField: {name: 'id'},
+          parentDataField: {name: 'parentId'}
+        },
+      id: 'id',
+      url: 'http://localhost:8080/users/all/structure'
 
-  }
 
-  showEditForm(template: TemplateRef<any>, user: User) {
-    this.user = user;
-    this.modalService.show(template);
-  }
+    };
 
-  hideEditForm() {
-    this.modalService.hide(1);
-  }
-
-
-  setPage(page: number) {
-    console.log(page)
-    if (page < 1 || page > this.pager.totalPages) {
-      return;
+  getWidth(): any {
+    if (document.body.offsetWidth < 850) {
+      return '200%';
     }
 
-    // get pager object from service
-    this.pager = this.pagerService.getPager(this.allItems.length, page);
-
-    // get current page of items
-    this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    return 1100;
   }
 
-  download(user: User, type: string) {
-    this.uploadService.getFile(user, type).subscribe(u => {});
+  dataAdapter: any = new jqx.dataAdapter(this.source);
+  columns: any[] =
+    [{text: 'id', dataField: 'id', editable: false, width: 200},
+      {text: 'Имя', dataField: 'name', width: 200},
+      {text: 'Отчество', dataField: 'middleName', width: 150},
+      {text: 'Фамилия', dataField: 'surname', width: 160},
+      {text: 'Телефон', dataField: 'phone', width: 120},
+      {text: 'Email', dataField: 'email', width: 120},
+      {text: 'Область', dataField: 'oblast', width: 120},
+      {text: 'Город', dataField: 'city', width: 120},
+      {text: 'Улица', dataField: 'street', width: 120},
+      {text: 'Дом', dataField: 'building', width: 120},
+      {text: 'Квартира', dataField: 'apartment', width: 120},
+      {text: 'Руководитель', dataField: 'parentId', width: 120},
+
+    ];
+
+  ready = (): void => {
+    this.myTreeGrid.expandRow(2);
+  };
+
+  dataRow: any = null;
+
+  rowDoubleClick(event: any): void {
+    console.log(event);
+    let args = event.args;
+    let key = args.key;
+    let row = args.row;
+    // console.log(row.address.toString());
+    console.log(this.myTreeGrid)
+    // update the widgets inside jqxWindow.
+    this.jqxWindow.setTitle('Edit Row: ' + row.id);
+    this.jqxWindow.open();
+    this.dataRow = key;
+    this.id.val(row.id);
+    this.name.val(row.name);
+    this.middleName.val(row.middleName);
+    this.surname.val(row.surname);
+    this.email.val(row.email);
+    this.phone.val(row.phone);
+    this.status.val(row.status);
+    this.birthDate.val(row.birthDate);
+    this.oblast.val(row.oblast);
+    this.city.val(row.city);
+    this.street.val(row.street);
+    this.building.val(row.building);
+    this.apartment.val(row.apartment);
+    // disable TreeGrid.
+    this.treeGrid.disabled(true);
+  };
+
+  clickCancel(): void {
+    this.jqxWindow.close();
+  }
+
+  clickSave(): void {
+    this.jqxWindow.close();
+
+    this.userDto.id = this.id.val();
+    this.userDto.name = this.name.val();
+    this.userDto.middleName = this.middleName.val();
+    this.userDto.surname = this.surname.val();
+    this.userDto.email = this.email.val();
+    this.userDto.phone = this.phone.val();
+    this.userDto.deleted = this.status.val();
+    this.userDto.birthDate = this.birthDate.val();
+    this.addressDto.oblast = this.oblast.val();
+    this.addressDto.city = this.city.val();
+    this.addressDto.street = this.street.val();
+    this.addressDto.buildingNum = this.building.val();
+    this.addressDto.apartmentNum = this.apartment.val();
+    this.user.address = this.addressDto;
+    this.userService.editUser(this.userDto).subscribe(() => {
+      console.log('editing user');
+    });
+  }
+
+  windowClose(): void {
+    this.treeGrid.disabled(false);
   }
 }
+
+
+

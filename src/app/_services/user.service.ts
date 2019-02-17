@@ -31,6 +31,10 @@ export class UserService {
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`http://localhost:8080/users/all`);
   }
+  getUsersStructure(): Observable<User[]> {
+    return this.http.get<User[]>(`http://localhost:8080/users/all/structure`);
+
+  }
 
   deleteUser(user: User): Observable<User> {
     user.deleted = !user.deleted;

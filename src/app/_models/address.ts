@@ -10,5 +10,10 @@ export class Address {
   apartmentNum: string;
   users: User[];
 
+  public toString(): string {
+    return `${this.oblast} ${this.city} ${this.street} ${this.buildingNum} ${this.apartmentNum} `;
+  }
+
+
 
 }

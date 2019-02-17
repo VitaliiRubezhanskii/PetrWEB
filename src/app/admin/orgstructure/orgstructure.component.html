@@ -1,125 +1,314 @@
+<html>
+    <app-admin-office></app-admin-office>
+    <div class="base" style="margin-right: 150px; margin-left: 150px; margin-top: 60px; height: 100%; text-align: center">
+      <h3>Организационная структура</h3>
+      <jqxTreeGrid [theme]="'material'" #myTreeGrid
+                   [width]="getWidth()" [source]="dataAdapter" [columns]="columns" [height]="600"
+                   [filterMode]="'simple'" [filterable]="true" [sortable]="true" [pageable]="true"
+                   [pagerMode]="'advanced'"
+                   (onRowDoubleClick)="rowDoubleClick($event)" [altRows]="true"  [ready]="ready">
+      </jqxTreeGrid>
+      <jqxWindow [theme]="'material'" #jqxWindow
+                 (onClose)="windowClose()"
+                 [width]="500" [height]="700" [resizable]="false" [position]="{ x: 60, y: 45 }"
+                 [autoOpen]="false">
+        <div>Edit Dialog</div>
+        <div style="overflow: hidden;">
+          <table style="table-layout: fixed; border-style: none;">
+            <tr>
+              <td style="text-align: right;">
+                ID:
+              </td>
+              <td style="text-align: left;">
+                <jqxInput [theme]="'material'" #id [disabled]="true" [width]="200" [height]="40"></jqxInput>
+              </td>
+            </tr>
 
-<app-admin-office></app-admin-office>
+            <tr>
+              <td style="text-align: right;">
+                Имя:
+              </td>
+              <td style="text-align: left;">
+                <jqxInput [theme]="'material'" #Name  [width]="200" [height]="40"></jqxInput>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: right;">
+                Отчество:
+              </td>
+              <td style="text-align: left;">
+                <jqxInput [theme]="'material'" #MiddleName [width]="200" [height]="40"></jqxInput>
+              </td>
+            </tr>
 
-
-<div style="margin-top: 60px; text-align: center">
-  <h3>Организационная структура</h3>
-</div>
-
-
-
-<div class="w3-container w3-padding-32">
-
-
-  <div class="container row">
-  <div class="table" >
-    <table class="table table-striped">
-      <thead class="nowrap">
-      <tr>
-        <th >ФИО</th>
-        <th>Адрес</th>
-        <th >Телефон</th>
-        <th>Email</th>
-        <th>Статус</th>
-        <th>Документы</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor = "let user of users">
-        <td>{{ user.name }} {{ user.middleName }} {{ user.surname }}</td>
-        <td>{{ user.address.oblast }} область {{ user.address.city }} {{user.address.street}} дом {{user.address.buildingNum}} квартира {{user.address.apartmentNum}}</td>
-        <td>{{ user.phone }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.deleted ? 'Заблокирован' : 'Активен' }} </td>
-        <td> <a href="http://localhost:8080/users/user/{{user.id}}/document/{{types[0]}}" (click)="download(user, types[0])">ФОТО</a>  <br/>
-             <a href="http://localhost:8080/users/user/{{user.id}}/document/{{types[1]}}" (click)="download(user, types[1])">ИНН</a> <br/>
-             <a href="http://localhost:8080/users/user/{{user.id}}/document/{{types[2]}}" (click)="download(user, types[2])">ПАСПОРТ (1 стр.) </a>  <br/>
-             <a href="http://localhost:8080/users/user/{{user.id}}/document/{{types[3]}}" (click)="download(user, types[3])">ПАСПОРТ (2 стр.) </a>  <br/>
-             <a href="http://localhost:8080/users/user/{{user.id}}/document/{{types[4]}}" (click)="download(user, types[4])">ПАСПОРТ (прописка) </a>
-
-
-        </td>
-
-
-
-          <div class="container row ">
-            <div class="col-md-3">
-              <td><button  (click)="showEditForm(editUserTemplate,user)" class="btn btn-primary">Редактировать</button></td>
-            </div>
-          </div>
-        <div class="container row ">
-            <div class="col-md-1">
-              <td><button (click)="deleteUser(user)" class="btn btn-danger">{{!user.deleted ? 'Заблокировать   ' : 'Разблокировать   '}}</button></td>
-            </div>
-          </div>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
-</div>
-
-
-
-
-
-<ng-template #editUserTemplate>
-<div class="container row" >
-  <h2 style="text-align: center">Редактировать пользователя</h2>
-  <div class="container">
-    <form [formGroup]="editUserForm">
-
-      <div class="form-group">
-        <label for="middleName">Фамилия</label>
-        <input [(ngModel)]="user.middleName" type="text" formControlName="middleName" class="form-control" />
-      </div>
-
-      <div class="form-group">
-        <label for="oblast">Область</label>
-        <input [(ngModel)]="user.address.oblast" type="text" formControlName="oblast" class="form-control"  />
-      </div>
-
-      <div class="form-group">
-        <label for="city">Город</label>
-        <input [(ngModel)]="user.address.city" type="text" formControlName="city" class="form-control"  />
-      </div>
-
-      <div class="form-group">
-        <label for="street">Улица</label>
-        <input [(ngModel)]="user.address.street" type="text" formControlName="street" class="form-control"  />
-      </div>
-
-      <div class="form-group">
-        <label for="buildingNum">Дом</label>
-        <input [(ngModel)]="user.address.buildingNum" type="text" formControlName="buildingNum" class="form-control"  />
-      </div>
-
-      <div class="form-group">
-        <label for="apartmentNum">Квартира</label>
-        <input [(ngModel)]="user.address.apartmentNum"type="text" formControlName="apartmentNum" class="form-control"  />
-      </div>
-
-      <div class="form-group">
-        <label for="phone">Телефон</label>
-        <input [(ngModel)]="user.phone" type="text" formControlName="phone" class="form-control"  />
-      </div>
-
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input [(ngModel)]="user.email" type="text" formControlName="email" class="form-control"  />
-      </div>
-
-
-      <div class="form-group row">
-        <div class="col-md-3">
-          <button (click)="editUser(user)"  class="btn btn-primary">Сохранить</button>
+            <tr>
+              <td style="text-align: right;">
+                Фамилия:
+              </td>
+              <td style="text-align: left;">
+                <jqxInput [theme]="'material'" #Surname [width]="200" [height]="40"></jqxInput>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: right;">
+                Телефон:
+              </td>
+              <td style="text-align: left;">
+                <jqxInput [theme]="'material'" #Phone [width]="200" [height]="40"></jqxInput>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: right;">
+                Email:
+              </td>
+              <td style="text-align: left;">
+                <jqxInput [theme]="'material'" #Email [width]="200" [height]="40"></jqxInput>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: right;">
+                Статус:
+              </td>
+              <td style="text-align: left;">
+                <jqxInput [theme]="'material'" #Status [width]="200" [height]="40"></jqxInput>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: right;">
+                Область:
+              </td>
+              <td style="text-align: left;">
+                <jqxInput [theme]="'material'" #Oblast [width]="200" [height]="40"></jqxInput>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: right;">
+                Город:
+              </td>
+              <td style="text-align: left;">
+                <jqxInput [theme]="'material'" #City [width]="200" [height]="40"></jqxInput>
+              </td>
+            </tr>
+            <tr>
+            <td style="text-align: right;">
+              Улица:
+            </td>
+            <td style="text-align: left;">
+              <jqxInput [theme]="'material'" #Street [width]="200" [height]="40"></jqxInput>
+            </td>
+          </tr>
+            <tr>
+              <td style="text-align: right;">
+                Дом:
+              </td>
+              <td style="text-align: left;">
+                <jqxInput [theme]="'material'" #BuildingNum [width]="200" [height]="40"></jqxInput>
+              </td>
+            </tr>      <tr>
+            <td style="text-align: right;">
+              Квартира:
+            </td>
+            <td style="text-align: left;">
+              <jqxInput [theme]="'material'" #ApartmentNum [width]="200" [height]="40"></jqxInput>
+            </td>
+          </tr>
+            <tr>
+              <td style="text-align: right;">Дата рождения:</td>
+              <td style="text-align: left;">
+                <jqxDateTimeInput [theme]="'material'" #BirthDate [width]="200" [height]="40"></jqxDateTimeInput>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align: right; padding-top: 10px; padding-left: 80px;">
+                <jqxButton [theme]="'material'" #save [width]="80" [height]="30" style="float: left;" (onClick)="clickSave()">Save</jqxButton>
+                <jqxButton [theme]="'material'" #cancel [width]="80" [height]="30"  style="float: left; margin-left: 10px;" (onClick)="clickCancel()">Cancel</jqxButton>
+              </td>
+            </tr>
+          </table>
         </div>
-        <div class="col-md-3">
-          <button (click) = "hideEditForm()" class="btn btn-danger">Отмена</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-</ng-template>
+      </jqxWindow>
+    </div>
+    </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div style="padding: 10px" fxLayout fxLayoutAlign="center center">-->
+  <!--<mat-form-field fxFlex="20%">-->
+    <!--<input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">-->
+  <!--</mat-form-field>-->
+<!--</div>-->
+<!--<table mat-table [dataSource]="dataSource" matSort>-->
+  <!--<ng-container matColumnDef="name">-->
+    <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> Имя </th>-->
+    <!--<td mat-cell *matCellDef="let element"> {{element.name}} {{element.middleName}} {{element.surname}}</td>-->
+  <!--</ng-container>-->
+
+  <!--<ng-container matColumnDef="phone">-->
+    <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> Телефон </th>-->
+    <!--<td mat-cell *matCellDef="let element"> {{element.phone}} </td>-->
+  <!--</ng-container>-->
+
+  <!--<ng-container matColumnDef="email">-->
+    <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>-->
+    <!--<td mat-cell *matCellDef="let element"> {{element.email}} </td>-->
+  <!--</ng-container>-->
+
+  <!--<ng-container matColumnDef="status">-->
+    <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> Статус </th>-->
+    <!--<td mat-cell *matCellDef="let element"> {{element.status}} </td>-->
+  <!--</ng-container>-->
+
+  <!--<ng-container matColumnDef="details">-->
+    <!--<th mat-header-cell *matHeaderCellDef> Детали </th>-->
+    <!--<td mat-cell *matCellDef="let element">-->
+      <!--<button mat-icon-button color="primary" (click)="redirectToDetails(element.id)">-->
+        <!--<mat-icon class="mat-18">reorder</mat-icon>-->
+      <!--</button>-->
+    <!--</td>-->
+  <!--</ng-container>-->
+
+  <!--<ng-container matColumnDef="update">-->
+    <!--<th mat-header-cell *matHeaderCellDef> Корректировать </th>-->
+    <!--<td mat-cell *matCellDef="let element">-->
+      <!--<button mat-icon-button color="accent" (click)="redirectToUpdate(element.id)">-->
+        <!--<mat-icon class="mat-18">system_update</mat-icon>-->
+      <!--</button>-->
+    <!--</td>-->
+  <!--</ng-container>-->
+
+  <!--<ng-container matColumnDef="delete">-->
+    <!--<th mat-header-cell *matHeaderCellDef> Заблокировать </th>-->
+    <!--<td mat-cell *matCellDef="let element">-->
+      <!--<button mat-icon-button color="warn" (click)="redirectToDelete(element.id)">-->
+        <!--<mat-icon class="mat-18">delete</mat-icon>-->
+      <!--</button>-->
+    <!--</td>-->
+  <!--</ng-container>-->
+
+  <!--<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+  <!--<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+<!--</table>-->
+
+<!--<mat-paginator [pageSize]="2" [pageSizeOptions]="[2, 4, 6, 10, 20]">-->
+<!--</mat-paginator>-->
+
+
+<!--<div class="w3-container w3-padding-32">-->
+  <!--<div class="container row">-->
+  <!--<div class="table" >-->
+    <!--<table class="table table-striped">-->
+      <!--<thead class="nowrap">-->
+      <!--<tr>-->
+        <!--<th >ФИО</th>-->
+        <!--<th>Адрес</th>-->
+        <!--<th >Телефон</th>-->
+        <!--<th>Email</th>-->
+        <!--<th>Статус</th>-->
+        <!--<th>Документы</th>-->
+      <!--</tr>-->
+      <!--</thead>-->
+      <!--<tbody>-->
+      <!--<tr *ngFor = "let user of users">-->
+        <!--<td>{{ user.name }} {{ user.middleName }} {{ user.surname }}</td>-->
+        <!--<td>{{ user.address.oblast }} область {{ user.address.city }} {{user.address.street}} дом {{user.address.buildingNum}} квартира {{user.address.apartmentNum}}</td>-->
+        <!--<td>{{ user.phone }}</td>-->
+        <!--<td>{{ user.email }}</td>-->
+        <!--<td>{{ user.deleted ? 'Заблокирован' : 'Активен' }} </td>-->
+        <!--<td> <img src = "http://localhost:8080/users/user/{{user.id}}/document/{{types[0]}}" (click)="download(user, types[0])" width="20" height="30"/>  <br/>-->
+             <!--<img src = "http://localhost:8080/users/user/{{user.id}}/document/{{types[1]}}" (click)="download(user, types[1])" width="20" height="30"/> <br/>-->
+             <!--<img src = "http://localhost:8080/users/user/{{user.id}}/document/{{types[2]}}" (click)="download(user, types[2])" width="20" height="30"/>  <br/>-->
+             <!--<img src = "http://localhost:8080/users/user/{{user.id}}/document/{{types[3]}}" (click)="download(user, types[3])" width="20" height="30"/> <br/>-->
+             <!--<img src = "http://localhost:8080/users/user/{{user.id}}/document/{{types[4]}}" (click)="download(user, types[4])" width="20" height="30"/><br/>-->
+        <!--</td>-->
+          <!--<div class="container row ">-->
+            <!--<div class="col-md-3">-->
+              <!--<td><button  (click)="showEditForm(editUserTemplate,user)" class="btn btn-primary">Редактировать</button></td>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--<div class="container row ">-->
+            <!--<div class="col-md-1">-->
+              <!--<td><button (click)="deleteUser(user)" class="btn btn-danger">{{!user.deleted ? 'Заблокировать   ' : 'Разблокировать   '}}</button></td>-->
+            <!--</div>-->
+          <!--</div>-->
+      <!--</tr>-->
+      <!--</tbody>-->
+    <!--</table>-->
+  <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+<!--<ng-template #editUserTemplate>-->
+<!--<div class="container row" >-->
+  <!--<h2 style="text-align: center">Редактировать пользователя</h2>-->
+  <!--<div class="container">-->
+    <!--<form [formGroup]="editUserForm">-->
+      <!--<div class="form-group">-->
+        <!--<label for="middleName">Фамилия</label>-->
+        <!--<input [(ngModel)]="user.middleName" type="text" formControlName="middleName" class="form-control" />-->
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <!--<label for="oblast">Область</label>-->
+        <!--<input [(ngModel)]="user.address.oblast" type="text" formControlName="oblast" class="form-control"  />-->
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <!--<label for="city">Город</label>-->
+        <!--<input [(ngModel)]="user.address.city" type="text" formControlName="city" class="form-control"  />-->
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <!--<label for="street">Улица</label>-->
+        <!--<input [(ngModel)]="user.address.street" type="text" formControlName="street" class="form-control"  />-->
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <!--<label for="buildingNum">Дом</label>-->
+        <!--<input [(ngModel)]="user.address.buildingNum" type="text" formControlName="buildingNum" class="form-control"  />-->
+      <!--</div>-->
+
+      <!--<div class="form-group">-->
+        <!--<label for="apartmentNum">Квартира</label>-->
+        <!--<input [(ngModel)]="user.address.apartmentNum"type="text" formControlName="apartmentNum" class="form-control"  />-->
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <!--<label for="phone">Телефон</label>-->
+        <!--<input [(ngModel)]="user.phone" type="text" formControlName="phone" class="form-control"  />-->
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <!--<label for="email">Email</label>-->
+        <!--<input [(ngModel)]="user.email" type="text" formControlName="email" class="form-control"  />-->
+      <!--</div>-->
+      <!--<div class="form-group row">-->
+        <!--<div class="col-md-3">-->
+          <!--<button (click)="editUser(user)"  class="btn btn-primary">Сохранить</button>-->
+        <!--</div>-->
+        <!--<div class="col-md-3">-->
+          <!--<button (click) = "hideEditForm()" class="btn btn-danger">Отмена</button>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</form>-->
+  <!--</div>-->
+<!--</div>-->
+<!--</ng-template>-->
 

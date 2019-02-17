@@ -86,10 +86,30 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';;
 import { QuestionsByTypeComponent } from './questionary/questions-by-type/questions-by-type.component';
 import { LimitComponent } from './admin/admin-office/admin-cabinet/limits/limit.component';
 import {LimitService} from './_services/limit.service';
-import {SurveyResultService} from './_services/surveyResult.service';;
+import {SurveyResultService} from './_services/surveyResult.service';
 import { SurveyResultsComponent } from './admin/admin-office/admin-cabinet/survey-results/survey-results.component'
+import {CommonModule} from '@angular/common';
+import { jqxGridComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxgrid';
+import { jqxTreeGridComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxtreegrid';
+import {jqxInputComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxinput';
+import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
+import {jqxDateTimeInputComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
+import {jqxButtonComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxbuttons';
 @NgModule({
     imports: [
+      MatPaginatorModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatSortModule,
+      MatTableModule,
+      MatMenuModule,
+      MatListModule,
+      MatButtonModule,
+      MatIconModule,
+      MatToolbarModule,
+      CommonModule,
+      MatTabsModule,
+      MatSidenavModule,
       BrowserModule,
       MatMenuModule,
       BrowserAnimationsModule,
@@ -126,8 +146,24 @@ import { SurveyResultsComponent } from './admin/admin-office/admin-cabinet/surve
         routing
 ,
         LayoutModule    ],
+  exports: [
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSortModule,
+    MatTableModule,
+    MatMenuModule,
+    MatListModule,
+    MatButtonModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatTabsModule,
+    MatSidenavModule
+  ],
     declarations: [
-
+      jqxButtonComponent, jqxDateTimeInputComponent, jqxGridComponent, jqxInputComponent, jqxTreeGridComponent, jqxWindowComponent,
+      jqxGridComponent,
+      jqxTreeGridComponent,
       AdminOfficeComponent,
         AppComponent,
         AlertComponent,

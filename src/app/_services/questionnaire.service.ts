@@ -1,10 +1,11 @@
+
+import {from as observableFrom,  Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import {AuthenticationService} from './authentication.service';
-import { Observable } from 'rxjs';
-import 'rxjs/add/observable/from';
+
 import {HttpClient} from '@angular/common/http';
 import {Survey} from '../_models/Survey';
 import {Question} from '../_models/question';
@@ -55,7 +56,7 @@ export class QuestionnaireService {
          this.createQuestion(this.surveyId, q);
         });
         }, 1500);
-       return Observable.from(this.responseQ);
+       return observableFrom(this.responseQ);
 
     }
 
