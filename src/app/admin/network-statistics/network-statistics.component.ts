@@ -44,7 +44,11 @@ export class NetworkStatisticsComponent implements OnInit {
         {name: 'phone', type: 'string'},
         {name: 'email', type: 'string'},
         {name: 'ownSurveysCount', type: 'number'},
-        {name: 'totalAccountedScoring', type: 'number'}
+        {name: 'countOfChildrensSurveys', type: 'number'},
+        {name: 'totalScoreOfChildren', type: 'number'},
+        {name: 'totalAccountedScoring', type: 'number'},
+        {name: 'countOfGrandChildrensSurveys', type: 'number'},
+        {name: 'totalScoreOfGrandChildren', type: 'number'},
       ],
       hierarchy:
         {
@@ -74,9 +78,11 @@ export class NetworkStatisticsComponent implements OnInit {
       {text: 'Email', dataField: 'email', width: 120},
       {text: 'Руководитель', dataField: 'parentId', width: 120},
       {text: 'Мои анкеты', dataField: 'ownSurveysCount', width: 120},
-      // {text: 'Анкеты 2 ур.', dataField: '', width: 120},
-      // {text: 'Анкеты 3 ур', dataField: '', width: 120},
-      {text: 'Баллы', dataField: 'totalAccountedScoring', width: 120}
+      {text: 'Анкеты 2 ур.', dataField: 'countOfChildrensSurveys', width: 120},
+      {text: 'Анкеты 3 ур', dataField: 'countOfGrandChildrensSurveys', width: 120},
+      {text: 'Баллы', dataField: 'totalAccountedScoring', width: 120},
+      {text: 'Баллы 2 ур', dataField: 'totalScoreOfChildren', width: 120},
+      {text: 'Баллы 3 ур', dataField: 'totalScoreOfGrandChildren', width: 120},
 
     ];
 
