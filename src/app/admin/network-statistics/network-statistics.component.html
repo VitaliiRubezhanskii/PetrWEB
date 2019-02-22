@@ -1,17 +1,21 @@
 
 <app-admin-office></app-admin-office>
-<div style="margin-top: 60px; text-align: center">
+<div style="margin-top: 60px;  margin-right: 150px; margin-left: 150px; text-align: center">
   <h3>Статистика сети</h3>
+      <jqxTreeGrid [theme]="'material'" #myTreeGrid (onRowClick)="myTreeGridOnRowClick($event)"
+                   [width]="getWidth()" [source]="dataAdapter" [columns]="columns" [height]="600"
+                   [filterMode]="'simple'" [filterable]="true" [sortable]="true" [pageable]="true"
+                   [pagerMode]="'advanced'" [localization]="localization"
+                   (onRowDoubleClick)="rowDoubleClick($event)" [altRows]="true"  [ready]="ready">
+      </jqxTreeGrid>
+  <jqxMenu #myMenu (onItemclick)="myMenuOnItemClick($event)"
+           [width]="200" [height]="58" [autoOpenPopup]="false" [mode]="'popup'"  >
+    <ul>
+      <li>Edit Selected Row</li>
+      <li>Delete Selected Row</li>
+    </ul>
+  </jqxMenu>
 </div>
-
-<jqxTreeGrid [theme]="'material'" #myTreeGrid
-             [width]="getWidth()" [source]="dataAdapter" [columns]="columns" [height]="600"
-             [filterMode]="'simple'" [filterable]="true" [sortable]="true" [pageable]="true"
-             [pagerMode]="'advanced'" [localization]="localization"
-             (onRowDoubleClick)="rowDoubleClick($event)" [altRows]="true"  [ready]="ready">
-</jqxTreeGrid>
-
-
 
 
 

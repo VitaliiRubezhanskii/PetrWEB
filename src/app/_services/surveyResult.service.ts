@@ -20,7 +20,7 @@ export class SurveyResultService {
   }
 
   public getSurveyResultsOfAll(): Observable<SurveyResult[]> {
-    return this.http.get<SurveyResult[]>(`http://localhost:8080/scoring/results/all`);
+    return this.http.get<SurveyResult[]>(`http://localhost:8080/scoring/users`);
   }
 
   public findAnswersByUser(userId: number): Observable<Answer[]> {

@@ -95,6 +95,7 @@ import {jqxInputComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxinput
 import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
 import {jqxDateTimeInputComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
 import {jqxButtonComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxbuttons';
+import {jqxMenuComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxmenu';
 @NgModule({
     imports: [
       MatPaginatorModule,
@@ -161,7 +162,8 @@ import {jqxButtonComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxbutt
     MatSidenavModule
   ],
     declarations: [
-      jqxButtonComponent, jqxDateTimeInputComponent, jqxGridComponent, jqxInputComponent, jqxTreeGridComponent, jqxWindowComponent,
+      jqxButtonComponent, jqxDateTimeInputComponent, jqxMenuComponent, jqxGridComponent,
+      jqxInputComponent, jqxTreeGridComponent, jqxWindowComponent,
       jqxGridComponent,
       jqxTreeGridComponent,
       AdminOfficeComponent,
