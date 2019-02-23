@@ -21,11 +21,16 @@ export class SurveyService {
   }
   public getList(): Observable<Survey[]> {
     return this.http.get<Survey[]>(`http://localhost:8080/surveys`);
-}
+  }
 
-public getSurveysForUser(user: User): Observable<Survey[]> {
-    return this.http.get<Survey[]>(`http://localhost:8080/surveys/bylimits/` + user.id);
-}
+  public getSurveysForUser(user: User): Observable<Survey[]> {
+      return this.http.get<Survey[]>(`http://localhost:8080/surveys/bylimits/` + user.id);
+  }
+
+  public getSurveysAll(): Observable<Survey[]> {
+    return this.http.get<Survey[]>(`http://localhost:8080/surveys`);
+  }
+
 
   public getSurveyById(surveyId): Observable<Survey> {
     return this.http.get<Survey>(`http://localhost:8080/surveys/survey/` + surveyId);

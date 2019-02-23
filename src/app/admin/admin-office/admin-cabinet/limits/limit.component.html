@@ -93,10 +93,15 @@
     <td mat-cell  *matCellDef="let element"> {{element.count}} </td>
   </ng-container>
 
-  <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Целевая аудитория (человек) </th>
-    <td mat-cell *matCellDef="let element"> test </td>
+  <ng-container matColumnDef="matchedUsersCount">
+    <th mat-header-cell  *matHeaderCellDef mat-sort-header> Целевая аудитория (человек) </th>
+    <td mat-cell  *matCellDef="let element"> {{element.matchedUsersCount}} </td>
   </ng-container>
+
+  <!--<ng-container matColumnDef="status">-->
+    <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> Целевая аудитория (человек) </th>-->
+    <!--<td mat-cell *matCellDef="let element"> test </td>-->
+  <!--</ng-container>-->
 
 
   <ng-container matColumnDef="details">
@@ -118,9 +123,9 @@
   </ng-container>
 
   <ng-container matColumnDef="delete">
-    <th mat-header-cell *matHeaderCellDef> Заблокировать </th>
+    <th mat-header-cell *matHeaderCellDef> Удалить лимит </th>
     <td mat-cell *matCellDef="let element">
-      <button mat-icon-button color="warn" >
+      <button mat-icon-button color="warn" (click)="redirectToDelete(element.id)" >
         <mat-icon class="mat-18">delete</mat-icon>
       </button>
     </td>

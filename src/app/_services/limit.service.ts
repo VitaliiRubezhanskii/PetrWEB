@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {LimitDTO} from '../_models/limits';
 import {Observable} from 'rxjs';
+import {Survey} from '../_models/Survey';
 
 @Injectable()
 export class LimitService {
@@ -15,7 +16,11 @@ export class LimitService {
   }
 
   public getAllLimits(): Observable<any> {
-    return this.http.get(`http://localhost:8080/surveyLimits/`);
+    return this.http.get(`http://localhost:8080/surveyLimits`);
+  }
+
+  public deleteLimitForRegionAndSurvey(surveyId: number) {
+    return this.http.delete(`http://localhost:8080/surveyLimits/limit/` + surveyId);
   }
 
 }

@@ -28,7 +28,7 @@ export class ManageComponent implements OnInit {
     ngOnInit() {
       this.userService.getByUsername(localStorage.getItem('username')).subscribe(u => {
         this.currentUser = u;
-        this.surveyService.getSurveysForUser(u).subscribe(result => {
+        this.surveyService.getSurveysAll().subscribe(result => {
           this.questionnaireList = result;
           // this.questionnaireList.forEach(q => {console.log(q.questions); });
         });
@@ -39,10 +39,6 @@ export class ManageComponent implements OnInit {
         this.dialogsService
             .confirm('Confirm Delete', 'Are you sure you want delete question?')
             .subscribe(res => res && this.questionnaireService.remove(id));
-    }
-
-    userQuestionnaires(questionnaires: [any]) {
-        return questionnaires.filter(q => q.submittedById === 'vitalii');
     }
 
     hasRole(role: string): boolean {
