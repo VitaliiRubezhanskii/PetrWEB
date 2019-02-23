@@ -1,7 +1,7 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {UserService} from '../../_services';
 import { MatSort, MatPaginator } from '@angular/material';
-import {Role, User} from '../../_models';
+import { User} from '../../_models';
 import { jqxTreeGridComponent } from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxtreegrid';
 import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwindow';
 import {jqxInputComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxinput';
@@ -27,7 +27,6 @@ export class OrgstructureComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild('myTreeGrid') myTreeGrid: jqxTreeGridComponent;
   @ViewChild('jqxWindow') jqxWindow: jqxWindowComponent;
-  @ViewChild('TreeGrid') treeGrid: jqxTreeGridComponent;
   @ViewChild('id') id: jqxInputComponent;
   @ViewChild('Name') name: jqxInputComponent;
   @ViewChild('MiddleName') middleName: jqxInputComponent;
@@ -48,18 +47,6 @@ export class OrgstructureComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getUsersStructure().subscribe(data => data.forEach(u => {
-    // let strUser = new StructureUser();
-    // strUser.id = u.id;
-    // strUser.surname = u.name;
-    // strUser.middleName = u.middleName;
-    // strUser.surname = u.surname;
-    // strUser.email = u.email;
-    // strUser.phone = u.phone;
-    // strUser.oblast = u.address.oblast;
-    // strUser.city = u.address.city;
-    // strUser.street = u.address.street;
-    // strUser.building = u.address.buildingNum;
-    // strUser.apartment = u.address.apartmentNum;
       this.users.push(u);
     }));
     console.log(this.users);
@@ -123,15 +110,11 @@ export class OrgstructureComponent implements OnInit {
   };
 
   dataRow: any = null;
-
   rowDoubleClick(event: any): void {
     console.log(event);
     let args = event.args;
     let key = args.key;
     let row = args.row;
-    // console.log(row.address.toString());
-    console.log(this.myTreeGrid)
-    // update the widgets inside jqxWindow.
     this.jqxWindow.setTitle('Edit Row: ' + row.id);
     this.jqxWindow.open();
     this.dataRow = key;
@@ -148,8 +131,7 @@ export class OrgstructureComponent implements OnInit {
     this.street.val(row.street);
     this.building.val(row.building);
     this.apartment.val(row.apartment);
-    // disable TreeGrid.
-    this.treeGrid.disabled(true);
+    this.myTreeGrid.disabled(true);
   };
 
   clickCancel(): void {
@@ -179,8 +161,13 @@ export class OrgstructureComponent implements OnInit {
   }
 
   windowClose(): void {
-    this.treeGrid.disabled(false);
+    this.myTreeGrid.disabled(false);
   }
+
+  excelExportClick(): void {
+    this.myTreeGrid.exportData('xls');
+  };
+
 }
 
 

@@ -1,7 +1,4 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {SurveyResultService} from '../../_services/surveyResult.service';
-import {SurveyResult, SurveyResultDto} from '../../_models/SurveyResult';
-import {User} from '../../_models';
 import {jqxTreeGridComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxtreegrid';
 import {jqxMenuComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxmenu';
 
@@ -12,25 +9,11 @@ import {jqxMenuComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxmenu';
 })
 export class NetworkStatisticsComponent implements OnInit {
 
-  surveyDto: SurveyResultDto = new SurveyResultDto();
-  surveyDtoS: SurveyResultDto[] = [];
   @ViewChild('myTreeGrid') myTreeGrid: jqxTreeGridComponent;
   @ViewChild('myMenu') myMenu: jqxMenuComponent;
-  constructor(private surveyResultService: SurveyResultService ) { }
+
 
   ngOnInit() {
-    // this.surveyResultService.getSurveyResultsOfAll().subscribe(result => result.forEach(r => {
-    //   this.surveyDto.id = r.id;
-    //   this.surveyDto.parentId = r.user.parentId;
-    //   this.surveyDto.name = r.user.name;
-    //   this.surveyDto.middleName = r.user.middleName;
-    //   this.surveyDto.surname = r.user.surname;
-    //   this.surveyDto.phone = r.user.phone;
-    //   this.surveyDto.email = r.user.email;
-    //   this.surveyDto.count = r.count;
-    //   this.surveyDto.sum = r.bonus;
-    //   this.surveyDtoS.push(this.surveyDto);
-    // }));
   }
   source: any =
     {
@@ -110,6 +93,9 @@ export class NetworkStatisticsComponent implements OnInit {
       this.myMenu.open(parseInt(event.args.originalEvent.clientX) + 5 + scrollLeft, parseInt(event.args.originalEvent.clientY) + 5 + scrollTop);
       return false;
     }
+  };
+  excelExportClick(): void {
+    this.myTreeGrid.exportData('xls');
   };
 
 }

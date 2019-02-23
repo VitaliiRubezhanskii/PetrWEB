@@ -14,4 +14,8 @@ export class LimitService {
    return this.http.put(`http://localhost:8080/surveyLimits/` + surveyId , surveyLimitDto);
   }
 
+  public getAllLimits(): Observable<any> {
+    return this.http.get(`http://localhost:8080/surveyLimits/`);
+  }
+
 }

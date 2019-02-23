@@ -4,6 +4,8 @@ import {SurveyService} from '../../../../_services/survey.service';
 import {Survey} from '../../../../_models/Survey';
 import {Limit, LimitDTO} from '../../../../_models/limits';
 import {LimitService} from '../../../../_services/limit.service';
+import {User} from '../../../../_models';
+import {MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-limit',
@@ -27,12 +29,19 @@ export class LimitComponent implements OnInit {
    public surveyLimit: LimitDTO = new LimitDTO();
    public limit: Limit = new Limit();
    public limits: Limit[] = [];
+  displayedColumns = ['id', 'region', 'surveyName', 'gender', 'ageRange', 'count', 'delete'];
+  dataSource = new MatTableDataSource<User>();
    constructor(private formBuilder: FormBuilder,
                private surveyService: SurveyService,
                private limitsService: LimitService) { }
    ngOnInit() {
      this.limitForm = this.formBuilder.group({anketa: '', region: '', gender: '', ageGroup: '', surveysCount: ''});
      this.surveyService.getList().subscribe(result => this.surveys = result);
+     this.limitsService.getAllLimits().subscribe(
+       data => {
+         this.dataSource.data = data;
+       }
+     );
    }
 
    public groupChosen(ageGroup: string, event) {
@@ -100,5 +109,18 @@ export class LimitComponent implements OnInit {
      this.limitsService.saveLimits(this.surveyLimit, this.limitForm.controls.anketa.value).subscribe(result => {});
 
    }
+  public redirectToDetails = (id: string) => {
+    console.log('Hello from details');
+
+  }
+
+  public redirectToUpdate = (id: string) => {
+    console.log('Hello from update');
+  }
+
+  public redirectToDelete = (id: string) => {
+    console.log('Hello from delete');
+
+  }
 
 }

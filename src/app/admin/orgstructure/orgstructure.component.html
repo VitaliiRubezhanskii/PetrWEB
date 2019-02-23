@@ -2,6 +2,9 @@
     <app-admin-office></app-admin-office>
     <div class="base" style="margin-right: 150px; margin-left: 150px; margin-top: 60px; height: 100%; text-align: center">
       <h3>Организационная структура</h3>
+      <div style="float: left;">
+        <jqxButton #excelExport (onClick)="excelExportClick()">Экспорт в Excel</jqxButton>
+      </div>
       <jqxTreeGrid [theme]="'material'" #myTreeGrid
                    [width]="getWidth()" [source]="dataAdapter" [columns]="columns" [height]="600"
                    [filterMode]="'simple'" [filterable]="true" [sortable]="true" [pageable]="true"
