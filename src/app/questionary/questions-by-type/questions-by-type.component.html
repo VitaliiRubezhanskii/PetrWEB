@@ -12,7 +12,7 @@
         <label>{{question.text}}</label>
         <div class="radio" *ngFor="let x of question.answers; let i = index">
           <label>
-            <input type="radio" name="answer" [checked]="0" [(ngModel)]="x.value" [value]="x.value" (change)="changeDetector(question.id, x.id)">
+            <input type="radio" name="answer" [checked]="hasBeenChecked[i]" [(ngModel)]="x.value" [value]="x.value" (change)="changeDetector(question.id, x.id)">
             {{x.value}}
           </label>
         </div>
@@ -25,7 +25,7 @@
       <div class="form-group">
         <label>{{question.text}}</label>
         <div class="checkbox" *ngFor="let x of question.answers; let i = index" >
-            <input type="checkbox" name="checkboks" [checked]="checked[i]"   [(ngModel)]="checked[i]" [value]="question.answers[i].value" (change)="changeDetector(question.id, x.id)">
+            <input type="checkbox" name="checkboks" [checked]="!hasBeenChecked[i]"   [(ngModel)]="checked[i]" [value]="question.answers[i].value" (change)="changeDetector(question.id, x.id)">
             {{question.answers[i].value}}
         </div>
       </div>
@@ -36,30 +36,19 @@
       <div class="form-group">
         <label>{{question.text}}</label>
         <div class="radio" *ngFor="let x of question.answers; let i = index" >
-          <input type="radio" name="checkboks" [checked]="checked[i]"   [(ngModel)]="checked[i]" [value]="question.answers[i].value" (change)="changeDetector(question.id, x.id)">
+          <input type="radio" name="checkboks" [checked]="hasBeenChecked[i]"   [(ngModel)]="checked[i]" [value]="question.answers[i].value" (change)="changeDetector(question.id, x.id)">
           {{question.answers[i].value}}
         </div>
       </div>
     </div>
 
     <div style="width: 100%" *ngSwitchCase="'LONG_ANSWER'">
-      <!--<mat-form-field *ngIf="!readonly">-->
-                <!--<textarea  cdkTextareaAutosize-->
-                           <!--cdkAutosizeMinRows="2"-->
-                           <!--cdkAutosizeMaxRows="15"-->
-                          <!--matInput-->
-                           <!--rows="8" cols="40"-->
-                          <!--[disabled]="readonly"-->
-                          <!--[(ngModel)]="question"-->
-                          <!--required>-->
-                <!--</textarea>-->
-      <!--</mat-form-field>-->
       <div class="md-form">
+        <!--<button (click)="editQuestion($event)"  class="btn btn-primary">Ответить</button>-->
         <i class="fas fa-pencil-alt prefix grey-text"></i>
         <label for="form107">{{question.text}}</label>
-        <textarea type="text" id="form107" class="md-textarea form-control" rows="5" cols="50" mdbInput></textarea>
+        <textarea type="text" id="form107" class="md-textarea form-control"  (change)="submitTextAnswer($event, question.id)" rows="5" cols="50" mdbInput></textarea>
       </div>
-      <div *ngIf="readonly" class="long-answer-readonly"></div>
     </div>
     </div>
   </form>

@@ -96,6 +96,7 @@ import {jqxWindowComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxwind
 import {jqxDateTimeInputComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxdatetimeinput';
 import {jqxButtonComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxbuttons';
 import {jqxMenuComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxmenu';
+import {AnswerService} from './_services/answer.service';
 @NgModule({
     imports: [
       MatPaginatorModule,
@@ -213,6 +214,7 @@ import {jqxMenuComponent} from 'jqwidgets-scripts/jqwidgets-ts/angular_jqxmenu';
       ResponseService,
       DialogsService,
       SurveyResultService,
+      AnswerService,
       SurveyService
     ],
     bootstrap: [AppComponent, AdminOfficeComponent],

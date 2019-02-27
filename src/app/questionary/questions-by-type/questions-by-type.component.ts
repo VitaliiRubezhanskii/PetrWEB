@@ -8,6 +8,7 @@ import {QuestionType} from '../enums/question-type.enum';
 import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import {User} from '../../_models';
 import {UserService} from '../../_services';
+import {AnswerService} from '../../_services/answer.service';
 
 @Component({
   selector: 'app-questions-by-type',
@@ -21,20 +22,24 @@ export class QuestionsByTypeComponent implements OnInit {
   @Input() qId: any;
   @Input() readonly: boolean;
   @Input() edit: boolean;
+
   @Input() survey: Survey;
   @Input() value: string;
   @Input() editableForUser: boolean;
   @Output() questionEvent = new EventEmitter();
-
+  public textAreaText: string[] = [];
+  public answerText: Answer = new Answer();
   public answer: string;
   public answers: string;
   public checked: boolean[] = [false, false, false];
+  public hasBeenChecked: boolean[] = [false, false, false, false];
   public form: FormGroup;
   public userAnswer: UserAnswer = new UserAnswer();
   private currentUser: User = new User();
 
   constructor(private dialogsService: DialogsService,
               private userService: UserService,
+              private answerService: AnswerService,
               private questionnaireService: QuestionnaireService,
               private formBuilder: FormBuilder,
               public questionService: QuestionService) {
@@ -50,6 +55,9 @@ export class QuestionsByTypeComponent implements OnInit {
         answer: this.formBuilder.array([{}]),
       });
     }
+    this.userService.getByUsername(localStorage.getItem('username')).subscribe(u => {
+      this.currentUser = u;
+    });
   }
 
   // hasRole(role: string): boolean {
@@ -63,6 +71,7 @@ export class QuestionsByTypeComponent implements OnInit {
     this.userAnswer.questionText = questionText;
     this.userAnswer.answerValue = value;
       this.questionEvent.emit(this.userAnswer);
+      console.log("Hello from change detector");
   }
 
   editQuestion(event) {
@@ -82,5 +91,15 @@ export class QuestionsByTypeComponent implements OnInit {
     this.dialogsService
       .confirm('Confirm Delete', 'Are you sure you want delete question?')
       .subscribe(res => res && this.questionnaireService.removeQuestion(questionaryId).subscribe(e=>{}));
+  }
+
+  submitTextAnswer($event: any, questionId: number){
+   this.textAreaText.push($event.value)
+    console.log($event.target.value);
+   this.answerText.value = $event.target.value;
+   this.answerText.date = new Date().toString();
+
+this.answerService.saveAnswer(this.answerText, questionId, this.currentUser.id).subscribe(() => {});
+   // console.log(this.textAreaText.join(""));
   }
 }

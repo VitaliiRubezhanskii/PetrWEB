@@ -18,8 +18,8 @@ export class AnswerService {
               private authService: AuthenticationService,
               private surveyService: SurveyService,
               private http: HttpClient) { }
-  public saveAnswer(answer: Answer, questionId: number) {
-    this.http.put(`http://localhost:8080/answers/` + questionId, answer );
+  public saveAnswer(answer: Answer, questionId: number, userId: number): Observable<any>{
+   return this.http.put(`http://localhost:8080/answers/text/` + questionId + '/user/' + userId, answer );
   }
 
 }

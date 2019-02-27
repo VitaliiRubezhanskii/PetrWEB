@@ -16,7 +16,7 @@ import {UserService} from '../../_services';
     styleUrls: ['./answer.component.less']
 })
 export class AnswerComponent implements OnInit {
-
+    public checkBoxChecked = false;
     public questions: Question[] = [];
     public survey: Survey = new Survey() ;
     private subRoter: any;
@@ -47,19 +47,21 @@ export class AnswerComponent implements OnInit {
     }
 
     showEvent(event, question: Question) {
+
       console.log(this.survey);
       this.userAnswer = event;
       this.filtQuestion = question;
       this.filteredQ.question = this.filtQuestion;
       this.filteredQ.answers = question.answers.filter(a => a.id === this.userAnswer.answerValue)
       console.log(event);
+
+
       this.submit(this.userAnswer.answerValue);
     }
 
     submit(answer: number) {
             this.responseService.submit(answer, this.user.id).subscribe(r => {});
     }
-
     submitSurvey(survey: Survey) {
       this.responseService.submitSurvey(survey, this.user.id).subscribe(res => {});
     }
