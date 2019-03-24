@@ -1,6 +1,9 @@
-
+<div *ngIf="ifUserHasRole('ADMIN')">
   <app-admin-office></app-admin-office>
-
+</div>
+<div *ngIf="ifUserHasRole('USER')">
+  <app-user></app-user>
+</div>
   <div style="margin-top: 60px; text-align: center">
 
   </div>

@@ -19,5 +19,9 @@ export class CooperationMessageService {
     return this.http.get<CooperationMessage[]>(`http://localhost:8080/cooperation/messages`);
   }
 
+  sendResponse(addresseMail: string, isApproved: boolean) {
+    return this.http.post(`http://localhost:8080/cooperation/send-to/` + addresseMail + `/approved/` + isApproved, {});
+  }
+
 
 }

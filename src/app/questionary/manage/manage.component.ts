@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {QuestionnaireService} from '../../_services/questionnaire.service';
 import {DialogsService} from '../../_services/dialogs.service';
-import {AuthenticationService, UserService} from '../../_services';
+import { UserService} from '../../_services';
 import {Survey} from '../../_models/Survey';
 import {SurveyService} from '../../_services/survey.service';
 import {User} from '../../_models';
@@ -16,7 +16,6 @@ export class ManageComponent implements OnInit {
 
     public questionnaireList: Survey[];
     public currentUser: User;
-    public editableForUser = false;
     @Input() public surveys: Survey [];
     @Input() public userRole: string;
     constructor(
@@ -30,7 +29,6 @@ export class ManageComponent implements OnInit {
         this.currentUser = u;
         this.surveyService.getSurveysAll().subscribe(result => {
           this.questionnaireList = result;
-          // this.questionnaireList.forEach(q => {console.log(q.questions); });
         });
       });
     }
@@ -42,7 +40,7 @@ export class ManageComponent implements OnInit {
     }
 
     hasRole(role: string): boolean {
-      if (this.currentUser.roles.filter(r => r.name === role).length > 0) {
+      if (this.currentUser.roles.map(roleAsName => roleAsName.name).includes(role)) {
         return true;
       }
       return false;

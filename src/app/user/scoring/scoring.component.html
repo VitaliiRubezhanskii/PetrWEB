@@ -4,51 +4,68 @@
   <h3>Начислено баллов</h3>
 </div>
 
-<button (click) = "showOwnScoring()" style="float: right;margin-right: 20px" class="btn btn-danger">Мои результаты</button>
-<button (click) = "showChildresScoring()" style="float: right;margin-right: 20px" class="btn btn-danger">Результаты 2-го уровня</button>
 
-<div class="w3-container w3-padding-32" style="margin-top: 15px" >
-  <div class="container row">
-    <div class="table" >
-      <h3>Таблица результатов заполнения анкет</h3>
-      <table class="table table-striped">
-
-        <thead class="nowrap">
-        <tr>
-          <th>Анкета</th>
-          <th>Дата заполнения</th>
-          <th>Пользователь</th>
-          <th>Email</th>
-          <th>Телефон</th>
-          <th>Баллы</th>
-        </tr>
-        </thead>
-
-        <tbody *ngIf="currentUser">
-        <tr *ngFor = "let surveyResult of surveyResults">
-          <td>{{surveyResult.survey.name}}</td>
-          <td>{{surveyResult.survey.date}}</td>
-          <td>{{surveyResult.user.name}} {{surveyResult.user.middleName}} {{surveyResult.user.surname}}</td>
-          <td>{{surveyResult.user.email}}</td>
-          <td>{{surveyResult.user.phone}}</td>
-          <td>{{surveyResult.bonus}}</td>
-        </tr>
-        </tbody>
-
-        <tbody *ngIf="!currentUser">
-        <tr *ngFor = "let surveyResult of childrenSurveyResults">
-          <td>{{surveyResult.survey.name}}</td>
-          <td>{{surveyResult.survey.date}}</td>
-          <td>{{surveyResult.user.name}} {{surveyResult.user.middleName}} {{surveyResult.user.surname}}</td>
-          <td>{{surveyResult.user.email}}</td>
-          <td>{{surveyResult.user.phone}}</td>
-          <td>{{surveyResult.bonus}}</td>
-        </tr>
-        </tbody>
-
-      </table>
-    </div>
+<div style="margin-top: 60px;  margin-right: 150px; margin-left: 150px; text-align: center">
+  <h3>Статистика сети</h3>
+  <div style="float: left;">
+    <jqxButton #excelExport (onClick)="excelExportClick()">Экспорт в Excel</jqxButton>
   </div>
+  <jqxTreeGrid [theme]="'material'" #myTreeGrid (onRowClick)="myTreeGridOnRowClick($event)"
+               [width]="getWidth()" [source]="dataAdapter" [columns]="columns" [height]="600"
+               [filterMode]="'simple'" [filterable]="true" [sortable]="true" [pageable]="true"
+               [pagerMode]="'advanced'" [localization]="localization"
+               (onRowDoubleClick)="rowDoubleClick($event)" [altRows]="true"  [ready]="ready">
+  </jqxTreeGrid>
+  <jqxMenu #myMenu (onItemclick)="myMenuOnItemClick($event)"
+           [width]="200" [height]="58" [autoOpenPopup]="false" [mode]="'popup'"  >
+    <ul>
+      <li>Edit Selected Row</li>
+      <li>Delete Selected Row</li>
+    </ul>
+  </jqxMenu>
 </div>
+<!--<div class="w3-container w3-padding-32" style="margin-top: 15px" >-->
+  <!--<div class="container row">-->
+    <!--<div class="table" >-->
+      <!--<h3>Таблица результатов заполнения анкет</h3>-->
+      <!--<table class="table table-striped">-->
+
+        <!--<thead class="nowrap">-->
+        <!--<tr>-->
+          <!--<th>Анкета</th>-->
+          <!--<th>Дата заполнения</th>-->
+          <!--<th>Пользователь</th>-->
+          <!--<th>Email</th>-->
+          <!--<th>Телефон</th>-->
+          <!--<th>Баллы</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+
+        <!--<tbody *ngIf="currentUser">-->
+        <!--<tr *ngFor = "let surveyResult of surveyResults">-->
+          <!--<td>{{surveyResult.survey.name}}</td>-->
+          <!--<td>{{surveyResult.survey.date}}</td>-->
+          <!--<td>{{surveyResult.user.name}} {{surveyResult.user.middleName}} {{surveyResult.user.surname}}</td>-->
+          <!--<td>{{surveyResult.user.email}}</td>-->
+          <!--<td>{{surveyResult.user.phone}}</td>-->
+          <!--<td>{{surveyResult.bonus}}</td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+
+        <!--<tbody *ngIf="!currentUser">-->
+        <!--<tr *ngFor = "let surveyResult of childrenSurveyResults">-->
+          <!--<td>{{surveyResult.survey.name}}</td>-->
+          <!--<td>{{surveyResult.survey.date}}</td>-->
+          <!--<td>{{surveyResult.user.name}} {{surveyResult.user.middleName}} {{surveyResult.user.surname}}</td>-->
+          <!--<td>{{surveyResult.user.email}}</td>-->
+          <!--<td>{{surveyResult.user.phone}}</td>-->
+          <!--<td>{{surveyResult.bonus}}</td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+
+      <!--</table>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
 
 

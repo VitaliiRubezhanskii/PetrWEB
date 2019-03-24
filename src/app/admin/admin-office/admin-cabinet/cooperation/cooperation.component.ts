@@ -4,6 +4,8 @@ import {CooperationMessage} from '../../../../_models/cooperationMessage';
 import {QuestionnaireService} from '../../../../_services/questionnaire.service';
 import {Survey} from '../../../../_models/Survey';
 import {SurveyService} from '../../../../_services/survey.service';
+import {UserService} from '../../../../_services';
+import {User} from '../../../../_models';
 
 @Component({
   selector: 'app-cooperation',
@@ -13,22 +15,26 @@ import {SurveyService} from '../../../../_services/survey.service';
 export class CooperationComponent implements OnInit {
 
   messages: CooperationMessage[] = [];
+  private currentUser: User = new User();
 
   public questionnaireList: Survey[];
   public showMine: Boolean = true;
 
   constructor(private messageService: CooperationMessageService,
               private surveyService: SurveyService,
+              private userService: UserService,
               private questionnaireService: QuestionnaireService) { }
 
   ngOnInit() {
-    this.messageService.getAllMessages().subscribe(result => {this.messages = result });
-    this.surveyService.getList().subscribe(list => {this.questionnaireList = list; this.questionnaireList.forEach(x => console.log(x.name)) });
+    this.userService.getByUsername(localStorage.getItem('username')).subscribe(u => {
+      this.currentUser = u;
+    });
+    this.messageService.getAllMessages().subscribe(result => {this.messages = result} );
+    this.surveyService.getList().subscribe(list => {this.questionnaireList = list;
+    this.questionnaireList.forEach(x => console.log(x.name))});
   }
 
-  filterQuestionnaires(questionnaires: [any]) {
-    // return this.showMine ? questionnaires.filter(q => q.submittedById === 'vitalii') : questionnaires;
-    return this.showMine ? this.questionnaireList : '';
+  public sendResponse(isApproved: boolean) {
+      this.messageService.sendResponse(this.currentUser.email, isApproved).subscribe(() => {});
   }
-
 }

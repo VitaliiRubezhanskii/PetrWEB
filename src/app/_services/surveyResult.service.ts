@@ -22,6 +22,9 @@ export class SurveyResultService {
   public getSurveyResultsOfAll(): Observable<SurveyResult[]> {
     return this.http.get<SurveyResult[]>(`http://localhost:8080/scoring/users`);
   }
+  public getUserSurveyResults(userId: number): Observable<SurveyResult[]> {
+    return this.http.get<SurveyResult[]>(`http://localhost:8080/scoring/users/` + userId);
+  }
 
   public findAnswersByUser(userId: number): Observable<Answer[]> {
     return this.http.get<Answer[]>(`http://localhost:8080/answers/user/` + userId);

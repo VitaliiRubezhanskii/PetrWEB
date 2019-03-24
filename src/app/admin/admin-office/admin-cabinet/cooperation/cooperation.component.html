@@ -35,12 +35,12 @@
 
           <div class="container row ">
             <div class="col-md-2">
-              <td><button   class="btn btn-primary">Принять</button></td>
+              <td><button  (click)="sendResponse(true)"  class="btn btn-primary">Принять</button></td>
             </div>
           </div>
           <div class="container row ">
             <div class="col-md-2">
-              <td><button   class="btn btn-primary">Отклонить</button></td>
+              <td><button (click)="sendResponse(false)"   class="btn btn-primary">Отклонить</button></td>
             </div>
           </div>
         </tr>

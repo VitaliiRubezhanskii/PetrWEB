@@ -62,11 +62,18 @@ export class NotificationComponent implements OnInit {
     this.modalService.show(template);
   }
 
-  hasRole(role: string): string {
-    if (this.user.roles.filter(r => r.name === role).length > 0) {
+  public hasRole(role: string): string {
+    if (this.user.roles.map(roleAsName => roleAsName.name).includes(role)) {
       return 'пользователей';
     }
     return 'администратора';
+  }
+
+  ifUserHasRole(role: string): boolean {
+    if (this.user.roles.map(roleAsName => roleAsName.name).includes(role)) {
+      return true;
+    }
+    return false;
   }
 
 
